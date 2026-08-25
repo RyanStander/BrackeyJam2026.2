@@ -14,7 +14,7 @@ namespace Controllers
                 Health = GetComponent<Health>();
         }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             Health.OnDeath += HandleDeath;
         }

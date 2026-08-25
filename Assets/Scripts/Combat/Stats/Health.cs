@@ -7,22 +7,22 @@ namespace Combat.Stats
 {
     public class Health : MonoBehaviour, IDamageable
     {
-        [SerializeField] private float maxHealth = 100f;
-        private float currentHealth;
+        [SerializeField] protected float MaxHealth = 100f;
+        protected float CurrentHealth;
 
         public Faction Faction { get; private set; }
         public GameObject GameObject => gameObject;
         public event Action OnDeath;
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            currentHealth = maxHealth;
+            CurrentHealth = MaxHealth;
         }
 
-        public void TakeDamage(float damage)
+        public virtual void TakeDamage(float damage)
         {
-            currentHealth -= damage;
-            if (currentHealth <= 0)
+            CurrentHealth -= damage;
+            if (CurrentHealth <= 0)
                 OnDeath?.Invoke();
         }
     }

@@ -6,27 +6,66 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Combat.Interfaces.Attack_Behaviours
 {
-    public class ChargeAttack : IAttackBehaviour
+    public class ChargeAttack : MonoBehaviour, IAttackBehaviour
     {
-        private ChargeAttackConfig config;
-        
-        public bool CanExecute(AIController owner)=>Vector3.Distance(owner.transform.position, owner.GetComponent<AIController>().Target.transform.position) <= config.AttackRange;
+        [SerializeField]private ChargeAttackConfig config;
 
-        public bool Telegraph(AIController owner)
+        private enum Phase
         {
-            throw new System.NotImplementedException();
+            Windup,
+            Charging,
+            Done
         }
 
-        public void Execute(AIController owner)
+        private Phase phase;
+        private float timer;
+        private Vector3 startLocation;
+        private Vector3 targetDirection;
+
+        private static readonly int windup = Animator.StringToHash("Windup");
+        private static readonly int charge = Animator.StringToHash("Charge");
+        private static readonly int end = Animator.StringToHash("End");
+
+        public bool CanExecute(AIController controller) =>
+            Vector3.Distance(controller.transform.position,
+                controller.Target.transform.position) <=
+            config.AttackDistance;
+
+        public void Telegraph(AIController controller)
         {
-            throw new System.NotImplementedException();
+            phase = Phase.Windup;
+            timer = 0f;
+            controller.Animator.SetTrigger(windup);
         }
 
-        public bool IsFinished(AIController owner)
+        public void Execute(AIController controller)
         {
-            throw new System.NotImplementedException();
+            timer += Time.deltaTime;
+
+            if (phase == Phase.Windup && timer >= config.WindupTime)
+            {
+                phase = Phase.Charging;
+                timer = 0f;
+                controller.Animator.SetTrigger(charge);
+                startLocation = controller.transform.position;
+                targetDirection = (controller.Target.transform.position - startLocation).normalized;
+            }
+            else if (phase == Phase.Charging)
+            {
+                
+                Vector3 nextPosition = controller.transform.position + targetDirection * config.ChargeSpeed * Time.deltaTime;
+                controller.Movement.MovePosition(nextPosition);
+
+                if (Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance)
+                {
+                    phase = Phase.Done;
+                    controller.Animator.SetTrigger(end);
+                }
+            }
         }
 
-        public float Cooldown { get; }
+        public bool IsFinished(AIController controller) => phase == Phase.Done;
+
+        public float Cooldown => config.Cooldown;
     }
 }
