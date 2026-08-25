@@ -53,7 +53,7 @@ namespace Combat.Interfaces.Attack_Behaviours
             else if (phase == Phase.Charging)
             {
                 
-                Vector3 nextPosition = controller.transform.position + targetDirection * config.ChargeSpeed * Time.deltaTime;
+                Vector3 nextPosition = controller.transform.position + targetDirection * (config.ChargeSpeed * Time.deltaTime);
                 controller.Movement.MovePosition(nextPosition);
 
                 if (Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance)

@@ -38,6 +38,7 @@ namespace Controllers
             attacks = GetComponentsInChildren<IAttackBehaviour>();
             
             Target = GameObject.FindGameObjectWithTag("Player");
+            Health.OnDeath += OnDeath;
         }
         
         private void Update()
@@ -70,6 +71,12 @@ namespace Controllers
             IAttackBehaviour chosenAttack = candidates[UnityEngine.Random.Range(0, candidates.Count)];
             cooldownTimers[chosenAttack] = chosenAttack.Cooldown;
             return chosenAttack;
+        }
+        
+        private void OnDeath()
+        {
+            Debug.Log($"{gameObject.name} has died.");
+            Destroy(gameObject);
         }
     }
 }
