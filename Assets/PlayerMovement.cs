@@ -46,5 +46,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 direction = new Vector3(playerMovementInput.x, 0f, playerMovementInput.y).normalized;
         playerRB.MovePosition(playerRB.position + direction * moveSpeed * Time.fixedDeltaTime);
+
     }
 }
