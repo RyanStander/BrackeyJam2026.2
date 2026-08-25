@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82084fc6c474626861ea0f2bb7248c1, type: 3}
   m_Name: ChargeAttack
   m_EditorClassIdentifier: 
+  Damage: 25
   AttackDistance: 4
+  AttackSphereRadius: 0.54
   WindupTime: 1
   ChargeDistance: 5
-  ChargeSpeed: 7
+  ChargeSpeed: 16
   StunSelfOnObstacleHit: 1
   StunDuration: 1
-  AllowsExploit: 1
   Cooldown: 5

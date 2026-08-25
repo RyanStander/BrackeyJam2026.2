@@ -7,6 +7,6 @@ namespace Combat.Interfaces
     {  
         Faction Faction { get; }
         GameObject GameObject { get; }
-        void TakeDamage(float damage);
+        void TakeDamage(DamageInfo damageInfo);
     }
 }

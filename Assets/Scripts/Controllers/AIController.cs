@@ -78,5 +78,11 @@ namespace Controllers
             Debug.Log($"{gameObject.name} has died.");
             Destroy(gameObject);
         }
+
+        public void Stun(float duration)
+        {
+            stateMachine.Stun(duration);
+            
+        }
     }
 }

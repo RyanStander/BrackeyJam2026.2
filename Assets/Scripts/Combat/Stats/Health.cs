@@ -8,7 +8,7 @@ namespace Combat.Stats
     public class Health : MonoBehaviour, IDamageable
     {
         [SerializeField] protected float MaxHealth = 100f;
-        protected float CurrentHealth;
+        [SerializeField] protected float CurrentHealth;
 
         public Faction Faction { get; private set; }
         public GameObject GameObject => gameObject;
@@ -19,9 +19,9 @@ namespace Combat.Stats
             CurrentHealth = MaxHealth;
         }
 
-        public virtual void TakeDamage(float damage)
+        public virtual void TakeDamage(DamageInfo damageInfo)
         {
-            CurrentHealth -= damage;
+            CurrentHealth -= damageInfo.Amount;
             if (CurrentHealth <= 0)
                 OnDeath?.Invoke();
         }
