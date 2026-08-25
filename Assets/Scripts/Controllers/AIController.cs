@@ -19,6 +19,7 @@ namespace Controllers
         public Animator Animator;
         public GameObject Target { get; set; }
         private StateMachine.StateMachine stateMachine = new StateMachine.StateMachine();
+        private bool exploited;
 
         protected override void OnValidate()
         {
@@ -82,7 +83,17 @@ namespace Controllers
         public void Stun(float duration)
         {
             stateMachine.Stun(duration);
+            exploited = true;
+        }
+        
+        //for damage bonus on exploited enemies, should only happen once
+        public bool IsExploited()
+        {
+            if (!exploited) 
+                return false;
             
+            exploited = false;
+            return true;
         }
     }
 }

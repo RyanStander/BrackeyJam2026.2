@@ -45,7 +45,7 @@ namespace StateMachine
                     currentAttack.Execute(controller);
     
                     if (state != stateBeforeExecute)
-                        break; // something (e.g. Stun) already changed state — respect it, don't clobber
+                        break;
     
                     if (currentAttack.IsFinished(controller))
                     {

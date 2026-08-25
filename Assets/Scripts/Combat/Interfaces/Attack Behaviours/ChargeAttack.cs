@@ -63,14 +63,14 @@ namespace Combat.Interfaces.Attack_Behaviours
                 Vector3 nextPosition = controller.transform.position +
                                        targetDirection * (config.ChargeSpeed * Time.deltaTime);
                 controller.Movement.MovePosition(nextPosition);
-
-                HandleHit();
                 
                 if (Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance)
                 {
                     phase = Phase.Done;
                     controller.Animator.SetTrigger(end);
                 }
+                
+                HandleHit();
             }
         }
 
