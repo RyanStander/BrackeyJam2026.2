@@ -347,6 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  iFrameActive: 0
 --- !u!1 &570998155
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +581,7 @@ GameObject:
   - component: {fileID: 1065386564}
   - component: {fileID: 1065386563}
   - component: {fileID: 1065386565}
+  - component: {fileID: 1065386566}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -644,10 +646,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  playerVisual: {fileID: 1769226186}
+  lungeCooldown: 0.8
+  lungeDuration: 1
+  lungeDistance: 1.5
+  lungeSpeed: 100
   direction: {x: 0, y: 0, z: 0}
   playerRB: {fileID: 0}
-  lungeCooldown: 0.8
 --- !u!65 &1065386564
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -690,6 +694,21 @@ MonoBehaviour:
   bulletPrefab: {fileID: 0}
   meleePrefab: {fileID: 570998155}
   playerMovement: {fileID: 0}
+--- !u!114 &1065386566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065386559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca287317982d384fab1ec45079410a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  iFrameActive: 0
 --- !u!1 &1769226185
 GameObject:
   m_ObjectHideFlags: 0

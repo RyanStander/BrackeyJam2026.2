@@ -11,14 +11,15 @@ public class PlayerMovement : MonoBehaviour
     // using rigibody to allow for better movement and collision detection
 
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private Transform playerVisual;
-
+    [SerializeField] private float lungeCooldown = 1f;
+    [SerializeField] private float lungeDuration = 0.5f;
+    [SerializeField] private float lungeDistance = 5f;
+    [SerializeField] private float lungeSpeed = 10f;
+    private float nextLungeTime;
+    private Transform playerVisual;
     public Vector3 direction;
-
     public Rigidbody playerRB;
     private Vector2 playerMovementInput;
-    public float lungeCooldown = 1f;
-    private float nextLungeTime;
     private Health health;
 
     private void Awake()
@@ -60,19 +61,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Lunge()
     {
-        health.iFrameActive = true;
-        if(Time.time >= nextLungeTime)
+        if (Time.time >= nextLungeTime)
         {
-            StartCoroutine(LungeRoutine());
             nextLungeTime = Time.time + lungeCooldown;
+            StartCoroutine(LungeRoutine());
         }
-        health.iFrameActive = false;
     }
 
     private IEnumerator LungeRoutine()
     {
-        float duration = 0.15f;
-        float distance = 1.5f;
+        health.iFrameActive = true;
+
+        float duration = lungeDuration;
+        float distance = lungeDistance;
         Vector3 dir = transform.up;
         float elapsed = 0f;
 
@@ -82,6 +83,8 @@ public class PlayerMovement : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
+
+        health.iFrameActive = false;
     }
 
     private void FixedUpdate()
