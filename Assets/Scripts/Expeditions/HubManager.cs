@@ -15,11 +15,11 @@ public class HubManager : MonoBehaviour
     private void OnExitGame()
     {
         //TODO: Implement save files
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
 
         Debug.Log("Exit Game Called");
     }

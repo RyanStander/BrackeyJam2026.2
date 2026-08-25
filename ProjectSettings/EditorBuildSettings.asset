@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/PlayerHub.unity
     guid: e7e9218c240fc314eb507b0405244d6f
   - enabled: 1
-    path: Assets/Scenes/Expedition.unity
-    guid: 432a994cd33092d46bbdcd853bac92f4
+    path: Assets/Scenes/Areas/Expedition.unity
+    guid: 8f0daa3d83d91c444acbf714e0a6cb85
   m_configObjects: {}
