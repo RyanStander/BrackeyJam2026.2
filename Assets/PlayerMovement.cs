@@ -11,10 +11,13 @@ public class PlayerMovement : MonoBehaviour
     // using rigibody to allow for better movement and collision detection
 
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float acceleration = 12f;
+    private Vector3 currentVelocity;
     [SerializeField] private float lungeCooldown = 1f;
     [SerializeField] private float lungeDuration = 0.5f;
     [SerializeField] private float lungeDistance = 5f;
     [SerializeField] private float lungeSpeed = 10f;
+    
     private float nextLungeTime;
     private Transform playerVisual;
     public Vector3 direction;
@@ -90,7 +93,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         direction = new Vector3(playerMovementInput.x, 0f, playerMovementInput.y).normalized;
-        playerRB.MovePosition(playerRB.position + direction * moveSpeed * Time.fixedDeltaTime);
-
+        Vector3 targetVelocity = direction * moveSpeed;
+        currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+        playerRB.MovePosition(playerRB.position + currentVelocity * Time.fixedDeltaTime);
     }
 }
