@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     public float maxHealth = 100f;
     public float currentHealth;
+    public bool iFrameActive = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,10 @@ public class Health : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
+        if (iFrameActive)
+        {
+            return;
+        }
         currentHealth -= damage;
         if (currentHealth <= 0f)
         {
