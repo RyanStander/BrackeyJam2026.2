@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours;
 using Combat.Stats;
 using Events;
@@ -23,6 +24,7 @@ namespace Controllers
         private StateMachine.StateMachine stateMachine = new StateMachine.StateMachine();
         private bool exploited;
         public string TargetTag = "Player";
+        public Faction Faction = Faction.Enemies;
 
         protected override void OnValidate()
         {
