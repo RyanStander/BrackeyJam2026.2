@@ -23,12 +23,12 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 direction;
     public Rigidbody playerRB;
     private Vector2 playerMovementInput;
-    private Health health;
+    private PlayerHealth playerHealth;
 
     private void Awake()
     {
         playerRB = GetComponent<Rigidbody>();
-        health = GetComponent<Health>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void Update()
@@ -44,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
             //transform.rotation = Quaternion.Euler(0f, 0f, -angle);
             //transform.rotation = Quaternion.Euler(0f, -angle, 0f);
             transform.rotation = Quaternion.Euler(90f, angle, 0f); //got it so we actually rotate, no more bs direction code outside this, can use trans.forward
-            
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -73,13 +72,11 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator LungeRoutine()
     {
-        health.iFrameActive = true;
-
+        playerHealth.TriggerIFrames(lungeDuration); //going off the extended player heahth to handle
         float duration = lungeDuration;
         float distance = lungeDistance;
         Vector3 dir = transform.up;
         float elapsed = 0f;
-
         while (elapsed < duration)
         {
             playerRB.MovePosition(playerRB.position + dir * (distance / duration) * Time.deltaTime);
@@ -87,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
 
-        health.iFrameActive = false;
     }
 
     private void FixedUpdate()

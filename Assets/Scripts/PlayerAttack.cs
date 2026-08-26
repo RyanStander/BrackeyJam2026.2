@@ -1,3 +1,4 @@
+using Combat.Stats;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -73,7 +74,7 @@ public class PlayerAttack : MonoBehaviour
         if (Physics.Raycast(attackPoint.position, transform.up , out RaycastHit hit, 40f)) //ok right now i use up for testing since we're flat arrow, just change to forward with proper character!
         {
             endPoint = hit.point;
-            hit.collider.GetComponent<Health>()?.TakeDamage(shootAttackDamage);
+            //hit.collider.GetComponent<Health>()?.TakeDamage(shootAttackDamage);
             nextAttackTime = Time.time + attackCooldown;
             Debug.Log(hit.collider.gameObject.name);
         }
