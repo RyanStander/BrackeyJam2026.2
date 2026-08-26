@@ -1,5 +1,7 @@
 ﻿using System;
 using Combat.Stats;
+using Events;
+using Factories;
 using UnityEngine;
 
 namespace Controllers
@@ -21,7 +23,6 @@ namespace Controllers
         
         protected virtual void HandleDeath()
         {
-            
         }
     }
 }

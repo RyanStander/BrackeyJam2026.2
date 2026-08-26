@@ -22,4 +22,16 @@ namespace Events
             Position = position;
         }
     }
+    
+    public class CreatePickup : EventData
+    {
+        public readonly Factories.PickupType PickupType;
+        public readonly UnityEngine.Vector3 Position;
+
+        public CreatePickup(Factories.PickupType pickupType, UnityEngine.Vector3 position) : base(EventType.CreatePickup)
+        {
+            PickupType = pickupType;
+            Position = position;
+        }
+    }
 }
