@@ -80,7 +80,7 @@ namespace Combat.Interfaces.Attack_Behaviours
 
             foreach (Collider hit in hits)
             {
-                if (hit.gameObject.CompareTag("Player"))
+                if (hit.gameObject.CompareTag(aiController.TargetTag))
                 {
                     phase = Phase.Done;
                     aiController.Animator.SetTrigger(end);
@@ -96,7 +96,7 @@ namespace Combat.Interfaces.Attack_Behaviours
                         if (CombatRules.CanDamage(chargeInfo, target))
                             target.TakeDamage(chargeInfo);
                 }
-                else if (!hit.gameObject.CompareTag("Enemy"))
+                else if (!hit.gameObject.CompareTag(aiController.tag))
                 {
                     if (config.StunSelfOnObstacleHit)
                     {

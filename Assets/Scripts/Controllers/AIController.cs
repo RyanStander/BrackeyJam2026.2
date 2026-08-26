@@ -22,6 +22,7 @@ namespace Controllers
         public GameObject Target { get; set; }
         private StateMachine.StateMachine stateMachine = new StateMachine.StateMachine();
         private bool exploited;
+        public string TargetTag = "Player";
 
         protected override void OnValidate()
         {
@@ -39,17 +40,31 @@ namespace Controllers
             base.Awake();
             stateMachine.Setup(this);
             attacks = GetComponentsInChildren<IAttackBehaviour>();
-            
-            Target = GameObject.FindGameObjectWithTag("Player");
+
+            ReacquireTarget();
             Health.OnDeath += OnDeath;
         }
-        
+
+        public void ReacquireTarget()
+        {
+            if (TargetTag == "Enemy")
+            {
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                Target = enemies.Where(e => e != null)
+                    .OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).FirstOrDefault();
+            }
+            else
+            {
+                Target = GameObject.FindGameObjectWithTag(TargetTag);
+            }
+        }
+
         private void Update()
         {
             stateMachine.Tick();
             UpdateCooldowns();
         }
-        
+
         private void UpdateCooldowns()
         {
             List<IAttackBehaviour> keys = cooldownTimers.Keys.ToList();
@@ -75,7 +90,7 @@ namespace Controllers
             cooldownTimers[chosenAttack] = chosenAttack.Cooldown;
             return chosenAttack;
         }
-        
+
         private void OnDeath()
         {
             Debug.Log($"{gameObject.name} has died.");
@@ -88,13 +103,13 @@ namespace Controllers
             stateMachine.Stun(duration);
             exploited = true;
         }
-        
+
         //for damage bonus on exploited enemies, should only happen once
         public bool IsExploited()
         {
-            if (!exploited) 
+            if (!exploited)
                 return false;
-            
+
             exploited = false;
             return true;
         }
