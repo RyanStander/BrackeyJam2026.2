@@ -17,6 +17,7 @@ namespace Movement
 
         public void MovePosition(Vector3 nextPosition)
         {
+            nextPosition.y = aiRigidbody.position.y;
             aiRigidbody.MovePosition(nextPosition);
         }
 
@@ -24,6 +25,7 @@ namespace Movement
         {
             Vector3 direction = (targetPosition - transform.position).normalized;
             Vector3 nextPosition = transform.position + direction * (speed * Time.deltaTime);
+            nextPosition.y = aiRigidbody.position.y;
 
             if (Vector3.Distance(nextPosition, targetPosition) > range)
             {

@@ -33,7 +33,6 @@ namespace Combat.Stats
             if (isDead) return;
             isDead = true;
             OnDeath?.Invoke();
-            Destroy(gameObject);
         }
     }
 }

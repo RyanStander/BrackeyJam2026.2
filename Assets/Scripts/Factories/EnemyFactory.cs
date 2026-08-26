@@ -6,12 +6,13 @@ namespace Factories
     public class EnemyFactory : MonoBehaviour
     {
         public GameObject ChargerPrefab;
-        
+        public GameObject SwatterPrefab;
         public GameObject CreateEnemy(EnemyType type, Vector3 position)
         {
             GameObject prefab = type switch
             {
                 EnemyType.Charger => ChargerPrefab,
+                EnemyType.Swatter => SwatterPrefab,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
             

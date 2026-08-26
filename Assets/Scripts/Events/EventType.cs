@@ -8,6 +8,7 @@ namespace Events
         #region Factories
 
         CreateEnemy,
+        CreatePickup,
 
         #endregion
         
