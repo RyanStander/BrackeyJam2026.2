@@ -1,3 +1,6 @@
+using Expeditions.Room;
+using UnityEngine;
+
 namespace Events
 {
     //Event that informs subscribers of a debug log
@@ -20,6 +23,25 @@ namespace Events
         {
             EnemyType = enemyType;
             Position = position;
+        }
+    }
+
+    public class CommandAreaExit : EventData
+    {
+        public CommandAreaExit() : base(EventType.CommandAreaExit){}
+    }
+
+    public class CommandRoomChange : EventData
+    {
+        public readonly RoomManager SourceRoom;
+        public readonly RoomManager TargetRoom;
+        public readonly Vector3 TargetPosition;
+
+        public CommandRoomChange(RoomManager sourceRoom, RoomManager targetRoom, Vector3 targetPosition) : base(EventType.CommandRoomChange)
+        {
+            SourceRoom = sourceRoom;
+            TargetRoom = targetRoom;
+            TargetPosition = targetPosition;
         }
     }
 }
