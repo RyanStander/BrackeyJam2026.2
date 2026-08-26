@@ -3,6 +3,6 @@
     public enum EnemyType
     {
         Charger,
-        //LongLimbs
+        Swatter,
     }
 }
