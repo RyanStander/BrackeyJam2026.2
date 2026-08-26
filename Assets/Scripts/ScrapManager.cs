@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using TMPro;
 
 public class ScrapManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class ScrapManager : MonoBehaviour
     [SerializeField] private int startingScrap = 0;
     [SerializeField] public int CurrentScrap;
     public event Action<int> OnScrapChanged;
+
+    public TextMeshProUGUI scrapText; 
     
     void Awake()
     {
@@ -28,17 +31,20 @@ public class ScrapManager : MonoBehaviour
     {
         Instance = this;
         CurrentScrap = startingScrap;
+        scrapText.text = "Current Scrap: " + CurrentScrap.ToString();
     }
 
     public void AddScrap(int amount)
     {
         CurrentScrap += amount;
         OnScrapChanged?.Invoke(CurrentScrap);
+        scrapText.text = "Current Scrap: " + CurrentScrap.ToString();
     }
     public void RemoveScrap(int amount)
     {
         CurrentScrap -= amount;
         OnScrapChanged?.Invoke(CurrentScrap);
+        scrapText.text = "Current Scrap: " + CurrentScrap.ToString();
     }
     public bool TrySpendScrap(int amount)
     {
@@ -60,5 +66,6 @@ public class ScrapManager : MonoBehaviour
     {
         CurrentScrap = startingScrap;
         OnScrapChanged?.Invoke(CurrentScrap);
+        scrapText.text = "Current Scrap: " + CurrentScrap.ToString();
     }
 }
