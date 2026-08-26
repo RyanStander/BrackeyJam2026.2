@@ -13,6 +13,7 @@ namespace Combat.Stats
         public Faction Faction { get; private set; }
         public GameObject GameObject => gameObject;
         public event Action OnDeath;
+        protected bool isDead = false;
 
         protected virtual void Awake()
         {
@@ -21,9 +22,18 @@ namespace Combat.Stats
 
         public virtual void TakeDamage(DamageInfo damageInfo)
         {
+            if(isDead) return;
             CurrentHealth -= damageInfo.Amount;
             if (CurrentHealth <= 0)
-                OnDeath?.Invoke();
+                Die();
+        }
+
+        public virtual void Die()
+        {
+            if (isDead) return;
+            isDead = true;
+            OnDeath?.Invoke();
+            Destroy(gameObject);
         }
     }
 }

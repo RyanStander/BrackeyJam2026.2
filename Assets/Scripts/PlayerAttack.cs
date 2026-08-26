@@ -1,10 +1,11 @@
+using Combat.Data;
 using Combat.Stats;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    public float meleeAttackDamage = 10f;
-    public float shootAttackDamage = 10f;
+    public int meleeAttackDamage = 10;
+    public int shootAttackDamage = 10;
     public Transform attackPoint;
     public float attackCooldown = 0.5f;
     public float attackRadius = 1f;
@@ -58,7 +59,7 @@ public class PlayerAttack : MonoBehaviour
             if (enemy.CompareTag("Enemy"))
             {
                 Debug.Log("Hit " + enemy.name);
-                enemy.GetComponent<Health>()?.TakeDamage(meleeAttackDamage);
+                enemy.GetComponent<Health>()?.TakeDamage(new DamageInfo(meleeAttackDamage, Faction.Enemies, gameObject));
             }
         }
     }

@@ -1,4 +1,5 @@
 using System.Collections;
+using Combat.Data;
 using Combat.Stats;
 using UnityEngine;
 
@@ -6,14 +7,14 @@ public class PlayerHealth : Health
 {
     [SerializeField] private float iFrameDuration = 1f;
     private bool iFrameActive = false;
-    private bool isDead = false;
-    public override void TakeDamage(float damage)
+
+    public override void TakeDamage(DamageInfo damageInfo)
     {
         if (iFrameActive || isDead)
         {
             return;
         }
-        base.TakeDamage(damage);
+        base.TakeDamage(damageInfo);
     }
 
     public void TriggerIFrames()
