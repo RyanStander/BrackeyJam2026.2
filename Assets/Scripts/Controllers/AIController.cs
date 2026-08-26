@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Combat.Interfaces.Attack_Behaviours;
 using Combat.Stats;
+using Events;
+using Factories;
 using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -77,6 +79,7 @@ namespace Controllers
         private void OnDeath()
         {
             Debug.Log($"{gameObject.name} has died.");
+            EventManager.currentManager.AddEvent(new CreatePickup(PickupType.Scrap, transform.position));
             Destroy(gameObject);
         }
 
