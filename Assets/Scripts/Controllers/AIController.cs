@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours;
 using Combat.Stats;
 using Events;
@@ -22,6 +23,8 @@ namespace Controllers
         public GameObject Target { get; set; }
         private StateMachine.StateMachine stateMachine = new StateMachine.StateMachine();
         private bool exploited;
+        public string TargetTag = "Player";
+        public Faction Faction = Faction.Enemies;
 
         protected override void OnValidate()
         {
@@ -39,17 +42,44 @@ namespace Controllers
             base.Awake();
             stateMachine.Setup(this);
             attacks = GetComponentsInChildren<IAttackBehaviour>();
-            
-            Target = GameObject.FindGameObjectWithTag("Player");
+
+            ReacquireTarget();
             Health.OnDeath += OnDeath;
         }
-        
+
+        public void ReacquireTarget()
+        {
+            if (TargetTag == "Enemy")
+            {
+                Target = FindNearest(GameObject.FindGameObjectsWithTag("Enemy"));
+            }
+            else if (TargetTag == "Player")
+            {
+                Target = FindNearest(
+                    GameObject.FindGameObjectsWithTag("Player")
+                        .Concat(GameObject.FindGameObjectsWithTag("Companion"))
+                );
+            }
+            else
+            {
+                Target = GameObject.FindGameObjectWithTag(TargetTag);
+            }
+        }
+
+        private GameObject FindNearest(IEnumerable<GameObject> candidates)
+        {
+            return candidates
+                .Where(t => t != null && t != gameObject)
+                .OrderBy(t => Vector3.Distance(transform.position, t.transform.position))
+                .FirstOrDefault();
+        }
+
         private void Update()
         {
             stateMachine.Tick();
             UpdateCooldowns();
         }
-        
+
         private void UpdateCooldowns()
         {
             List<IAttackBehaviour> keys = cooldownTimers.Keys.ToList();
@@ -75,7 +105,7 @@ namespace Controllers
             cooldownTimers[chosenAttack] = chosenAttack.Cooldown;
             return chosenAttack;
         }
-        
+
         private void OnDeath()
         {
             Debug.Log($"{gameObject.name} has died.");
@@ -88,13 +118,13 @@ namespace Controllers
             stateMachine.Stun(duration);
             exploited = true;
         }
-        
+
         //for damage bonus on exploited enemies, should only happen once
-        public bool IsExploited()
+        public bool IsExploitable()
         {
-            if (!exploited) 
+            if (!exploited)
                 return false;
-            
+
             exploited = false;
             return true;
         }

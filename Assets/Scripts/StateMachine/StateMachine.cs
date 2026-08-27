@@ -18,6 +18,7 @@ namespace StateMachine
         
         enum State
         {
+            Follow,//For Companion when no enemies
             Chase,
             Attacking,
             Recovering,
@@ -30,7 +31,17 @@ namespace StateMachine
         {
             switch (state)
             {
+                case State.Follow:
+                    
+                    break;
                 case State.Chase:
+                    if (controller.Target==null || !controller.Target.activeInHierarchy)
+                    {
+                        controller.ReacquireTarget();
+                        if (controller.Target == null)
+                            break;
+                    }
+                    
                     controller.Movement.MovementTick(controller.Target.transform.position);
                     IAttackBehaviour attackCandidate = controller.PickAvailableAttack();
                     if (attackCandidate != null)

@@ -90,6 +90,6 @@ namespace Combat.Interfaces.Attack_Behaviours
 
         public bool IsFinished(AIController controller) => phase == Phase.Done;
 
-        public float Cooldown { get; }
+        public float Cooldown => config.Cooldown;
     }
 }

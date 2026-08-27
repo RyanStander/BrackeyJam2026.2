@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b82084fc6c474626861ea0f2bb7248c1, type: 3}
-  m_Name: ChargeAttack
+  m_Script: {fileID: 11500000, guid: 2957df7bd9d04d21a0861b106c9d4f48, type: 3}
+  m_Name: ShootAttack
   m_EditorClassIdentifier: 
   Damage: 25
-  AttackDistance: 7
-  AttackSphereRadius: 1
-  WindupTime: 1
-  ChargeDistance: 10
-  ChargeSpeed: 5
-  StunSelfOnObstacleHit: 1
-  StunDuration: 1
-  Cooldown: 5
+  AttackDistance: 15
+  ProjectilePrefab: {fileID: 8714978201116413706, guid: c5fd67788c7e37b45930af524ab4d76b, type: 3}
+  WindupTime: 0.3
+  ProjectileSpeed: 15
+  ReloadTime: 0.4
+  Cooldown: 4
