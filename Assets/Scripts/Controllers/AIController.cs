@@ -74,7 +74,7 @@ namespace Controllers
                 .FirstOrDefault();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             stateMachine.Tick();
             UpdateCooldowns();
