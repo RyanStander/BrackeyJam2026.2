@@ -32,6 +32,7 @@ namespace Expeditions.Room.Doorway
             bool is_locked = SourceRoom.CurrentState is RoomState.locked;
             blockVisual.SetActive(is_locked);
             blockCollider.enabled = is_locked;
+            exitCollider.enabled = !is_locked;
         }
 
         private void OnTriggerEnter(Collider other)
