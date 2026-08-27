@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 7842532327606669589}
   - component: {fileID: 4320627326857927378}
   - component: {fileID: 6778548288061031662}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Boss1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,7 +151,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!95 &7842532327606669589
 Animator:
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedb2349cbb59c2459cac48c59fac5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 150
   CurrentHealth: 0
 --- !u!114 &6778548288061031662
 MonoBehaviour:

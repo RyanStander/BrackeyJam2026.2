@@ -38,9 +38,27 @@ namespace Events
         }
     }
 
+    public class OnEnemyDeath : EventData { 
+        public OnEnemyDeath() : base(EventType.OnEnemyDeath){}
+    }
+    
     public class CommandAreaExit : EventData
     {
         public CommandAreaExit() : base(EventType.CommandAreaExit){}
+    }
+
+    public class ExecuteCombatRoom : EventData
+    {
+        public readonly RoomManager SourceRoom;
+        public readonly CombatRoomData RoomData;
+        public readonly Bounds RoomBounds;
+
+        public ExecuteCombatRoom(RoomManager sourceRoom, RoomData roomData, Bounds roomBounds) : base(EventType.ExecuteCombatRoom)
+        {
+            SourceRoom = sourceRoom;
+            RoomData = (CombatRoomData) roomData;
+            RoomBounds = roomBounds;
+        }
     }
 
     public class CommandRoomChange : EventData

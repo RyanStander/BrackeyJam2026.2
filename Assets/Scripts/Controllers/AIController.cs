@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Combat.Data;
@@ -7,7 +7,6 @@ using Combat.Stats;
 using Events;
 using Factories;
 using Movement;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Controllers
@@ -113,6 +112,8 @@ namespace Controllers
 
         private void OnDeath()
         {
+            EventManager.currentManager.AddEvent(new OnEnemyDeath());
+
             Debug.Log($"{gameObject.name} has died.");
             EventManager.currentManager.AddEvent(new CreatePickup(PickupType.Scrap, transform.position));
             Destroy(gameObject);
