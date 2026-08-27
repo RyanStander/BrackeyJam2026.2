@@ -226,7 +226,8 @@ MonoBehaviour:
   Health: {fileID: 8928248326231010176}
   Movement: {fileID: 7026872518442495347}
   Animator: {fileID: 379752482307103948}
-  targetTag: Player
+  TargetTag: Player
+  Faction: 1
 --- !u!54 &7814889618119299862
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -267,7 +268,7 @@ GameObject:
   - component: {fileID: 1339806289663413482}
   - component: {fileID: 2732039814074311492}
   - component: {fileID: 5454034030265779469}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,6 +383,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwableRigidbody: {fileID: 1339806289663413482}
   instigator: {fileID: 4433078958048674981}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &5454034030265779469
 BoxCollider:
   m_ObjectHideFlags: 0
