@@ -41,17 +41,46 @@ namespace Expeditions.Room
         }
         private void OnEnable()
         {
+            if (CurrentState is RoomState.undefined) CurrentState = RoomState.undiscovered;
             InitializeDoors();
             UpdateRoom();
         }
         #endregion
+
+        private void InitiateCombat()
+        {
+            // TODO: Replace this setup with messaging to the helper managers instead, this is just for prototyping/testing.
+            CombatRoomHandler CombatHandler = FindObjectOfType<CombatRoomHandler>();
+            MeshCollider GroundMesh = GetComponent<MeshCollider>();
+            CombatHandler.SpawnEnemiesTest((CombatRoomData) data, GroundMesh.bounds);
+        }
+
+        public void OnRoomEnter()
+        {
+            if (CurrentState is RoomState.explored) { return; } // Already complete
+
+            // Update room state
+            switch (data.Type)
+            {
+                case RoomType.empty:
+                    UpdateRoom(RoomState.explored);
+                    break;
+                case RoomType.combat:
+                    UpdateRoom(RoomState.locked);
+                    InitiateCombat();
+                    break;
+                default:
+                    UpdateRoom(RoomState.undefined);
+                    break;
+            }
+        }
 
         public void UpdateRoom(RoomState targetState = RoomState.undefined)
         {
             if (targetState != RoomState.undefined) { CurrentState = targetState; }
             foreach (var pair in ActiveDirectionDoorwayPairs)
             {
-                pair.Value.UpdateState(CurrentState);
+                pair.Value.UpdateState();
             }
         }
 
@@ -76,4 +105,3 @@ namespace Expeditions.Room
 #endif
     }
 }
-

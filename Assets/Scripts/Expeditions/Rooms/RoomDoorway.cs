@@ -19,8 +19,6 @@ namespace Expeditions.Room.Doorway
         public GameObject TransferPoint { get; private set; }
         #endregion
 
-        private RoomState currentState;
-
         private RoomManager SourceRoom, TargetRoom;
         private RoomDirection TransferDirection;
 
@@ -31,14 +29,13 @@ namespace Expeditions.Room.Doorway
             TransferDirection = direction;
         }
 
-        public void UpdateState(RoomState state)
+        public void UpdateState()
         {
-            currentState = state;
-            bool is_locked = state is RoomState.locked;
+            bool is_locked = SourceRoom.CurrentState is RoomState.locked;
             blockVisual.SetActive(is_locked);
-
             blockCollider.enabled = is_locked;
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
@@ -51,11 +48,12 @@ namespace Expeditions.Room.Doorway
         }
 
 #if UNITY_EDITOR
-        private Color GetColor(RoomState state)
+        private Color GetColor(RoomState source, RoomState target)
         {
-            switch (state)
+            switch ((source is RoomState.locked or RoomState.undefined) ? source : target)
             {
-                case RoomState.unknown: return Color.gray;
+                case RoomState.undefined: return Color.magenta;
+                case RoomState.undiscovered: return Color.gray;
                 case RoomState.unexplored: return Color.yellow;
                 case RoomState.locked: return Color.red;
                 case RoomState.explored: return Color.green;
@@ -65,7 +63,7 @@ namespace Expeditions.Room.Doorway
         private void OnDrawGizmos()
         {
             if (!exitCollider || !blockCollider) return;
-            Gizmos.color = GetColor(currentState);
+            Gizmos.color = (!TargetRoom || !SourceRoom) ? Color.white : GetColor(SourceRoom.CurrentState, TargetRoom.CurrentState);
             Gizmos.DrawWireCube(exitCollider.bounds.center, exitCollider.bounds.size);
             Gizmos.DrawWireCube(blockCollider.bounds.center, blockCollider.bounds.size);
         }

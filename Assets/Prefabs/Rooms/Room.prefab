@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
-  <State>k__BackingField: 0
+  <CurrentState>k__BackingField: 0
   DirectionDoorwayPairs:
     _serializedList:
     - Key: 1

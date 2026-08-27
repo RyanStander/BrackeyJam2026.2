@@ -1,7 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RoomData", menuName = "Expeditions/RoomData")]
-public class RoomData : ScriptableObject
+namespace Expeditions.Room
 {
+    public partial class RoomData : ScriptableObject
+    {
+        public virtual RoomType Type => RoomType.undefined;
 
+
+
+
+    }
 }
