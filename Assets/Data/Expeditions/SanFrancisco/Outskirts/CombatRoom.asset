@@ -19,4 +19,4 @@ MonoBehaviour:
     - Key: 1
       Value: 1
   <SpawnBudget>k__BackingField: 10
-  <SpawnFunds>k__BackingField: 50
+  <SpawnFunds>k__BackingField: 25

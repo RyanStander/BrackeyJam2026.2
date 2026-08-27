@@ -34,6 +34,7 @@ namespace Expeditions.Room.Doorway
             bool is_locked = SourceRoom.CurrentState is RoomState.locked;
             blockVisual.SetActive(is_locked);
             blockCollider.enabled = is_locked;
+            exitCollider.enabled = !is_locked;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -67,6 +68,6 @@ namespace Expeditions.Room.Doorway
             Gizmos.DrawWireCube(exitCollider.bounds.center, exitCollider.bounds.size);
             Gizmos.DrawWireCube(blockCollider.bounds.center, blockCollider.bounds.size);
         }
-    }
 #endif
+    }
 }

@@ -12,6 +12,9 @@ namespace Expeditions
         private GameObject playerCharacter;
 
         [SerializeField]
+        private GameObject companionCharacter;
+
+        [SerializeField]
         private RoomManager currentRoom;
 
         private RoomManager[] areaRooms;
@@ -20,6 +23,7 @@ namespace Expeditions
         {
             areaRooms = FindObjectsOfType<RoomManager>();
             playerCharacter = GameObject.FindGameObjectWithTag("Player");
+            companionCharacter = GameObject.FindGameObjectWithTag("Companion");
             currentRoom.UpdateRoom(RoomState.explored);
 
             EventManager.currentManager.Subscribe(EventType.CommandAreaExit, OnCommandAreaExit);
@@ -58,6 +62,12 @@ namespace Expeditions
             position.y = playerCharacter.transform.position.y;
             playerCharacter.transform.position = position;
             playerCharacter.GetComponent<CharacterController>().enabled = true;
+
+            if (companionCharacter)
+            {
+                companionCharacter.transform.position = position;
+            }
+
             #endregion
 
             // TODO: Create fade-out sequence before completing teleport, for now instant teleport.
