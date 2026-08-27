@@ -65,6 +65,15 @@ namespace Expeditions.Room {
                 currentEnemies++;
                 currentFunds--;
 
+                // TODO: Fix method to actually use the weight distribution and perhaps have boss priority. Alternatively, create BossRoomData.
+                if (roomData.EnemyWeightDistributionPair.ContainsKey(EnemyType.MooBoss))
+                {
+                    EventManager.currentManager.AddEvent(new CreateEnemy(EnemyType.MooBoss, GetRandomPosition()));
+                    currentFunds = 0;
+                    currentEnemies = 1;
+                    return;
+                }
+
                 // TODO: Implement weights and proper costs, for now just randomly pick between enemy types with very ugly logic.
                 EnemyType enemyType = (EnemyType) Random.Range((int)EnemyType.Charger, (int)EnemyType.Swatter + 1);
                 EventManager.currentManager.AddEvent(new CreateEnemy(enemyType, GetRandomPosition()));

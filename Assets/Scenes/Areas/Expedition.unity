@@ -922,7 +922,7 @@ PrefabInstance:
       objectReference: {fileID: 7339665565480127536}
     - target: {fileID: 8604525189769172783, guid: ec3aeb5600d3cd34d92f41a20fe0be5c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 151.5
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 8604525189769172783, guid: ec3aeb5600d3cd34d92f41a20fe0be5c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -930,7 +930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8604525189769172783, guid: ec3aeb5600d3cd34d92f41a20fe0be5c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -39.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8604525189769172783, guid: ec3aeb5600d3cd34d92f41a20fe0be5c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1006,7 +1006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2014341078544563530, guid: 18b0912bc42809b42bdd54f0da70383f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -148.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2014341078544563530, guid: 18b0912bc42809b42bdd54f0da70383f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1014,7 +1014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2014341078544563530, guid: 18b0912bc42809b42bdd54f0da70383f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 50
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 2014341078544563530, guid: 18b0912bc42809b42bdd54f0da70383f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1043,6 +1043,10 @@ PrefabInstance:
     - target: {fileID: 2014341078544563530, guid: 18b0912bc42809b42bdd54f0da70383f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097212108014118115, guid: 18b0912bc42809b42bdd54f0da70383f, type: 3}
+      propertyPath: DirectionRoomPairs._serializedList.Array.data[1].Key
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3097212108014118115, guid: 18b0912bc42809b42bdd54f0da70383f, type: 3}
       propertyPath: DirectionRoomPairs._serializedList.Array.data[0].Value
@@ -1097,7 +1101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3295993630128510721, guid: 4b39c3bd269d899489a4c035d8f6f99a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 273
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3295993630128510721, guid: 4b39c3bd269d899489a4c035d8f6f99a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1105,7 +1109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3295993630128510721, guid: 4b39c3bd269d899489a4c035d8f6f99a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 50
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 3295993630128510721, guid: 4b39c3bd269d899489a4c035d8f6f99a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1246,7 +1250,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2442577246513428547, guid: cdc806ed4ce134f45a23ddf12289b293, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 73.4
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 2442577246513428547, guid: cdc806ed4ce134f45a23ddf12289b293, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1254,7 +1258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2442577246513428547, guid: cdc806ed4ce134f45a23ddf12289b293, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 223.6
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 2442577246513428547, guid: cdc806ed4ce134f45a23ddf12289b293, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1298,7 +1302,7 @@ PrefabInstance:
       objectReference: {fileID: 1488386151366353062}
     - target: {fileID: 8875704356086745453, guid: cdc806ed4ce134f45a23ddf12289b293, type: 3}
       propertyPath: m_Name
-      value: Room Big
+      value: Room Big Boss
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
