@@ -51,7 +51,7 @@ namespace Expeditions.Room
         {
             // TODO: Replace this setup with messaging to the helper managers instead, this is just for prototyping/testing.
             CombatRoomHandler CombatHandler = FindObjectOfType<CombatRoomHandler>();
-            MeshCollider GroundMesh = GetComponent<MeshCollider>();
+            BoxCollider GroundMesh = GetComponent<BoxCollider>();
             CombatHandler.SpawnEnemiesTest((CombatRoomData) data, GroundMesh.bounds);
         }
 
