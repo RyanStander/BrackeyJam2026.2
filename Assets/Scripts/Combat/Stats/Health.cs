@@ -1,7 +1,6 @@
 using System;
 using Combat.Data;
 using Combat.Interfaces;
-using Controllers;
 using UnityEngine;
 
 namespace Combat.Stats

@@ -870,6 +870,67 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &1938588939
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 725453529939031469, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_Name
+      value: Factory
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.3738444
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.0519369
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.152304
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852070286968632120, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7410787418787712031, guid: da3316d56336dc144991c8ce7f071526, type: 3}
+      propertyPath: ScrapPrefab
+      value: 
+      objectReference: {fileID: 1070406391877846621, guid: 694901f91e4794ce38d79a028b123ba8, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: da3316d56336dc144991c8ce7f071526, type: 3}
 --- !u!114 &2078901650 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1488386152732719537, guid: d0d1e81cf926e5441ae625ca2e95f188, type: 3}
@@ -893,7 +954,6 @@ GameObject:
   - component: {fileID: 2124940222}
   - component: {fileID: 2124940224}
   - component: {fileID: 2124940226}
-  - component: {fileID: 2124940225}
   m_Layer: 0
   m_Name: ExpeditionAreaManager
   m_TagString: Untagged
@@ -942,19 +1002,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2bb55f0e4a01de468ee4f4e854d5adc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2124940225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2124940221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 854506674bcb4199a4dcb80f0eb6b69f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ChargerPrefab: {fileID: 4158104878678058585, guid: 30c3bcd809a2f8148a649c389c8a19d1, type: 3}
 --- !u!114 &2124940226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -967,7 +1014,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f13c06728ca4e3c478ab9a50111c8a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Factory: {fileID: 2124940225}
+  spawnInterval: 0.25
+  spawnTimer: 0
 --- !u!1001 &2548583230968239461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1214,6 +1262,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 94397233}
+  - {fileID: 1938588939}
   - {fileID: 2124940223}
   - {fileID: 1871847977}
   - {fileID: 1240842698}
