@@ -8,7 +8,7 @@ namespace Controllers
 {
     public class GenericController : MonoBehaviour
     {
-        [SerializeField] protected Health Health;
+        [SerializeField] public Health Health;
 
         protected virtual void OnValidate()
         {
