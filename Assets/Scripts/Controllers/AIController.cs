@@ -23,8 +23,12 @@ namespace Controllers
         public GameObject Target { get; set; }
         private StateMachine.StateMachine stateMachine = new StateMachine.StateMachine();
         private bool exploited;
+        public bool WasExploited { get; private set; }
         public string TargetTag = "Player";
         public Faction Faction = Faction.Enemies;
+        
+        public static event Action<AIController, bool> OnEnemyDeath;
+        public bool IsEnemyFaction => TargetTag == "Player";
 
         protected override void OnValidate()
         {
@@ -45,6 +49,7 @@ namespace Controllers
 
             ReacquireTarget();
             Health.OnDeath += OnDeath;
+            Health.OnDeath += HandleOwnDeath;
         }
 
         public void ReacquireTarget()
@@ -112,6 +117,12 @@ namespace Controllers
             EventManager.currentManager.AddEvent(new CreatePickup(PickupType.Scrap, transform.position));
             Destroy(gameObject);
         }
+        
+        private void HandleOwnDeath()
+        {
+            if (IsEnemyFaction)
+                OnEnemyDeath?.Invoke(this, WasExploited);
+        }
 
         public void Stun(float duration)
         {
@@ -126,7 +137,26 @@ namespace Controllers
                 return false;
 
             exploited = false;
+            WasExploited = true;
             return true;
+        }
+        
+        public enum BetrayalType { Hostile, StealLoot }
+
+        public void TriggerBetrayal(BetrayalType type)
+        {
+            switch (type)
+            {
+                case BetrayalType.Hostile:
+                    TargetTag = "Player";
+                    gameObject.tag = "Enemy";
+                    Target = GameObject.FindGameObjectWithTag("Player");
+                    break;
+
+                case BetrayalType.StealLoot:
+                    Debug.LogWarning($"{gameObject.name}: StealLoot betrayal not yet implemented, falling back to Hostile.");
+                    goto case BetrayalType.Hostile;
+            }
         }
     }
 }
