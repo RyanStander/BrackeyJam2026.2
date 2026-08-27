@@ -51,14 +51,27 @@ namespace Controllers
         {
             if (TargetTag == "Enemy")
             {
-                GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                Target = enemies.Where(e => e != null)
-                    .OrderBy(e => Vector3.Distance(transform.position, e.transform.position)).FirstOrDefault();
+                Target = FindNearest(GameObject.FindGameObjectsWithTag("Enemy"));
+            }
+            else if (TargetTag == "Player")
+            {
+                Target = FindNearest(
+                    GameObject.FindGameObjectsWithTag("Player")
+                        .Concat(GameObject.FindGameObjectsWithTag("Companion"))
+                );
             }
             else
             {
                 Target = GameObject.FindGameObjectWithTag(TargetTag);
             }
+        }
+
+        private GameObject FindNearest(IEnumerable<GameObject> candidates)
+        {
+            return candidates
+                .Where(t => t != null && t != gameObject)
+                .OrderBy(t => Vector3.Distance(transform.position, t.transform.position))
+                .FirstOrDefault();
         }
 
         private void Update()
@@ -107,7 +120,7 @@ namespace Controllers
         }
 
         //for damage bonus on exploited enemies, should only happen once
-        public bool IsExploited()
+        public bool IsExploitable()
         {
             if (!exploited)
                 return false;

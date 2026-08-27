@@ -16,7 +16,8 @@ namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
         
         [SerializeField] private float maxLifetime = 5f;
         private float lifeTimer;
-
+        private bool launched;
+        
         public void Launch(Transform target, float damage, AIController instigator, float speed, Faction sourceFaction)
         {
             this.target = target;
@@ -25,6 +26,7 @@ namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
             this.speed = speed;
             direction = (target.position - transform.position).normalized;
             this.sourceFaction = sourceFaction;
+            launched = true;
         }
 
         void Update()
@@ -43,6 +45,8 @@ namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
 
         void OnTriggerEnter(Collider other)
         {
+            if (!launched) return;
+            
             if (other.gameObject.CompareTag(instigator.TargetTag))
             {
                 if (other.TryGetComponent(out IDamageable damageable))

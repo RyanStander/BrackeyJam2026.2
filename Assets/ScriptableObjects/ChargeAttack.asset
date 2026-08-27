@@ -18,6 +18,6 @@ MonoBehaviour:
   WindupTime: 1
   ChargeDistance: 10
   ChargeSpeed: 5
-  StunSelfOnObstacleHit: 0
+  StunSelfOnObstacleHit: 1
   StunDuration: 1
   Cooldown: 5
