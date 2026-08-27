@@ -73,7 +73,7 @@ namespace Combat.Interfaces.Attack_Behaviours
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag(instigator.TargetTag))
             {
                 hitSomething = true;
 
@@ -88,7 +88,7 @@ namespace Combat.Interfaces.Attack_Behaviours
                     if (CombatRules.CanDamage(damageInfo, target))
                         target.TakeDamage(damageInfo);
             }
-            else if (!other.gameObject.CompareTag("Enemy") && other.gameObject.layer != LayerMask.NameToLayer("Floor"))
+            else if (!other.gameObject.CompareTag(gameObject.transform.root.tag) && other.gameObject.layer != LayerMask.NameToLayer("Floor"))
             {
                 hitSomething = true;
             }

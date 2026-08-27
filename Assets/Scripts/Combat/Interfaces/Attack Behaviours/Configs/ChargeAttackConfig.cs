@@ -2,7 +2,7 @@
 
 namespace Combat.Interfaces.Attack_Behaviours.Configs
 {
-    [CreateAssetMenu(fileName = "ChargeAttack", menuName = "Attacks", order = 0)]
+    [CreateAssetMenu(fileName = "ChargeAttack", menuName = "Attacks/Charge", order = 0)]
     public class ChargeAttackConfig : ScriptableObject
     {
         public int Damage = 25;
