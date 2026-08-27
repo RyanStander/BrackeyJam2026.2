@@ -4,6 +4,6 @@
     {
         Undefined,
         Charger,
-        //LongLimbs
+        Swatter,
     }
 }

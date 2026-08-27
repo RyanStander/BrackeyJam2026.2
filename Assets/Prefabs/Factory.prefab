@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4852070286968632120}
   - component: {fileID: 8633094373345494558}
+  - component: {fileID: 3621260968624905509}
+  - component: {fileID: 7410787418787712031}
   m_Layer: 0
   m_Name: Factory
   m_TagString: Untagged
@@ -44,4 +46,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 854506674bcb4199a4dcb80f0eb6b69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChargerPrefab: {fileID: 0}
+  ChargerPrefab: {fileID: 4158104878678058585, guid: 30c3bcd809a2f8148a649c389c8a19d1, type: 3}
+  SwatterPrefab: {fileID: 7405055396904231436, guid: 3b5283607220b1347b325fae0cbed017, type: 3}
+--- !u!114 &3621260968624905509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725453529939031469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c5482db4c44b8093773095c8518528, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupFactory: {fileID: 7410787418787712031}
+  enemyFactory: {fileID: 8633094373345494558}
+--- !u!114 &7410787418787712031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725453529939031469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e93f07d30af46ca90536b3767ccff36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScrapPrefab: {fileID: 0}

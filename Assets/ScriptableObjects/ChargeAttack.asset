@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ChargeAttack
   m_EditorClassIdentifier: 
   Damage: 25
-  AttackDistance: 4
-  AttackSphereRadius: 0.54
+  AttackDistance: 7
+  AttackSphereRadius: 1
   WindupTime: 1
-  ChargeDistance: 5
-  ChargeSpeed: 16
+  ChargeDistance: 10
+  ChargeSpeed: 5
   StunSelfOnObstacleHit: 1
   StunDuration: 1
   Cooldown: 5

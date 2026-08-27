@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours;
 using Combat.Stats;
+using Events;
+using Factories;
 using Movement;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -20,6 +23,12 @@ namespace Controllers
         public GameObject Target { get; set; }
         private StateMachine.StateMachine stateMachine = new StateMachine.StateMachine();
         private bool exploited;
+        public bool WasExploited { get; private set; }
+        public string TargetTag = "Player";
+        public Faction Faction = Faction.Enemies;
+        
+        public static event Action<AIController, bool> OnEnemyDeath;
+        public bool IsEnemyFaction => TargetTag == "Player";
 
         protected override void OnValidate()
         {
@@ -37,17 +46,45 @@ namespace Controllers
             base.Awake();
             stateMachine.Setup(this);
             attacks = GetComponentsInChildren<IAttackBehaviour>();
-            
-            Target = GameObject.FindGameObjectWithTag("Player");
+
+            ReacquireTarget();
             Health.OnDeath += OnDeath;
+            Health.OnDeath += HandleOwnDeath;
         }
-        
+
+        public void ReacquireTarget()
+        {
+            if (TargetTag == "Enemy")
+            {
+                Target = FindNearest(GameObject.FindGameObjectsWithTag("Enemy"));
+            }
+            else if (TargetTag == "Player")
+            {
+                Target = FindNearest(
+                    GameObject.FindGameObjectsWithTag("Player")
+                        .Concat(GameObject.FindGameObjectsWithTag("Companion"))
+                );
+            }
+            else
+            {
+                Target = GameObject.FindGameObjectWithTag(TargetTag);
+            }
+        }
+
+        private GameObject FindNearest(IEnumerable<GameObject> candidates)
+        {
+            return candidates
+                .Where(t => t != null && t != gameObject)
+                .OrderBy(t => Vector3.Distance(transform.position, t.transform.position))
+                .FirstOrDefault();
+        }
+
         private void Update()
         {
             stateMachine.Tick();
             UpdateCooldowns();
         }
-        
+
         private void UpdateCooldowns()
         {
             List<IAttackBehaviour> keys = cooldownTimers.Keys.ToList();
@@ -73,11 +110,18 @@ namespace Controllers
             cooldownTimers[chosenAttack] = chosenAttack.Cooldown;
             return chosenAttack;
         }
-        
+
         private void OnDeath()
         {
             Debug.Log($"{gameObject.name} has died.");
+            EventManager.currentManager.AddEvent(new CreatePickup(PickupType.Scrap, transform.position));
             Destroy(gameObject);
+        }
+        
+        private void HandleOwnDeath()
+        {
+            if (IsEnemyFaction)
+                OnEnemyDeath?.Invoke(this, WasExploited);
         }
 
         public void Stun(float duration)
@@ -85,15 +129,34 @@ namespace Controllers
             stateMachine.Stun(duration);
             exploited = true;
         }
-        
+
         //for damage bonus on exploited enemies, should only happen once
-        public bool IsExploited()
+        public bool IsExploitable()
         {
-            if (!exploited) 
+            if (!exploited)
                 return false;
-            
+
             exploited = false;
+            WasExploited = true;
             return true;
+        }
+        
+        public enum BetrayalType { Hostile, StealLoot }
+
+        public void TriggerBetrayal(BetrayalType type)
+        {
+            switch (type)
+            {
+                case BetrayalType.Hostile:
+                    TargetTag = "Player";
+                    gameObject.tag = "Enemy";
+                    Target = GameObject.FindGameObjectWithTag("Player");
+                    break;
+
+                case BetrayalType.StealLoot:
+                    Debug.LogWarning($"{gameObject.name}: StealLoot betrayal not yet implemented, falling back to Hostile.");
+                    goto case BetrayalType.Hostile;
+            }
         }
     }
 }
