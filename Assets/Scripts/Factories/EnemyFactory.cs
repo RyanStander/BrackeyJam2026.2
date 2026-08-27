@@ -7,12 +7,14 @@ namespace Factories
     {
         public GameObject ChargerPrefab;
         public GameObject SwatterPrefab;
+        public GameObject MooBossPrefab;
         public GameObject CreateEnemy(EnemyType type, Vector3 position)
         {
             GameObject prefab = type switch
             {
                 EnemyType.Charger => ChargerPrefab,
                 EnemyType.Swatter => SwatterPrefab,
+                EnemyType.MooBoss => MooBossPrefab,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
             };
             

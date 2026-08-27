@@ -57,11 +57,9 @@ namespace Expeditions
             currentRoom = command.TargetRoom;
 
             #region Position Update
-            playerCharacter.GetComponent<CharacterController>().enabled = false;
             Vector3 position = command.TargetPosition;
             position.y = playerCharacter.transform.position.y;
             playerCharacter.transform.position = position;
-            playerCharacter.GetComponent<CharacterController>().enabled = true;
 
             if (companionCharacter)
             {

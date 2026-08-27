@@ -5,5 +5,6 @@
         Undefined,
         Charger,
         Swatter,
+        MooBoss,
     }
 }

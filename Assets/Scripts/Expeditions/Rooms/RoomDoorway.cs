@@ -6,17 +6,15 @@ namespace Expeditions.Room.Doorway
     public partial class RoomDoorway : MonoBehaviour
     {
         #region Setup
-        [SerializeField]
-        private BoxCollider exitCollider;
 
-        [SerializeField]
-        private BoxCollider blockCollider;
+        [SerializeField] private BoxCollider exitCollider;
 
-        [SerializeField]
-        private GameObject blockVisual;
+        [SerializeField] private BoxCollider blockCollider;
 
-        [field:SerializeField]
-        public GameObject TransferPoint { get; private set; }
+        [SerializeField] private GameObject blockVisual;
+
+        [field: SerializeField] public GameObject TransferPoint { get; private set; }
+
         #endregion
 
         private RoomManager SourceRoom, TargetRoom;
@@ -41,9 +39,11 @@ namespace Expeditions.Room.Doorway
         {
             if (other.CompareTag("Player"))
             {
-                if (TargetRoom.DirectionDoorwayPairs.TryGetValue(RoomDirectionExtensions.GetCounterpart(TransferDirection), out RoomDoorway doorway))
+                if (TargetRoom.DirectionDoorwayPairs.TryGetValue(
+                        RoomDirectionExtensions.GetCounterpart(TransferDirection), out RoomDoorway doorway))
                 {
-                    EventManager.currentManager.AddEvent(new CommandRoomChange(SourceRoom, TargetRoom, doorway.TransferPoint.transform.position));
+                    EventManager.currentManager.AddEvent(new CommandRoomChange(SourceRoom, TargetRoom,
+                        doorway.TransferPoint.transform.position));
                 }
             }
         }
@@ -61,10 +61,13 @@ namespace Expeditions.Room.Doorway
                 default: return Color.white;
             }
         }
+
         private void OnDrawGizmos()
         {
             if (!exitCollider || !blockCollider) return;
-            Gizmos.color = (!TargetRoom || !SourceRoom) ? Color.white : GetColor(SourceRoom.CurrentState, TargetRoom.CurrentState);
+            Gizmos.color = (!TargetRoom || !SourceRoom)
+                ? Color.white
+                : GetColor(SourceRoom.CurrentState, TargetRoom.CurrentState);
             Gizmos.DrawWireCube(exitCollider.bounds.center, exitCollider.bounds.size);
             Gizmos.DrawWireCube(blockCollider.bounds.center, blockCollider.bounds.size);
         }

@@ -6,7 +6,7 @@ namespace Movement
     public class AiMovement : MonoBehaviour
     {
         [SerializeField] private Rigidbody aiRigidbody;
-        [SerializeField] private float speed = 1;
+        [SerializeField] public float speed = 1;
         [SerializeField] private float range = 5;
 
         private void OnValidate()
