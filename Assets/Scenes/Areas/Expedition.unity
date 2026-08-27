@@ -1541,6 +1541,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7449953720714091407, guid: cdc806ed4ce134f45a23ddf12289b293, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: b42ea1670c4bda440b5624199e5c1510, type: 2}
+    - target: {fileID: 7449953720714091407, guid: cdc806ed4ce134f45a23ddf12289b293, type: 3}
       propertyPath: DirectionRoomPairs._serializedList.Array.data[0].Value
       value: 
       objectReference: {fileID: 4429916015872847995}

@@ -57,6 +57,9 @@ namespace Expeditions
             currentRoom = command.TargetRoom;
 
             #region Position Update
+
+            playerCharacter.SetActive(false);
+
             Vector3 position = command.TargetPosition;
             position.y = playerCharacter.transform.position.y;
             playerCharacter.transform.position = position;
@@ -65,6 +68,8 @@ namespace Expeditions
             {
                 companionCharacter.transform.position = position;
             }
+
+            playerCharacter.SetActive(true);
 
             #endregion
 
