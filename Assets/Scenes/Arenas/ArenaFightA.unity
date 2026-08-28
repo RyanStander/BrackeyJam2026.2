@@ -853,6 +853,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1067000431640648129, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1289288768637535523, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
       propertyPath: m_Name
       value: Player
@@ -913,9 +917,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 5586547906402120744, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5702886737193638840, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433699003260809198, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
+      propertyPath: animationName
+      value: Idle/MC_Front_Idle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150749201016253590, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8701121359628088353, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
       propertyPath: m_LocalScale.x
@@ -926,11 +942,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
---- !u!4 &1255428837 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2839112183782142162, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
-  m_PrefabInstance: {fileID: 1136511343}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1289583667
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,8 +977,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 1255428837}
-  m_Follow: {fileID: 1255428837}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 28.57318
     OrthographicSize: 10
@@ -1049,11 +1060,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1788978093 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1289288768637535523, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
-  m_PrefabInstance: {fileID: 1136511343}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1854057756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,7 +1539,7 @@ PrefabInstance:
     - target: {fileID: 1571403844523541076, guid: 8f874eaf46a419340aa3a1443f368c2e, type: 3}
       propertyPath: playerCharacter
       value: 
-      objectReference: {fileID: 1788978093}
+      objectReference: {fileID: 0}
     - target: {fileID: 1571403844523541076, guid: 8f874eaf46a419340aa3a1443f368c2e, type: 3}
       propertyPath: companionCharacter
       value: 
