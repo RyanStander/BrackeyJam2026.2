@@ -1,40 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
-using Combat.Interfaces.Attack_Behaviours;
+using Combat.Data;
+using Combat.Interfaces;
+using Combat.Interfaces.Attack_Behaviours.Configs;
+using Combat.Rules;
 using Controllers;
 using UnityEngine;
 
-public class BossPunch : BossController, IAttackBehaviour
+namespace Combat.Interfaces.Attack_Behaviours
 {
-    [SerializeField] public float Cooldown => 2f;
-    [SerializeField] public bool isBusy = false;
-    [SerializeField] private float attackTimer;
-    [SerializeField] private float punchDamage = 10f;
-    [SerializeField] private float punchRange = 5f;
-    [SerializeField] private float attackCooldown = 1f;
-    private float dist;
-
-    public bool CanExecute(AIController controller)
+    public class PunchAttack : MonoBehaviour, IAttackBehaviour
     {
-        if (controller is BossController boss && boss.Phase > 0)
-            return false;
+        [SerializeField] private PunchAttackConfig config;
 
-        dist = Vector3.Distance(controller.transform.position, controller.Target.transform.position);
-        return dist < 4f;
-    }
+        private enum Phase { Punching, Done }
+        private Phase phase;
 
-    public void Telegraph(AIController controller) => controller.Animator.SetTrigger("Punch");
-    public void Execute(AIController controller) 
-    { 
-        Debug.Log("Executing Punch!");
-        isBusy = true;
-        Animator.SetBool("isBusy", true);
-        HitTarget(punchDamage, punchRange);
-        attackTimer = attackCooldown;
-        Target.GetComponent<Rigidbody>().AddForce(new Vector3(this.transform.position.x + this.transform.position.x, this.transform.position.z + this.transform.position.z), ForceMode.VelocityChange);
-        Animator.SetBool("isBusy", false); //workaround for falling back to idle? 
-        isBusy = false;
-        //doing double dmg right now i dont know why
+        public bool CanExecute(AIController controller)
+        {
+            if (controller.Target == null) return false;
+            return Vector3.Distance(controller.transform.position, controller.Target.transform.position) <= config.AttackDistance;
+        }
+
+        public void Telegraph(AIController controller)
+        {
+            phase = Phase.Punching;
+            controller.Animator.SetTrigger("Punch");
+        }
+
+        public void Execute(AIController controller)
+        {
+            if (phase != Phase.Punching) return;
+
+            if (controller.Target != null &&
+                Vector3.Distance(controller.transform.position, controller.Target.transform.position) <= config.AttackDistance && controller.Target.TryGetComponent(out IDamageable target))
+            {
+                var info = new DamageInfo(config.Damage, controller.Faction, controller.gameObject);
+                if (CombatRules.CanDamage(info, target))
+                    target.TakeDamage(info);
+            }
+
+            phase = Phase.Done;
+        }
+
+        public bool IsFinished(AIController controller) => phase == Phase.Done;
+        public float Cooldown => config.Cooldown;
     }
-    public bool IsFinished(AIController c) => true;
 }

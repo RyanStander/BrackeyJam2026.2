@@ -172,5 +172,6 @@ namespace Controllers
 
             return obj.CompareTag("Enemy");
         }
+        protected void RefreshAttacks() => attacks = GetComponentsInChildren<IAttackBehaviour>();
     }
 }

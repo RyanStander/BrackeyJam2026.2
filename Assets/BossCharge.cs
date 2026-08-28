@@ -1,48 +1,90 @@
-using System.Collections;
-using System.Collections.Generic;
-using Combat.Interfaces.Attack_Behaviours;
+using Combat.Data;
+using Combat.Interfaces;
+using Combat.Rules;
 using Controllers;
 using UnityEngine;
 
-public class BossCharge : BossController, IAttackBehaviour
+namespace Combat.Interfaces.Attack_Behaviours
 {
-    [SerializeField] public float Cooldown => 2f;
-    [SerializeField] public bool isBusy = false;
-    [SerializeField] private float attackTimer;
-    [SerializeField] private float attackCooldown = 1f;
-    [SerializeField] private float chargeSpeed = 100f;
-    [SerializeField] private float chargeDamage = 30f;
-    private float dist;
-
-    public bool CanExecute(AIController controller)
+    public class BossCharge : MonoBehaviour, IAttackBehaviour
     {
-        if (controller is BossController boss && boss.Phase > 0)
-            return false;
+        [SerializeField] private float attackDistance = 30f;
+        [SerializeField] private float windupTime = 0.6f;
+        [SerializeField] private float chargeSpeed = 20f;
+        [SerializeField] private float chargeDistance = 15f;
+        [SerializeField] private float hitRadius = 1.5f;
+        [SerializeField] private float chargeDamage = 30f;
+        [SerializeField] private float cooldown = 2f;
 
-        dist = Vector3.Distance(controller.transform.position, controller.Target.transform.position);
-        return dist < 30f;
-    }
+        private enum Phase { Windup, Charging, Done }
+        private Phase phase;
+        private float timer;
+        private Vector3 startLocation;
+        private Vector3 direction;
 
-    public void Telegraph(AIController controller) => controller.Animator.SetTrigger("Charge");
-    public void Execute(AIController controller) 
-    { 
-        Debug.Log("Trying Charge!");
-        isBusy = true;
-        Animator.SetBool("isBusy", true);
-            Vector3 dir = (Target.transform.position - transform.position).normalized;
-            for (float t = 0; t < 5f; t += Time.deltaTime)
+        public bool CanExecute(AIController controller)
+        {
+            if (controller.Target == null) 
+            { 
+                return false; 
+            
+            }
+            float distance = Vector3.Distance(controller.transform.position, controller.Target.transform.position);
+            return distance <= attackDistance;
+        }
+        public void Telegraph(AIController controller)
+        {
+            phase = Phase.Windup;
+            timer = 0f;
+            controller.Animator.SetBool("isBusy", true); 
+            controller.Animator.SetTrigger("ChargeWindup");
+        }
+    
+        public void Execute(AIController controller)
+        {
+            timer += Time.deltaTime;
+
+            if (phase == Phase.Windup)
             {
-                Movement.MovePosition(transform.position + dir * (chargeSpeed * Time.deltaTime));
-                if (Vector3.Distance(transform.position, Target.transform.position) < 1.5f)
+                if (timer < windupTime) return;
+
+                phase = Phase.Charging;
+                startLocation = controller.transform.position;
+                direction = (controller.Target.transform.position - startLocation).normalized;
+                controller.Animator.SetTrigger("Charge");
+                controller.Animator.SetBool("isBusy", true);
+            }
+            else if (phase == Phase.Charging)
+            {
+                var rb = controller.GetComponent<Rigidbody>();
+                rb.velocity = new Vector3(direction.x * chargeSpeed, rb.velocity.y, direction.z * chargeSpeed);
+
+                if (controller.Target != null &&
+                    Vector3.Distance(controller.transform.position,
+                        controller.Target.transform.position) <= hitRadius &&
+                    controller.Target.TryGetComponent(out IDamageable target))
                 {
-                    Debug.Log("Hitting target!");
-                    HitTarget(chargeDamage, 2f);
-                    break;
+                    var info = new DamageInfo(chargeDamage, controller.Faction, controller.gameObject);
+                    if (CombatRules.CanDamage(info, target))
+                        target.TakeDamage(info);
+
+                    StopCharge(rb);
+                    controller.Animator.SetBool("isBusy", false);
+                    phase = Phase.Done;
+                    return;
+                }
+
+                if (Vector3.Distance(startLocation, controller.transform.position) >= chargeDistance || timer >= 3f)
+                {
+                    StopCharge(rb);
+                    controller.Animator.SetBool("isBusy", false);
+                    phase = Phase.Done;
                 }
             }
-            attackTimer = attackCooldown;
-            isBusy = false;
-            Animator.SetBool("isBusy", false);
+        }
+
+        private void StopCharge(Rigidbody rb) => rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+        public bool IsFinished(AIController controller) => phase == Phase.Done;
+        public float Cooldown => cooldown;
     }
-    public bool IsFinished(AIController c) => true;
 }
