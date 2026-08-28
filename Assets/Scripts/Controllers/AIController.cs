@@ -159,5 +159,6 @@ namespace Controllers
                     goto case BetrayalType.Hostile;
             }
         }
+        protected void RefreshAttacks() => attacks = GetComponentsInChildren<IAttackBehaviour>();
     }
 }
