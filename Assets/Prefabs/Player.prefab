@@ -108,15 +108,16 @@ MonoBehaviour:
   attackRadius: 1
   meleePrefab: {fileID: 7977160062466494192}
   playerMovement: {fileID: 1489994797615126054}
-  attackBackOffset: {x: 0, y: 2, z: 1.5}
-  attackFrontOffset: {x: 0, y: 2, z: -1.5}
-  attackLeftOffset: {x: -1.5, y: 2, z: 0}
-  attackRightOffset: {x: 1.5, y: 2, z: 0}
-  attackUpRightOffset: {x: 1, y: 2, z: 1}
-  attackDownRightOffset: {x: 1, y: 2, z: -1}
-  attackUpLeftOffset: {x: -1, y: 2, z: -1}
-  attackDownLeftOffset: {x: -1, y: 2, z: 1}
+  attackBackOffset: {x: 0, y: 1, z: 0}
+  attackFrontOffset: {x: 0, y: 1, z: 0}
+  attackLeftOffset: {x: 0, y: 1, z: 0}
+  attackRightOffset: {x: 0, y: 1, z: 0}
+  attackUpRightOffset: {x: 0, y: 1, z: 0}
+  attackDownRightOffset: {x: 0, y: 1, z: 0}
+  attackUpLeftOffset: {x: 0, y: 1, z: 0}
+  attackDownLeftOffset: {x: 0, y: 1, z: 0}
   weaponSwingController: {fileID: 1931447963733541077}
+  meleeHitbox: {fileID: 6574912683954253822}
 --- !u!114 &2117350917193679964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,10 +182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcc23b320754e2982b6a471f71197ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPivot: {fileID: 7216741500859168508}
+  weaponPivot: {fileID: 7745794984567847640}
   weaponAnimator: {fileID: 5005636991485516916}
   weaponTrail: {fileID: 8997825391253799719}
   swingDuration: 0.2
+  weaponVisual: {fileID: 4445002058085998797}
   directionYRotations:
   - 180
   - 225
@@ -434,6 +436,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5090781088534628534}
   - component: {fileID: 5224308925265978972}
+  - component: {fileID: 8570552316665824421}
+  - component: {fileID: 6574912683954253822}
   m_Layer: 0
   m_Name: MC_Front_Weapon
   m_TagString: Untagged
@@ -509,6 +513,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &8570552316665824421
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4445002058085998797}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.4800004, y: 0.89000005, z: 0.20000008}
+  m_Center: {x: 0, y: -0.000000059604645, z: 0.000000029802322}
+--- !u!114 &6574912683954253822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4445002058085998797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7699f982cc94ed7ba68c03773970b77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hittableLayerMask:
+    serializedVersion: 2
+    m_Bits: 640
 --- !u!1 &4720576856225369245
 GameObject:
   m_ObjectHideFlags: 0
