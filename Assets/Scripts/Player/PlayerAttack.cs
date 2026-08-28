@@ -1,5 +1,6 @@
 using System;
 using Combat.Data;
+using Combat.Interfaces.Attack_Behaviours.AttackExtensions;
 using Combat.Stats;
 using UnityEngine;
 
@@ -28,11 +29,19 @@ namespace Player
         private Vector3 attackOffset;
         
         private float nextAttackTime;
+        
+        [SerializeField] private WeaponSwingController weaponSwingController;
+        [SerializeField] private MeleeHitbox meleeHitbox;
+        private int currentDirectionIndex;
 
         private void OnValidate()
         {
             if (playerMovement == null)
                 playerMovement = GetComponent<PlayerMovement>();
+            if (weaponSwingController == null)
+                weaponSwingController = GetComponent<WeaponSwingController>();
+            if (meleeHitbox == null)
+                GetComponentInChildren<MeleeHitbox>();
         }
 
         private void Start()
@@ -52,6 +61,8 @@ namespace Player
         {
             if (movementMagnitude <= 0f)
                 return;
+
+            currentDirectionIndex = directionIndex;
             
             /*always y 2
             Forward attack is z1
@@ -72,46 +83,12 @@ namespace Player
                 _ => attackOffset
             };
         }
-        
-        /// <summary>
-        /// Converts an input vector into one of 8 cardinal direction indices (0-7),
-        /// snapped to the nearest 45-degree increment.
-        /// </summary>
-        private int GetDirectionIndex(Vector2 input)
-        {
-            float angle = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg;
-            float snappedAngle = Mathf.Round(angle / 45f) * 45f;
-            int index = Mathf.RoundToInt(snappedAngle / 45f);
-            return ((index % 8) + 8) % 8;
-        }
 
         private void MeleeAttack()
         {
-            Debug.Log("Melee attack performed!");
-            DetectMeleeEnemies();
-            //Lunge();
+            meleeHitbox.BeginSwing(meleeAttackDamage, gameObject);
+            weaponSwingController.PlaySwing(currentDirectionIndex, attackOffset);
             nextAttackTime = Time.time + attackCooldown;
-        }
-
-        private void DetectMeleeEnemies()
-        {
-            if (attackPoint == null)
-            {
-                return;
-            }
-
-            Vector3 attackCenter = attackPoint.position + attackOffset;
-            Collider[] hitEnemies = Physics.OverlapSphere(attackCenter, attackRadius);
-
-            foreach (Collider enemy in hitEnemies)
-            {
-                if (enemy.CompareTag("Enemy"))
-                {
-                    Debug.Log("Hit " + enemy.name);
-                    enemy.GetComponent<Health>()
-                        ?.TakeDamage(new DamageInfo(meleeAttackDamage, Faction.Enemies, gameObject));
-                }
-            }
         }
 
         private void OnDrawGizmosSelected()
