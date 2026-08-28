@@ -82,7 +82,7 @@ namespace Combat.Interfaces.Attack_Behaviours
 
             foreach (Collider hit in hits)
             {
-                if (aiController.IsAllyOfTarget(hit.gameObject))
+                if (aiController.IsHostileTo(hit.gameObject))
                 {
                     phase = Phase.Done;
                     aiController.Animator.SetTrigger(end);

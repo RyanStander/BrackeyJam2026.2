@@ -165,7 +165,7 @@ namespace Controllers
             }
         }
 
-        public bool IsAllyOfTarget(GameObject obj)
+        public bool IsHostileTo(GameObject obj)
         {
             if (TargetTag == "Player")
                 return obj.CompareTag("Player") || obj.CompareTag("Companion");
