@@ -9,7 +9,7 @@ namespace Expeditions
         {
             if (other.CompareTag("Player"))
             {
-                EventManager.currentManager.AddEvent(new CommandAreaExit());
+                EventManager.currentManager.AddEvent(new ReturnToHub());
             }
         }
     }

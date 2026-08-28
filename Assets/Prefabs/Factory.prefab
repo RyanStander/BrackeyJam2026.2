@@ -75,4 +75,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e93f07d30af46ca90536b3767ccff36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrapPrefab: {fileID: 0}
+  ScrapPrefab: {fileID: 1070406391877846621, guid: 694901f91e4794ce38d79a028b123ba8, type: 3}

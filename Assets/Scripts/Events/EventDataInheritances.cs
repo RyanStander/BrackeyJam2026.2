@@ -1,5 +1,3 @@
-using Expeditions.Room;
-using UnityEngine;
 
 namespace Events
 {
@@ -38,40 +36,35 @@ namespace Events
         }
     }
 
+    public class ReturnToHub : EventData
+    {
+        public ReturnToHub() : base(EventType.ReturnToHub) { }
+    }
+
     public class OnEnemyDeath : EventData { 
         public OnEnemyDeath() : base(EventType.OnEnemyDeath){}
     }
-    
-    public class CommandAreaExit : EventData
+
+    public class WaveStart : EventData
     {
-        public CommandAreaExit() : base(EventType.CommandAreaExit){}
+        public WaveStart() : base(EventType.WaveStart) { }
+    }
+    public class WaveEnd : EventData
+    {
+        public WaveEnd() : base(EventType.WaveEnd) { }
     }
 
-    public class ExecuteCombatRoom : EventData
+    public class BossStart : EventData
     {
-        public readonly RoomManager SourceRoom;
-        public readonly CombatRoomData RoomData;
-        public readonly Bounds RoomBounds;
-
-        public ExecuteCombatRoom(RoomManager sourceRoom, RoomData roomData, Bounds roomBounds) : base(EventType.ExecuteCombatRoom)
-        {
-            SourceRoom = sourceRoom;
-            RoomData = (CombatRoomData) roomData;
-            RoomBounds = roomBounds;
-        }
+        public BossStart() : base(EventType.BossStart) { }
+    }
+    public class BossEnd : EventData
+    {
+        public BossEnd() : base(EventType.BossEnd) { }
     }
 
-    public class CommandRoomChange : EventData
+    public class WavesCompleted : EventData
     {
-        public readonly RoomManager SourceRoom;
-        public readonly RoomManager TargetRoom;
-        public readonly Vector3 TargetPosition;
-
-        public CommandRoomChange(RoomManager sourceRoom, RoomManager targetRoom, Vector3 targetPosition) : base(EventType.CommandRoomChange)
-        {
-            SourceRoom = sourceRoom;
-            TargetRoom = targetRoom;
-            TargetPosition = targetPosition;
-        }
+        public WavesCompleted() : base(EventType.WavesCompleted) { }
     }
 }
