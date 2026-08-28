@@ -1,16 +1,8 @@
 
 namespace Events
 {
-    //Event that informs subscribers of a debug log
-    public class SendDebugLog : EventData
-    {
-        public readonly string Debuglog;
-
-        public SendDebugLog(string givenLog) : base(EventType.ReceiveDebug)
-        {
-            Debuglog = givenLog;
-        }
-    }
+    
+    #region Factory
     
     public class CreateEnemy : EventData
     {
@@ -35,15 +27,10 @@ namespace Events
             Position = position;
         }
     }
+    
+    #endregion
 
-    public class ReturnToHub : EventData
-    {
-        public ReturnToHub() : base(EventType.ReturnToHub) { }
-    }
-
-    public class OnEnemyDeath : EventData { 
-        public OnEnemyDeath() : base(EventType.OnEnemyDeath){}
-    }
+    #region Wave System
 
     public class WaveStart : EventData
     {
@@ -67,4 +54,53 @@ namespace Events
     {
         public WavesCompleted() : base(EventType.WavesCompleted) { }
     }
+
+    #endregion
+    
+    public class ReturnToHub : EventData
+    {
+        public ReturnToHub() : base(EventType.ReturnToHub) { }
+    }
+
+    public class OnEnemyDeath : EventData { 
+        public OnEnemyDeath() : base(EventType.OnEnemyDeath){}
+    }
+
+    #region UI Displays
+
+    public class UpdatePlayerScrapCount: EventData
+    {
+        public readonly int CurrentScrap;
+
+        public UpdatePlayerScrapCount(int currentScrap) : base(EventType.UpdatePlayerScrapCount)
+        {
+            CurrentScrap = currentScrap;
+        }
+    }
+    
+    public class UpdatePlayerHealth: EventData
+    {
+        public readonly float CurrentHealth;
+
+        public UpdatePlayerHealth(float currentHealth) : base(EventType.UpdatePlayerHealth)
+        {
+            CurrentHealth = currentHealth;
+        }
+    }
+    
+    public class SetPlayerHealth: EventData
+    {
+        public readonly float CurrentHealth;
+        public readonly float MaxHealth;
+
+        public SetPlayerHealth(float currentHealth, float maxHealth) : base(EventType.SetPlayerHealth)
+        {
+            CurrentHealth = currentHealth;
+            MaxHealth = maxHealth;
+        }
+    }
+
+    #endregion
+    
+    
 }

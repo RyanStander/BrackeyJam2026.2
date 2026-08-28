@@ -46,6 +46,14 @@ namespace Combat.Interfaces.Attack_Behaviours
             }
             else if (phase == Phase.Shooting && timer >= config.ReloadTime)
             {
+                if (controller.Target == null)
+                {
+                    phase = Phase.Done;
+                    timer = 0f;
+                    controller.Animator.SetTrigger("End");
+                    return;
+                }
+                
                 GameObject proj = Instantiate(config.ProjectilePrefab, controller.transform.position,
                     Quaternion.identity);
                 proj.GetComponent<Projectile>().Launch(controller.Target.transform, config.Damage, controller,
