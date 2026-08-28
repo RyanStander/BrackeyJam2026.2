@@ -26,19 +26,19 @@ namespace Expeditions
             companionCharacter = GameObject.FindGameObjectWithTag("Companion");
             currentRoom.UpdateRoom(RoomState.explored);
 
-            EventManager.currentManager.Subscribe(EventType.CommandAreaExit, OnCommandAreaExit);
+            EventManager.currentManager.Subscribe(EventType.ReturnToHub, OnCommandAreaExit);
             EventManager.currentManager.Subscribe(EventType.CommandRoomChange, OnCommandRoomChange);
         }
 
         private void OnDisable()
         {
-            EventManager.currentManager.Unsubscribe(EventType.CommandAreaExit, OnCommandAreaExit);
+            EventManager.currentManager.Unsubscribe(EventType.ReturnToHub, OnCommandAreaExit);
             EventManager.currentManager.Unsubscribe(EventType.CommandRoomChange, OnCommandRoomChange);
         }
 
         private void OnCommandAreaExit(EventData eventData)
         {
-            if (!eventData.IsEventOfType(out CommandAreaExit command)) return;
+            if (!eventData.IsEventOfType(out ReturnToHub command)) return;
             // TODO: Handle any needed cleanup or end-steps for expedition, for now instant return to main menu.
 
             // TODO: Create scene manager to handle transitions
