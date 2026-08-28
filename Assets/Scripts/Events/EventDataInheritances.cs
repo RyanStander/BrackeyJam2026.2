@@ -81,9 +81,19 @@ namespace Events
     public class UpdatePlayerHealth: EventData
     {
         public readonly float CurrentHealth;
+
+        public UpdatePlayerHealth(float currentHealth) : base(EventType.UpdatePlayerHealth)
+        {
+            CurrentHealth = currentHealth;
+        }
+    }
+    
+    public class SetPlayerHealth: EventData
+    {
+        public readonly float CurrentHealth;
         public readonly float MaxHealth;
 
-        public UpdatePlayerHealth(float currentHealth, float maxHealth) : base(EventType.UpdatePlayerHealth)
+        public SetPlayerHealth(float currentHealth, float maxHealth) : base(EventType.SetPlayerHealth)
         {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;

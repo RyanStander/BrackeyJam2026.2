@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedb2349cbb59c2459cac48c59fac5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 20
-  CurrentHealth: 0
+  maxHealth: 40
+  currentHealth: 0
 --- !u!114 &4433078958048674981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,7 +385,7 @@ MonoBehaviour:
   instigator: {fileID: 4433078958048674981}
   collisionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
 --- !u!65 &5454034030265779469
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -405,5 +405,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.126, y: 3.606956, z: 0.2}
-  m_Center: {x: 0.0000002943263, y: -1.2244956, z: 0}
+  m_Size: {x: 1.126, y: 1.1711118, z: 0.83713883}
+  m_Center: {x: 0.00000011930663, y: -0.0065794885, z: -0.0024099052}

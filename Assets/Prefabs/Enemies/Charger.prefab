@@ -162,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cedb2349cbb59c2459cac48c59fac5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 30
-  CurrentHealth: 0
+  maxHealth: 20
+  currentHealth: 0
 --- !u!114 &1450787878267797986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +179,8 @@ MonoBehaviour:
   Health: {fileID: 6280376201784702579}
   Movement: {fileID: 39686877881093843}
   Animator: {fileID: 7312738758685966598}
+  TargetTag: Player
+  Faction: 1
 --- !u!54 &1451028213527460001
 Rigidbody:
   m_ObjectHideFlags: 0

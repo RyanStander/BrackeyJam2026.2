@@ -1,10 +1,9 @@
-﻿using System;
-using Combat.Data;
+﻿using Combat.Data;
 using Combat.Rules;
 using Controllers;
 using UnityEngine;
 
-namespace Combat.Interfaces.Attack_Behaviours
+namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
 {
     [RequireComponent(typeof(Rigidbody))]
     public class Throwable : MonoBehaviour
@@ -70,18 +69,18 @@ namespace Combat.Interfaces.Attack_Behaviours
         {
             if (other.gameObject.CompareTag(instigator.TargetTag))
             {
-                hitSomething = true;
-
                 DamageInfo damageInfo = new(
                     amount: weaponDamage,
-                    sourceFaction: Faction.Enemies,
+                    sourceFaction: instigator.Faction,
                     instigator: instigator.gameObject,
                     mode: DamageMode.Normal
                 );
 
-                if (other.gameObject.TryGetComponent(out IDamageable target))
+                if (!hitSomething && other.gameObject.TryGetComponent(out IDamageable target))
                     if (CombatRules.CanDamage(damageInfo, target))
                         target.TakeDamage(damageInfo);
+                
+                hitSomething = true;
             }
             //collision mask
             else if (!other.gameObject.CompareTag(gameObject.transform.root.tag) && (collisionMask.value & (1 << other.gameObject.layer)) > 0)

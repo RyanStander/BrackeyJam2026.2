@@ -31,6 +31,7 @@ namespace Events
 
         UpdatePlayerScrapCount,
         UpdatePlayerHealth,
+        SetPlayerHealth,
 
         #endregion
     }
