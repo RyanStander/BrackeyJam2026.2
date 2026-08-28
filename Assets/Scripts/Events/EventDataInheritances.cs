@@ -66,6 +66,8 @@ namespace Events
         public OnEnemyDeath() : base(EventType.OnEnemyDeath){}
     }
 
+    #region UI Displays
+
     public class UpdatePlayerScrapCount: EventData
     {
         public readonly int CurrentScrap;
@@ -75,4 +77,20 @@ namespace Events
             CurrentScrap = currentScrap;
         }
     }
+    
+    public class UpdatePlayerHealth: EventData
+    {
+        public readonly float CurrentHealth;
+        public readonly float MaxHealth;
+
+        public UpdatePlayerHealth(float currentHealth, float maxHealth) : base(EventType.UpdatePlayerHealth)
+        {
+            CurrentHealth = currentHealth;
+            MaxHealth = maxHealth;
+        }
+    }
+
+    #endregion
+    
+    
 }

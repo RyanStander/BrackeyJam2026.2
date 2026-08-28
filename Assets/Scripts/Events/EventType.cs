@@ -30,6 +30,7 @@ namespace Events
         #region Inventory
 
         UpdatePlayerScrapCount,
+        UpdatePlayerHealth,
 
         #endregion
     }

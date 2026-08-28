@@ -1,6 +1,7 @@
 using System.Collections;
 using Combat.Data;
 using Combat.Stats;
+using Events;
 using UnityEngine;
 
 public class PlayerHealth : Health
@@ -15,6 +16,7 @@ public class PlayerHealth : Health
             return;
         }
         base.TakeDamage(damageInfo);
+        EventManager.currentManager.AddEvent(new UpdatePlayerHealth(currentHealth, maxHealth));
     }
 
     public void TriggerIFrames()
