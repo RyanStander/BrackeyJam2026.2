@@ -1,35 +1,84 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AI;
 
 namespace Movement
 {
+    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(Rigidbody))]
     public class AiMovement : MonoBehaviour
     {
-        [SerializeField] private Rigidbody aiRigidbody;
+        [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private Rigidbody rb;
         [SerializeField] public float speed = 1;
         [SerializeField] private float range = 5;
 
+        private bool isOverridden;
+
         private void OnValidate()
         {
-            if (aiRigidbody == null)
-                aiRigidbody = GetComponent<Rigidbody>();
+            if (agent == null) agent = GetComponent<NavMeshAgent>();
+            if (rb == null) rb = GetComponent<Rigidbody>();
         }
+
+        private void Awake()
+        {
+            agent.speed = speed;
+            rb.isKinematic = true; 
+        }
+
+        public void BeginManualOverride()
+        {
+            if (isOverridden) return;
+            isOverridden = true;
+            agent.enabled = false;
+            rb.isKinematic = false;
+        }
+
+        public void EndManualOverride()
+        {
+            if (!isOverridden) return;
+            isOverridden = false;
+            rb.isKinematic = true;
+            agent.enabled = true;
+            agent.Warp(transform.position);
+        }
+
+        public bool IsOverridden => isOverridden;
 
         public void MovePosition(Vector3 nextPosition)
         {
-            nextPosition.y = aiRigidbody.position.y;
-            aiRigidbody.MovePosition(nextPosition);
+            if (isOverridden)
+            {
+                rb.MovePosition(nextPosition);
+            }
+            else
+            {
+                agent.Warp(nextPosition);
+            }
         }
 
         public void MovementTick(Vector3 targetPosition)
         {
-            Vector3 direction = (targetPosition - transform.position).normalized;
-            Vector3 nextPosition = transform.position + direction * (speed * Time.deltaTime);
-            nextPosition.y = aiRigidbody.position.y;
+            if (isOverridden) return;
 
-            if (Vector3.Distance(nextPosition, targetPosition) > range)
+            float currentDistance = Vector3.Distance(transform.position, targetPosition);
+
+            if (currentDistance > range)
             {
-                MovePosition(nextPosition);
+                Vector3 destination = targetPosition;
+
+                if (range > 0f)
+                {
+                    // stop at preferredRange away from the target, not on top of it
+                    Vector3 direction = (transform.position - targetPosition).normalized;
+                    destination = targetPosition + direction * range;
+                }
+
+                agent.SetDestination(destination);
+            }
+            else
+            {
+                agent.ResetPath();
             }
         }
     }

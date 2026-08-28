@@ -25,7 +25,7 @@ namespace Controllers
         public bool WasExploited { get; private set; }
         public string TargetTag = "Player";
         public Faction Faction = Faction.Enemies;
-        
+
         public static event Action<AIController, bool> OnEnemyDeath;
         public bool IsEnemyFaction => TargetTag == "Player";
 
@@ -118,7 +118,7 @@ namespace Controllers
             EventManager.currentManager.AddEvent(new CreatePickup(PickupType.Scrap, transform.position));
             Destroy(gameObject);
         }
-        
+
         private void HandleOwnDeath()
         {
             if (IsEnemyFaction)
@@ -141,8 +141,12 @@ namespace Controllers
             WasExploited = true;
             return true;
         }
-        
-        public enum BetrayalType { Hostile, StealLoot }
+
+        public enum BetrayalType
+        {
+            Hostile,
+            StealLoot
+        }
 
         public void TriggerBetrayal(BetrayalType type)
         {
@@ -155,9 +159,18 @@ namespace Controllers
                     break;
 
                 case BetrayalType.StealLoot:
-                    Debug.LogWarning($"{gameObject.name}: StealLoot betrayal not yet implemented, falling back to Hostile.");
+                    Debug.LogWarning(
+                        $"{gameObject.name}: StealLoot betrayal not yet implemented, falling back to Hostile.");
                     goto case BetrayalType.Hostile;
             }
+        }
+
+        public bool IsAllyOfTarget(GameObject obj)
+        {
+            if (TargetTag == "Player")
+                return obj.CompareTag("Player") || obj.CompareTag("Companion");
+
+            return obj.CompareTag("Enemy");
         }
     }
 }
