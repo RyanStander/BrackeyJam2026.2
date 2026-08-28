@@ -9,6 +9,14 @@ namespace Events
 
         ReceiveDebug,
 
+        #region Waves
+        OnWaveStart,
+        OnWaveEnd,
+        OnBossStart,
+        OnBossEnd,
+        #endregion
+
+
         #region Factories
 
         CreateEnemy,
@@ -16,6 +24,5 @@ namespace Events
         CreatePickup,
 
         #endregion
-
     }
 }
