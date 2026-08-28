@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float lungeDuration = 0.5f;
     [SerializeField] private float lungeDistance = 5f;
     [SerializeField] private float lungeSpeed = 10f;
+
+    [SerializeField] private SpriteRenderer visualRenderer;
+    [SerializeField] private Sprite[] directionSprites = new Sprite[8];
     
     private float nextLungeTime;
     private Transform playerVisual;
@@ -41,9 +44,17 @@ public class PlayerMovement : MonoBehaviour
 
             angle = Mathf.Round(angle / 45f) * 45f;
 
+            int i = ((Mathf.RoundToInt(angle / 45f)) % 8 + 8) % 8;
+
+            if (visualRenderer && directionSprites[i]) 
+            {
+                visualRenderer.sprite = directionSprites[i];
+                //transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            }
             //transform.rotation = Quaternion.Euler(0f, 0f, -angle);
             //transform.rotation = Quaternion.Euler(0f, -angle, 0f);
-            transform.rotation = Quaternion.Euler(90f, angle, 0f); //got it so we actually rotate, no more bs direction code outside this, can use trans.forward
+            //transform.rotation = Quaternion.Euler(0f, angle, 0f); //got it so we actually rotate, no more bs direction code outside this, can use trans.forward
+        // this is now broken and we aren't actually turning our gameobject just the sprite..
         }
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -75,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         playerHealth.TriggerIFrames(lungeDuration); //going off the extended player heahth to handle
         float duration = lungeDuration;
         float distance = lungeDistance;
-        Vector3 dir = transform.up;
+        Vector3 dir = new Vector3(playerMovementInput.x, 0f, playerMovementInput.y).normalized;
         float elapsed = 0f;
         while (elapsed < duration)
         {
