@@ -1,12 +1,7 @@
 using Expeditions.Room;
 using UnityEngine;
 
-namespace Events
-{
-    public class CommandAreaExit : EventData
-    {
-        public CommandAreaExit() : base(EventType.CommandAreaExit) { }
-    }
+namespace Events {
     public class ExecuteCombatRoom : EventData
     {
         public readonly RoomManager SourceRoom;

@@ -4,18 +4,22 @@ namespace Events
     public enum EventType
     {
         CommandRoomChange, // Archived
-        CommandAreaExit, // Archived
+
         ExecuteCombatRoom, // Archived
 
         ReceiveDebug,
 
-        #region Waves
-        OnWaveStart,
-        OnWaveEnd,
-        OnBossStart,
-        OnBossEnd,
-        #endregion
+        #region Arena
+        ReturnToHub,
 
+        #region Waves
+        WaveStart,
+        WaveEnd,
+        BossStart,
+        BossEnd,
+        WavesCompleted,
+        #endregion
+        #endregion
 
         #region Factories
 

@@ -36,7 +36,35 @@ namespace Events
         }
     }
 
+    public class ReturnToHub : EventData
+    {
+        public ReturnToHub() : base(EventType.ReturnToHub) { }
+    }
+
     public class OnEnemyDeath : EventData { 
         public OnEnemyDeath() : base(EventType.OnEnemyDeath){}
+    }
+
+    public class WaveStart : EventData
+    {
+        public WaveStart() : base(EventType.WaveStart) { }
+    }
+    public class WaveEnd : EventData
+    {
+        public WaveEnd() : base(EventType.WaveEnd) { }
+    }
+
+    public class BossStart : EventData
+    {
+        public BossStart() : base(EventType.BossStart) { }
+    }
+    public class BossEnd : EventData
+    {
+        public BossEnd() : base(EventType.BossEnd) { }
+    }
+
+    public class WavesCompleted : EventData
+    {
+        public WavesCompleted() : base(EventType.WavesCompleted) { }
     }
 }

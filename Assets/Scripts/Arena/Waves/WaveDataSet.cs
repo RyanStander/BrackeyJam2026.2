@@ -1,7 +1,7 @@
 using Arena.Wave;
 using UnityEngine;
 
-namespace Arena
+namespace Arena.Wave
 {
     [CreateAssetMenu(fileName = "WaveDataSet", menuName = "Arena/Wave/Set")]
     public class WaveDataSet : ScriptableObject

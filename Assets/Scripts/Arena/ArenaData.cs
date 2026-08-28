@@ -1,6 +1,4 @@
 using Arena.Wave;
-using AYellowpaper.SerializedCollections;
-using Factories;
 using UnityEngine;
 
 namespace Arena
@@ -11,5 +9,7 @@ namespace Arena
         [field: SerializeField]
         public WaveDataSet Waves { get; private set; }
 
+        [field: SerializeField, Range(0, 5)]
+        public int WaveDelay { get; private set; } = 5;
     }
 }

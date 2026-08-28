@@ -412,6 +412,17 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &422667857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5811155894313177399, guid: 8a4fec573c5a6be4c8e2f7178d04b4ab, type: 3}
+  m_PrefabInstance: {fileID: 4773595947046948286}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18aedeeb130f06b40817bb8c10484d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &786883556
 GameObject:
   m_ObjectHideFlags: 3
@@ -507,6 +518,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &804961269 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7920726732399814184, guid: fcff3a070dba9ed47a6b5d9578bcc834, type: 3}
+  m_PrefabInstance: {fileID: 1078340508}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &841920483
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,6 +873,22 @@ Transform:
   - {fileID: 786883557}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1433877379 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 407827766725531477, guid: 8a4fec573c5a6be4c8e2f7178d04b4ab, type: 3}
+  m_PrefabInstance: {fileID: 4773595947046948286}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18aedeeb130f06b40817bb8c10484d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1788978093 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1289288768637535523, guid: eb54407ce42bb4c3b9a8277f1d6a8a03, type: 3}
+  m_PrefabInstance: {fileID: 1136511343}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1938588939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -973,6 +1005,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2124940223}
   - component: {fileID: 2124940224}
+  - component: {fileID: 2124940225}
   m_Layer: 0
   m_Name: ArenaManager
   m_TagString: Untagged
@@ -1007,7 +1040,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dcf60c7c193de146a5ce8c2c4f7fbf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ActiveArenaData>k__BackingField: {fileID: 11400000, guid: bc6ac9d303ac4c44ba2d54f60fc3ac89, type: 2}
+  data: {fileID: 11400000, guid: bc6ac9d303ac4c44ba2d54f60fc3ac89, type: 2}
+  combatHelper: {fileID: 2124940225}
+  playerCharacter: {fileID: 1788978093}
+  companionCharacter: {fileID: 804961269}
+--- !u!114 &2124940225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124940221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53d28c5ea04f74aac8032aef8479a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <SpawnPoints>k__BackingField:
+  - {fileID: 1433877379}
+  - {fileID: 2126700639}
+  - {fileID: 422667857}
+  SpawnInterval: 0.5
+--- !u!114 &2126700639 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 503987840039591675, guid: 8a4fec573c5a6be4c8e2f7178d04b4ab, type: 3}
+  m_PrefabInstance: {fileID: 4773595947046948286}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18aedeeb130f06b40817bb8c10484d85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4773595947046948286
 PrefabInstance:
   m_ObjectHideFlags: 0

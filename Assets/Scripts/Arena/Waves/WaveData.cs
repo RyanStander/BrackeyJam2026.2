@@ -1,5 +1,6 @@
 using AYellowpaper.SerializedCollections;
 using Factories;
+using System.Collections.Generic;
 using UnityEngine;
 using EventType = Events.EventType;
 
@@ -16,9 +17,9 @@ namespace Arena.Wave
 
         // Doesnt do anything yet, but could be used to define events
         [field: SerializeField, Tooltip("Events (other than OnWaveStart) that should fire at the start of a wave.")]
-        public EventType[] OnStartEvents { get; private set; }
+        public List<EventType> OnStartEvents { get; private set;} = new();
 
         [field: SerializeField, Tooltip("Events (other than OnWaveEnd) that should fire at the end of a wave")]
-        public EventType[] OnEndEvents { get; private set; }
+        public List<EventType> OnEndEvents { get; private set; } = new();
     }
 }
