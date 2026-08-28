@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody playerRb;
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private PlayerAnimationController animationController;
+    [SerializeField] private PlayerAttack playerAttack;
 
     private Vector2 movementInput;
     private Vector3 currentVelocity;
@@ -41,12 +42,16 @@ public class PlayerMovement : MonoBehaviour
             playerHealth = GetComponent<PlayerHealth>();
         if (animationController == null)
             animationController = GetComponent<PlayerAnimationController>();
+        if (playerAttack == null)
+            playerAttack = GetComponent<PlayerAttack>();
     }
 
     private void Update()
     {
         ReadMovementInput();
-        animationController.UpdateDirection(movementInput);
+        int directionIndex = GetDirectionIndex(movementInput);
+        animationController.UpdateDirection(directionIndex,movementInput.sqrMagnitude);
+        playerAttack.SetAttackDirection(directionIndex,movementInput.sqrMagnitude);
         HandleLungeInput();
     }
 
@@ -71,6 +76,18 @@ public class PlayerMovement : MonoBehaviour
 
         currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
         playerRb.MovePosition(playerRb.position + currentVelocity * Time.fixedDeltaTime);
+    }
+    
+    /// <summary>
+    /// Converts an input vector into one of 8 cardinal direction indices (0-7),
+    /// snapped to the nearest 45-degree increment.
+    /// </summary>
+    private int GetDirectionIndex(Vector2 input)
+    {
+        float angle = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg;
+        float snappedAngle = Mathf.Round(angle / 45f) * 45f;
+        int index = Mathf.RoundToInt(snappedAngle / 45f);
+        return ((index % 8) + 8) % 8;
     }
 
     #endregion

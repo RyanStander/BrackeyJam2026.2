@@ -87,6 +87,7 @@ MonoBehaviour:
   playerRb: {fileID: 7534516914374267157}
   playerHealth: {fileID: 2117350917193679964}
   animationController: {fileID: 291283113348353092}
+  playerAttack: {fileID: 167881784292649713}
 --- !u!114 &167881784292649713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,14 +101,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeAttackDamage: 10
-  shootAttackDamage: 10
   attackPoint: {fileID: 8425354070398140011}
   attackCooldown: 0.5
   attackRadius: 1
-  attackOffset: {x: 0, y: 0.5, z: 0}
-  bulletPrefab: {fileID: 0}
   meleePrefab: {fileID: 7977160062466494192}
-  playerMovement: {fileID: 0}
+  playerMovement: {fileID: 1489994797615126054}
+  attackBackOffset: {x: 0, y: 2, z: 1.5}
+  attackFrontOffset: {x: 0, y: 2, z: -1.5}
+  attackLeftOffset: {x: -1.5, y: 2, z: 0}
+  attackRightOffset: {x: 1.5, y: 2, z: 0}
+  attackUpRightOffset: {x: 1, y: 2, z: 1}
+  attackDownRightOffset: {x: 1, y: 2, z: -1}
+  attackUpLeftOffset: {x: -1, y: 2, z: -1}
+  attackDownLeftOffset: {x: -1, y: 2, z: 1}
 --- !u!114 &2117350917193679964
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -49,9 +49,9 @@ namespace Player
 
         #region Public API
 
-        public void UpdateDirection(Vector2 movementInput)
+        public void UpdateDirection(int directionIndex, float movementMagnitude)
         {
-            if (movementInput.sqrMagnitude <= 0f)
+            if (movementMagnitude <= 0f)
             {
                 SetIdleDirectionAnimation();
             }
@@ -65,7 +65,7 @@ namespace Player
                 //5=down diagonal right
                 //6=right
                 //7=up diagonal right
-                SetRunDirectionAnimation(GetDirectionIndex(movementInput));
+                SetRunDirectionAnimation(directionIndex);
             }
         }
 
@@ -174,18 +174,6 @@ namespace Player
                 case sideRunAnimationName: return idleSideAnimationName;
             }
             return "";
-        }
-
-        /// <summary>
-        /// Converts an input vector into one of 8 cardinal direction indices (0-7),
-        /// snapped to the nearest 45-degree increment.
-        /// </summary>
-        private int GetDirectionIndex(Vector2 input)
-        {
-            float angle = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg;
-            float snappedAngle = Mathf.Round(angle / 45f) * 45f;
-            int index = Mathf.RoundToInt(snappedAngle / 45f);
-            return ((index % 8) + 8) % 8;
         }
 
         #endregion
