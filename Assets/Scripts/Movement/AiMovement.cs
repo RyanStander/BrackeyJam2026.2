@@ -23,7 +23,8 @@ namespace Movement
         private void Awake()
         {
             agent.speed = speed;
-            rb.isKinematic = true; 
+            rb.isKinematic = true;
+            agent.updateRotation = false;
         }
 
         public void BeginManualOverride()
