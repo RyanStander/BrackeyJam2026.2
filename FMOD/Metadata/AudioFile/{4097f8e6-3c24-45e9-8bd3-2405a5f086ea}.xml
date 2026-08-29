@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{4097f8e6-3c24-45e9-8bd3-2405a5f086ea}">
+		<property name="assetPath">
+			<value>gunslinger_damaged.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.60266666666666668</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c031d806-8018-4c12-9d96-7184ab73c200}</destination>
+		</relationship>
+	</object>
+</objects>
