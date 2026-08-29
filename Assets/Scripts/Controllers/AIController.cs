@@ -129,6 +129,7 @@ namespace Controllers
         {
             stateMachine.Stun(duration);
             exploited = true;
+            EventManager.currentManager.AddEvent(new EnemyExploited(this));
         }
 
         //for damage bonus on exploited enemies, should only happen once

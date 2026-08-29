@@ -1,4 +1,6 @@
 
+using Controllers;
+
 namespace Events
 {
     
@@ -101,6 +103,43 @@ namespace Events
     }
 
     #endregion
+
+    #region Inventory
+
+    public class ScrapPickedUp : EventData
+    {
+        public readonly int ScrapCount;
+
+        public ScrapPickedUp(int scrapCount) : base(EventType.ScrapPickedUp)
+        {
+            ScrapCount = scrapCount;
+        }
+    }
+
+    public class ScrapPayout : EventData
+    {
+        public readonly int ScrapCount;
+
+        public ScrapPayout(int scrapCount) : base(EventType.ScrapPayout)
+        {
+            ScrapCount = scrapCount;
+        }
+    }
+
+    #endregion
     
-    
+    #region Combat
+
+    public class EnemyExploited : EventData
+    {
+        public readonly AIController ExploitedEnemy;
+
+        public EnemyExploited(AIController exploitedEnemy) : base(EventType.EnemyExploited)
+        {
+            ExploitedEnemy = exploitedEnemy;
+        }
+    }
+
+    #endregion
 }
+
