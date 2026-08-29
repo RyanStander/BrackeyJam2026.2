@@ -1,13 +1,23 @@
+using System;
 using System.Collections;
+using Combat.Animations;
 using Combat.Data;
 using Combat.Stats;
 using Events;
 using UnityEngine;
 
+[RequireComponent(typeof(DeathFallEffect))]
 public class PlayerHealth : Health
 {
     [SerializeField] private float iFrameDuration = 1f;
+    [SerializeField] private DeathFallEffect deathFallEffect;
     private bool iFrameActive = false;
+
+    private void OnValidate()
+    {
+        if (deathFallEffect == null)
+            deathFallEffect = GetComponent<DeathFallEffect>();
+    }
 
     protected override void Awake()
     {
@@ -25,7 +35,10 @@ public class PlayerHealth : Health
         EventManager.currentManager.AddEvent(new UpdatePlayerHealth(currentHealth));
 
         if (isDead)
+        {
             EventManager.currentManager.AddEvent(new PlayerDied(LastKiller));
+            deathFallEffect.PlayDeath();
+        }
     }
 
     public void TriggerIFrames()

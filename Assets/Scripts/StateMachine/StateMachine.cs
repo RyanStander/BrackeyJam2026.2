@@ -73,7 +73,6 @@ namespace StateMachine
                     if (stunTimer <= 0)
                     {
                         state = State.Chase;
-                        controller.AnimationController.PauseOnCurrentFrame();
                     }
                     break;
                 default:

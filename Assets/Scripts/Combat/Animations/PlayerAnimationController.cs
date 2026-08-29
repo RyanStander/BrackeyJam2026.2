@@ -73,6 +73,11 @@ namespace Combat.Animations
 
         #region Animation Selection
 
+        public void FreezeOnDeath()
+        {
+            animationState.TimeScale = 0f;
+        }
+        
         private void SetRunDirectionAnimation(int directionIndex)
         {
             string targetAnimation = GetRunDirectionAnimation(directionIndex);

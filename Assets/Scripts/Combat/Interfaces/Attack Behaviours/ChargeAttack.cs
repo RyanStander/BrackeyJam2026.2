@@ -62,7 +62,6 @@ namespace Combat.Interfaces.Attack_Behaviours
                 if (Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance)
                 {
                     phase = Phase.Done;
-                    controller.AnimationController.PauseOnCurrentFrame();
                 }
                 
                 HandleHit(controller);

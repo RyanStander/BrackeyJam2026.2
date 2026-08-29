@@ -125,7 +125,7 @@ namespace Combat.Animations
                     FacingCategory.Side => stunSideAnimationName,
                     _ => ""
                 };
-                PlaySpine(clip, false, faceLeft, index);
+                PlaySpine(clip, true, faceLeft, index);
             }
         }
 
