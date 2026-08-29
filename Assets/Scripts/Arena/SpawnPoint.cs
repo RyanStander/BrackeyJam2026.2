@@ -10,6 +10,6 @@ namespace Arena
         public SpawnPointType Type { get; private set; }
 
         [field: SerializeField]
-        public EnemyType[] Enemies { get; private set; }
+        public EnemyType[] EnemyTypes { get; private set; }
     }
 }

@@ -1,7 +1,10 @@
 using Arena.Wave;
 using Events;
 using Factories;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using EventType = Events.EventType;
 
@@ -22,6 +25,7 @@ namespace Arena
 
         [field: SerializeField]
         public SpawnPoint[] SpawnPoints { get; private set; }
+        private readonly Dictionary<EnemyType, List<SpawnPoint>> SortedSpawns = new();
 
         [field: SerializeField, Range(0.1f, 2)]
         private float SpawnInterval = 0.5f;
@@ -34,6 +38,37 @@ namespace Arena
         private void OnDisable()
         {
             EventManager.currentManager.Unsubscribe(EventType.OnEnemyDeath, OnEnemyDeath);
+        }
+
+        private void Start()
+        {
+            SortSpawnPoints();
+        }
+
+        public void SortSpawnPoints()
+        {
+            foreach (EnemyType type in Enum.GetValues(typeof(EnemyType)))
+            {
+                SortedSpawns[type] = new();
+                foreach (SpawnPoint point in SpawnPoints)
+                {
+                    bool contains = point.EnemyTypes.Contains(type);
+                    switch (point.Type)
+                    {
+                        case SpawnPointType.Undefined:
+                            SortedSpawns[type].Add(point);
+                            break;
+                        case SpawnPointType.Whitelist:
+                            if (contains) SortedSpawns[type].Add(point);
+                            break;
+                        case SpawnPointType.Blacklist:
+                            if (!contains) SortedSpawns[type].Add(point);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         }
 
         private void RunWaveEvents(ICollection<EventType> events)
@@ -116,8 +151,27 @@ namespace Arena
 
         private Vector3 GetSpawnPointFiltered(EnemyType type)
         {
-            // TODO: Filter against spawn point filters, for now just randomly pick.
-            Vector3 pos = SpawnPoints[0].transform.position; pos.y++;
+            GameObject point;
+            if (SortedSpawns[type].Count > 0)
+            {
+                point = SortedSpawns[type][UnityEngine.Random.Range(0, SortedSpawns[type].Count)].gameObject;
+            }
+            else
+            {
+                point = gameObject;
+                Debug.LogError("Failed to find spawn point with sufficient, defaulting to this manager.");
+            }
+
+            Vector3 pos = point.transform.position;
+            switch (type)
+            {
+                case EnemyType.MooBoss:
+                    pos.y += 4;
+                    break;
+                default:
+                    pos.y += 1.75f;
+                    break;
+            }
             return pos;
         }
 
@@ -173,6 +227,6 @@ namespace Arena
                 WaveQueue.Enqueue(wave);
             }
             IsRunning = true;
-        }    
+        }
     }
 }
