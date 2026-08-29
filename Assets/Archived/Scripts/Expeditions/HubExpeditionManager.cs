@@ -9,12 +9,8 @@ public class HubExpeditionManager : MonoBehaviour
     [SerializeField]
     private RegionData activeRegion;
 
-    // Currently no progression
-    [SerializeField][Range(0, 4)]
-    private int currentArea = 0;
-
     [SerializeField]
-    private Button[] prototype_AreaButtons;
+    private Button[] prototypeAreaButtons;
 
     [SerializeField]
     private TMP_Text region, destination, stickyNote;
@@ -23,7 +19,7 @@ public class HubExpeditionManager : MonoBehaviour
     private void OnAreaSelected(AreaData area)
     {
         Debug.Log("OnAreaSelected Requested: " + area.TargetScene + " (Loading Prototype Scene 'Expedition')...");
-        SceneManager.LoadScene("ArenaFightA", LoadSceneMode.Single); //area.TargetScene
+        SceneManager.LoadScene(area.TargetScene, LoadSceneMode.Single); //area.TargetScene
     }
 
     // Currently only changes data display
@@ -33,20 +29,26 @@ public class HubExpeditionManager : MonoBehaviour
         destination.text = "Destination: " + activeRegion.RegionDestination;
         stickyNote.text = activeRegion.StickyNoteText;
 
+        if (GameState.CurrentArea >= activeRegion.AreasLinear.Length)
+        {
+            //TODO: Tell player that they are done with the game and need to reset.
+            return;
+        }
+
         // TODO: Separate this into its own manager and implement branching, for now we assume a linear path.
         for (int i = 0; i < activeRegion.AreasLinear.Length; i++)
         {
-            bool is_current = (i == currentArea);
-            bool is_past = (i < currentArea);
-            bool is_next = (i == currentArea + 1);
-            bool is_known = is_current || is_past || is_next;
+            bool isCurrent = (i == GameState.CurrentArea);//0:true|1:false|2:false|3:false
+            bool isPast = (i < GameState.CurrentArea);//0:false|1:false|2:false|3:false
+            bool isNext = (i == GameState.CurrentArea + 1);//0:false|1:true|2:false|3:false
+            bool isKnown = isCurrent || isPast || isNext;//0:true|1:true|2:false|3:false
 
-            prototype_AreaButtons[i].enabled = is_next || !is_known;
-            prototype_AreaButtons[i].interactable = is_next;
-            prototype_AreaButtons[i].image.sprite = activeRegion.Icons.GetMapIcon(is_current, is_past, is_next);
+            prototypeAreaButtons[i].enabled = true;
+            prototypeAreaButtons[i].interactable = isCurrent;
+            prototypeAreaButtons[i].image.sprite = activeRegion.Icons.GetMapIcon(isCurrent, isPast, isNext);
 
             int index = i; // Scope requirement for listener below
-            prototype_AreaButtons[i].onClick.AddListener(() => OnAreaSelected(activeRegion.AreasLinear[index]));
+            prototypeAreaButtons[i].onClick.AddListener(() => OnAreaSelected(activeRegion.AreasLinear[index]));
         }
     }
 

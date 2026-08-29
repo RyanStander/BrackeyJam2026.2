@@ -76,8 +76,7 @@ namespace UI
 
         private float GetCurrentGrievance()
         {
-            CompanionGrievance companionGrievance = FindObjectOfType<CompanionGrievance>();
-            return companionGrievance != null ? companionGrievance.Grievance : 100f;
+            return GameState.CompanionGrievance;
         }
 
         public void ConfirmReturnToHub()
