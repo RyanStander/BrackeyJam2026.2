@@ -39,6 +39,14 @@ namespace Combat.Interfaces.Attack_Behaviours
 
             if (phase == Phase.Windup && timer >= config.WindupTime)
             {
+                if (controller.Target == null)
+                {
+                    phase = Phase.Done;
+                    timer = 0f;
+                    controller.Animator.SetTrigger("End");
+                    return;
+                }
+                
                 phase = Phase.Shooting;
                 timer = 0f;
                 controller.Animator.SetTrigger("Shoot");

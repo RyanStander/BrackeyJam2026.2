@@ -10,14 +10,13 @@ public class ScrapPickup : MonoBehaviour
     [SerializeField] private float magnetRadius = 5f;
     [SerializeField] private float magnetSpeed = 100f;
     [SerializeField] private float acceleration = 50f;
-    [SerializeField] private Transform player;
+    private Transform player;
     private float currentSpeed = 0f;
     private bool isPulling = false;
 
-    private void OnValidate()
+    private void Start()
     {
-        if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
