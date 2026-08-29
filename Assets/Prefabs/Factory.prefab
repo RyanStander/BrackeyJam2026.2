@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChargerPrefab: {fileID: 4158104878678058585, guid: 30c3bcd809a2f8148a649c389c8a19d1, type: 3}
   SwatterPrefab: {fileID: 7405055396904231436, guid: 3b5283607220b1347b325fae0cbed017, type: 3}
-  MooBossPrefab: {fileID: 8386104563028974710, guid: c72a0b87604e34ba5b20999d8fd392de, type: 3}
+  MooBossPrefab: {fileID: 1957064818144231722, guid: ed12c81f94e1ace46b79e24420be5b52, type: 3}
 --- !u!114 &3621260968624905509
 MonoBehaviour:
   m_ObjectHideFlags: 0

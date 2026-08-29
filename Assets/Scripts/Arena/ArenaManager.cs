@@ -17,8 +17,8 @@ namespace Arena
         [SerializeField]
         private GameObject playerCharacter, companionCharacter;
 
-        [Range(0, 5)]
-        private const int arenaStartDelay = 2;
+        [Tooltip("Only applicable if there is not already a delay with the spawner"), Range(0, 5)]
+        private const int arenaStartDelay = 5;
 
         private void OnEnable()
         {
@@ -39,7 +39,7 @@ namespace Arena
 
         private void Start()
         {
-            Invoke(nameof(OnRunWaves), arenaStartDelay);
+            Invoke(nameof(OnRunWaves), data.WaveDelay != 0 ? 0 : arenaStartDelay);
         }
 
         private void OnWavesCompleted(EventData eventData)
