@@ -121,7 +121,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8105646230504173019, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
       propertyPath: m_Name
-      value: WestSpawnPoint
+      value: EastSpawnPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
+      propertyPath: <Type>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
+      propertyPath: <EnemyTypes>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
+      propertyPath: <EnemyTypes>k__BackingField.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
+      propertyPath: <EnemyTypes>k__BackingField.Array.data[1]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -187,7 +203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
       propertyPath: <Type>k__BackingField
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
       propertyPath: <Enemies>k__BackingField.Array.size
@@ -257,7 +273,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8105646230504173019, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
       propertyPath: m_Name
-      value: EastSpawnPoint
+      value: WestSpawnPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
+      propertyPath: <Type>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
+      propertyPath: <EnemyTypes>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
+      propertyPath: <EnemyTypes>k__BackingField.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429078240405507734, guid: e13706ff7507fd04d8e2f4f76b952013, type: 3}
+      propertyPath: <EnemyTypes>k__BackingField.Array.data[1]
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
