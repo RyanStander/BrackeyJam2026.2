@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e814d8f8283812a4b9a367cee697ce86, type: 3}
-  m_Name: MooBossA5
+  m_Name: WaveD2
   m_EditorClassIdentifier: 
   EnemyCount:
     _serializedList:
-    - Key: 3
-      Value: 1
+    - Key: 1
+      Value: 4
     - Key: 2
-      Value: 5
-  <SpawnLimit>k__BackingField: 0
-  <OnStartEvents>k__BackingField: 06000000
-  <OnEndEvents>k__BackingField: 07000000
+      Value: 8
+  <SpawnLimit>k__BackingField: 8
+  <OnStartEvents>k__BackingField: 
+  <OnEndEvents>k__BackingField: 

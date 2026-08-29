@@ -23,7 +23,7 @@ public class HubExpeditionManager : MonoBehaviour
     private void OnAreaSelected(AreaData area)
     {
         Debug.Log("OnAreaSelected Requested: " + area.TargetScene + " (Loading Prototype Scene 'Expedition')...");
-        SceneManager.LoadScene("Expedition", LoadSceneMode.Single); //area.TargetScene
+        SceneManager.LoadScene("ArenaFightA", LoadSceneMode.Single); //area.TargetScene
     }
 
     // Currently only changes data display

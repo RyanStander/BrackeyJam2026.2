@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2957df7bd9d04d21a0861b106c9d4f48, type: 3}
   m_Name: GunslingerShootAttack
   m_EditorClassIdentifier: 
-  Damage: 25
+  Damage: 12
   AttackDistance: 15
   ProjectilePrefab: {fileID: 8714978201116413706, guid: c5fd67788c7e37b45930af524ab4d76b, type: 3}
   WindupTime: 0.3
   ProjectileSpeed: 15
   ReloadTime: 0.4
-  Cooldown: 4
+  Cooldown: 2

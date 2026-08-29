@@ -3390,7 +3390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeRegion: {fileID: 11400000, guid: 0f1fdec0d617b4a45a18a648b710b27b, type: 2}
-  currentArea: 1
+  currentArea: 0
   prototype_AreaButtons:
   - {fileID: 1153636942}
   - {fileID: 139000641}

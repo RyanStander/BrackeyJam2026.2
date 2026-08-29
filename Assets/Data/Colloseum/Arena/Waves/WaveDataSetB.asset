@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6ee45bd35794d9a9fd0d85066aedc88, type: 3}
-  m_Name: FleeAttack
+  m_Script: {fileID: 11500000, guid: a990b045fae742045be734fcf97b6d65, type: 3}
+  m_Name: WaveDataSetB
   m_EditorClassIdentifier: 
-  TooCloseDistance: 3
-  FleeDistance: 10
-  MaxFleeDuration: 2
-  Cooldown: 6
+  <Waves>k__BackingField:
+  - {fileID: 11400000, guid: 0a1fb7e614132724c8f544bce7432b02, type: 2}
+  - {fileID: 11400000, guid: cac919ce870d24541b8ac14f1141220b, type: 2}
