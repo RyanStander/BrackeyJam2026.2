@@ -1,5 +1,6 @@
 
 using Controllers;
+using UnityEngine;
 
 namespace Events
 {
@@ -137,6 +138,16 @@ namespace Events
         public EnemyExploited(AIController exploitedEnemy) : base(EventType.EnemyExploited)
         {
             ExploitedEnemy = exploitedEnemy;
+        }
+    }
+
+    public class PlayerDied : EventData
+    {
+        public readonly GameObject LastKiller;
+
+        public PlayerDied(GameObject lastKiller) : base(EventType.PlayerDied)
+        {
+            LastKiller = lastKiller;
         }
     }
 

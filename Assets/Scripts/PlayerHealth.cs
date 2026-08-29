@@ -23,6 +23,9 @@ public class PlayerHealth : Health
         }
         base.TakeDamage(damageInfo);
         EventManager.currentManager.AddEvent(new UpdatePlayerHealth(currentHealth));
+
+        if (isDead)
+            EventManager.currentManager.AddEvent(new PlayerDied(LastKiller));
     }
 
     public void TriggerIFrames()

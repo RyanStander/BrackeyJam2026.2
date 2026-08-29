@@ -40,6 +40,7 @@ namespace Events
         #region CombatEvents
 
         EnemyExploited,
+        PlayerDied,
 
         #endregion
     }

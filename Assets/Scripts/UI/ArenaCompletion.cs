@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Combat.Stats;
 using Events;
 using TMPro;
-using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using EventType = Events.EventType;
 
-namespace Arena
+namespace UI
 {
     public class ArenaCompletion : MonoBehaviour
     {
         [SerializeField] private float cheerDuration = 2f;
         [SerializeField] private GameObject overviewScreenUI;
 
-        [Header("Content")] [SerializeField] private TMP_Text scrapPayout;
+        [Header("Content")]
+        [SerializeField] private TMP_Text scrapPayout;
         [SerializeField] private TMP_Text scrapFound;
         [SerializeField] private GameObject itemList;
         [SerializeField] private TMP_Text killCount;
         [SerializeField] private TMP_Text exploitCount;
         [SerializeField] private TMP_Text companionOpinion;
         [SerializeField] private StatTracker statTracker;
-
-        private float grievance;
 
         private void OnValidate()
         {
@@ -64,46 +61,28 @@ namespace Arena
         private void ShowOverviewScreen()
         {
             overviewScreenUI.SetActive(true);
+
             scrapFound.text = statTracker.ScrapFound.ToString();
             scrapPayout.text = statTracker.ScrapPayout.ToString();
             exploitCount.text = statTracker.TotalExploitedEnemies.ToString();
             killCount.text = statTracker.TotalKills.ToString();
-            companionOpinion.text = GetCompanionOpinion();
-            companionOpinion.color = GetColor();
+
+            float grievance = GetCurrentGrievance();
+            companionOpinion.text = GrievanceLabelResolver.GetLabel(grievance);
+            companionOpinion.color = GrievanceLabelResolver.GetColor(grievance);
+
             //disable player controls
+        }
+
+        private float GetCurrentGrievance()
+        {
+            CompanionGrievance companionGrievance = FindObjectOfType<CompanionGrievance>();
+            return companionGrievance != null ? companionGrievance.Grievance : 100f;
         }
 
         public void ConfirmReturnToHub()
         {
             SceneManager.LoadScene("PlayerHub", LoadSceneMode.Single);
-        }
-
-        private string GetCompanionOpinion()
-        {
-            CompanionGrievance companionGrievance = FindObjectOfType<CompanionGrievance>();
-
-            if (companionGrievance == null)
-                grievance = 100;
-            else
-                grievance = companionGrievance.Grievance;
-
-            return grievance switch
-            {
-                < 12.5f => "Content",
-                < 25f => "Wary",
-                < 37.5f => "Unsure",
-                < 50f => "Suspicious",
-                < 62.5f => "Resentful",
-                < 75f => "Seething",
-                < 87.5f => "Furious",
-                _ => "Betrayed"
-            };
-        }
-        
-        private Color GetColor()
-        {
-            float t = Mathf.Clamp01(grievance / 100f);
-            return Color.Lerp(Color.green, Color.red, t);
         }
     }
 }
