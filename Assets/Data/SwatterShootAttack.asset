@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b82084fc6c474626861ea0f2bb7248c1, type: 3}
-  m_Name: ChargeAttack
+  m_Script: {fileID: 11500000, guid: 2957df7bd9d04d21a0861b106c9d4f48, type: 3}
+  m_Name: SwatterShootAttack
   m_EditorClassIdentifier: 
   Damage: 10
-  AttackDistance: 7
-  AttackSphereRadius: 1
-  WindupTime: 1
-  ChargeDistance: 15
-  ChargeSpeed: 20
-  StunSelfOnObstacleHit: 1
-  StunDuration: 1
-  Cooldown: 5
+  AttackDistance: 20
+  ProjectilePrefab: {fileID: 5310361853448261854, guid: 45d1553cd038c27488daac404811d86d, type: 3}
+  WindupTime: 0
+  ProjectileSpeed: 15
+  ReloadTime: 1.6
+  Cooldown: 4

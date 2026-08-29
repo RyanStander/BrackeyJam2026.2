@@ -257,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   maxLifetime: 5
+  pivotTransform: {fileID: 1102137595530351029}
 --- !u!54 &835460176409925376
 Rigidbody:
   m_ObjectHideFlags: 0
