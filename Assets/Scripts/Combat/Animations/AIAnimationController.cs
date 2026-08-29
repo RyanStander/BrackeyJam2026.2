@@ -20,6 +20,9 @@ namespace Combat.Animations
         [SerializeField] private string shootFrontAnimationName;
         [SerializeField] private string shootBackAnimationName;
         [SerializeField] private string shootSideAnimationName;
+        [SerializeField] private string stunFrontAnimationName;
+        [SerializeField] private string stunBackAnimationName;
+        [SerializeField] private string stunSideAnimationName;
 
         [Header("Diagonal Fake")]
         [Tooltip(
@@ -54,14 +57,14 @@ namespace Combat.Animations
 
         #region Public API
 
-        public void PlayRun(Vector3 direction)
+        public void PlayRun(Vector3 direction, float speed = 1f)
         {
             int index = GetDirectionIndex(direction);
             var (category, faceLeft) = GetFacing(index);
 
             if (animator != null)
             {
-                animator.speed = 1f;
+                animator.speed = speed;
                 animator.SetTrigger("Run"); // adjust name to match your Animator setup
             }
 
@@ -74,7 +77,7 @@ namespace Combat.Animations
                     FacingCategory.Side => runSideAnimationName,
                     _ => ""
                 };
-                PlaySpine(clip, true, faceLeft, index);
+                PlaySpine(clip, true, faceLeft, index,speed);
             }
         }
 
@@ -96,6 +99,30 @@ namespace Combat.Animations
                     FacingCategory.Front => shootFrontAnimationName,
                     FacingCategory.Back => shootBackAnimationName,
                     FacingCategory.Side => shootSideAnimationName,
+                    _ => ""
+                };
+                PlaySpine(clip, false, faceLeft, index);
+            }
+        }
+        
+        public void PlayStun(Vector3 direction)
+        {
+            int index = GetDirectionIndex(direction);
+            var (category, faceLeft) = GetFacing(index);
+
+            if (animator != null)
+            {
+                animator.speed = 1f;
+                animator.SetTrigger("Stunned");
+            }
+
+            if (spineState != null)
+            {
+                string clip = category switch
+                {
+                    FacingCategory.Front => stunFrontAnimationName,
+                    FacingCategory.Back => stunBackAnimationName,
+                    FacingCategory.Side => stunSideAnimationName,
                     _ => ""
                 };
                 PlaySpine(clip, false, faceLeft, index);
@@ -128,7 +155,7 @@ namespace Combat.Animations
 
         #region Internal
 
-        private void PlaySpine(string clipName, bool loop, bool faceLeft, int directionIndex)
+        private void PlaySpine(string clipName, bool loop, bool faceLeft, int directionIndex, float speed=1f)
         {
             if (string.IsNullOrEmpty(clipName)) return;
 
@@ -141,7 +168,7 @@ namespace Combat.Animations
                 currentSpineAnimation = clipName;
             }
 
-            spineState.TimeScale = 1f; // in case a previous phase paused it
+            spineState.TimeScale = speed; // in case a previous phase paused it
         }
 
         /// <summary>

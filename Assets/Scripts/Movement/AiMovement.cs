@@ -12,6 +12,7 @@ namespace Movement
         [SerializeField] private Rigidbody rb;
         [SerializeField] public float speed = 1;
         [SerializeField] private float range = 5;
+        [SerializeField] private float animSpeedModifier = 1f;
 
         [SerializeField] private AIAnimationController animationController;
 
@@ -84,7 +85,7 @@ namespace Movement
                 agent.SetDestination(destination);
                 Vector3 moveDirection = agent.velocity.sqrMagnitude > 0.01f ? agent.velocity.normalized : transform.forward;
                 if (animationController != null)
-                    animationController.PlayRun(moveDirection);
+                    animationController.PlayRun(moveDirection,animSpeedModifier);
             }
             else
             {

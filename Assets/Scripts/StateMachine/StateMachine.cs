@@ -48,6 +48,7 @@ namespace StateMachine
                     {
                         currentAttack = attackCandidate;
                         currentAttack.Telegraph(controller);
+                        controller.Movement.MovementTick(controller.transform.position);
                         state = State.Attacking;
                     }
                     break;
@@ -72,7 +73,7 @@ namespace StateMachine
                     if (stunTimer <= 0)
                     {
                         state = State.Chase;
-                        controller.Animator.SetTrigger("End");
+                        controller.AnimationController.PauseOnCurrentFrame();
                     }
                     break;
                 default:
