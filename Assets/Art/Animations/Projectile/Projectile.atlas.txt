@@ -1,0 +1,16 @@
+Projectile.png
+size:607,45
+filter:Linear,Linear
+pma:true
+fx1
+bounds:461,2,144,41
+offsets:2,2,148,45
+fx2
+bounds:99,5,163,38
+offsets:1,1,165,41
+fx3
+bounds:264,3,195,40
+offsets:2,1,199,43
+projectile
+bounds:2,18,95,25
+offsets:1,1,97,27

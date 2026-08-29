@@ -111,8 +111,7 @@ namespace Combat.Stats
 
         private void HandleEnemyDeath(AIController enemy, bool wasExploited)
         {
-            if (!wasExploited)
-                AddGrievance(GrievanceDataSet.FailedExploitGrievance);
+            AddGrievance(!wasExploited ? GrievanceDataSet.FailedExploitGrievance : GrievanceDataSet.ExploitGrievance);
         }
 
         private void TickProximityGrievance()

@@ -1,0 +1,92 @@
+Gunslinger.png
+size:281,665
+filter:Linear,Linear
+pma:true
+gunslighter_Einzelteile Copy 10
+bounds:2,250,107,84
+offsets:0,0,107,85
+gunslighter_Einzelteile Copy 12
+bounds:2,187,61,101
+offsets:0,1,61,102
+rotate:90
+gunslighter_Einzelteile Copy 13
+bounds:118,331,61,104
+gunslighter_Einzelteile Copy 14
+bounds:105,122,61,101
+offsets:0,1,61,102
+gunslighter_Einzelteile Copy 15
+bounds:111,225,61,104
+gunslighter_Einzelteile Copy 16
+bounds:181,299,50,97
+rotate:90
+gunslighter_Einzelteile Copy 17
+bounds:181,299,50,97
+rotate:90
+gunslighter_Einzelteile Copy 18
+bounds:181,299,50,97
+rotate:90
+gunslighter_Einzelteile Copy 19
+bounds:181,299,50,97
+rotate:90
+gunslighter_Einzelteile Copy 2
+bounds:2,437,117,184
+rotate:90
+gunslighter_Einzelteile Copy 20
+bounds:174,165,85,101
+offsets:1,1,86,102
+rotate:90
+gunslighter_Einzelteile Copy 21
+bounds:174,165,85,101
+offsets:1,1,86,102
+rotate:90
+gunslighter_Einzelteile Copy 22
+bounds:188,434,62,91
+rotate:90
+gunslighter_Einzelteile Copy 23
+bounds:188,434,62,91
+rotate:90
+gunslighter_Einzelteile Copy 24
+bounds:2,556,107,195
+offsets:0,0,107,197
+rotate:90
+gunslighter_Einzelteile Copy 27
+bounds:219,29,50,56
+offsets:0,0,51,56
+rotate:90
+gunslighter_Einzelteile Copy 28
+bounds:160,24,55,57
+rotate:90
+gunslighter_Einzelteile Copy 29
+bounds:181,351,81,97
+offsets:0,0,82,97
+rotate:90
+gunslighter_Einzelteile Copy 3
+bounds:2,97,94,88
+gunslighter_Einzelteile Copy 30
+bounds:168,81,82,93
+rotate:90
+gunslighter_Einzelteile Copy 31
+bounds:199,557,30,73
+rotate:90
+gunslighter_Einzelteile Copy 36
+bounds:199,589,74,77
+rotate:90
+gunslighter_Einzelteile Copy 39
+bounds:2,2,60,38
+offsets:0,0,61,38
+gunslighter_Einzelteile Copy 41
+bounds:174,252,105,45
+gunslighter_Einzelteile Copy 42
+bounds:174,252,105,45
+gunslighter_Einzelteile Copy 43
+bounds:2,42,53,60
+rotate:90
+gunslighter_Einzelteile Copy 5
+bounds:98,30,60,90
+offsets:26,0,86,119
+gunslighter_Einzelteile Copy 6
+bounds:2,336,99,114
+rotate:90
+gunslighter_Einzelteile Copy 9
+bounds:199,498,57,71
+rotate:90

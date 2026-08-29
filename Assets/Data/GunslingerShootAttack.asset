@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2957df7bd9d04d21a0861b106c9d4f48, type: 3}
-  m_Name: ShootAttack
+  m_Name: GunslingerShootAttack
   m_EditorClassIdentifier: 
   Damage: 25
   AttackDistance: 15

@@ -17,7 +17,7 @@ MonoBehaviour:
   AttackSphereRadius: 1
   WindupTime: 1
   ChargeDistance: 15
-  ChargeSpeed: 15
+  ChargeSpeed: 20
   StunSelfOnObstacleHit: 1
   StunDuration: 1
   Cooldown: 5

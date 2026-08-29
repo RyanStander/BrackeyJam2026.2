@@ -9,10 +9,7 @@ namespace Player
     public class PlayerAttack : MonoBehaviour
     {
         [SerializeField] private int meleeAttackDamage = 10;
-        [SerializeField] private Transform attackPoint;
         [SerializeField] private float attackCooldown = 0.5f;
-        [SerializeField] private float attackRadius = 1f;
-        [SerializeField] private GameObject meleePrefab;
 
         [SerializeField] private PlayerMovement playerMovement;
 
@@ -42,11 +39,6 @@ namespace Player
                 weaponSwingController = GetComponent<WeaponSwingController>();
             if (meleeHitbox == null)
                 GetComponentInChildren<MeleeHitbox>();
-        }
-
-        private void Start()
-        {
-            meleePrefab.SetActive(false);
         }
 
         private void Update()
@@ -89,18 +81,6 @@ namespace Player
             meleeHitbox.BeginSwing(meleeAttackDamage, gameObject);
             weaponSwingController.PlaySwing(currentDirectionIndex, attackOffset);
             nextAttackTime = Time.time + attackCooldown;
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            if (attackPoint == null)
-            {
-                return;
-            }
-
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackPoint.position + attackOffset, attackRadius);
-            Gizmos.color = Color.white;
         }
     }
 }

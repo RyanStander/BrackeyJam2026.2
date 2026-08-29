@@ -31,7 +31,16 @@ namespace Events
 
         UpdatePlayerScrapCount,
         UpdatePlayerHealth,
+        ScrapPickedUp,
+        ScrapPayout,
         SetPlayerHealth,
+
+        #endregion
+
+        #region CombatEvents
+
+        EnemyExploited,
+        PlayerDied,
 
         #endregion
     }

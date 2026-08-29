@@ -2,7 +2,7 @@
 using UnityEngine;
 using AnimationState = Spine.AnimationState;
 
-namespace Player
+namespace Combat.Animations
 {
     public class PlayerAnimationController : MonoBehaviour
     {
@@ -73,6 +73,11 @@ namespace Player
 
         #region Animation Selection
 
+        public void FreezeOnDeath()
+        {
+            animationState.TimeScale = 0f;
+        }
+        
         private void SetRunDirectionAnimation(int directionIndex)
         {
             string targetAnimation = GetRunDirectionAnimation(directionIndex);

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Combat.Animations;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace Movement
@@ -11,6 +12,9 @@ namespace Movement
         [SerializeField] private Rigidbody rb;
         [SerializeField] public float speed = 1;
         [SerializeField] private float range = 5;
+        [SerializeField] private float animSpeedModifier = 1f;
+
+        [SerializeField] private AIAnimationController animationController;
 
         private bool isOverridden;
 
@@ -18,12 +22,14 @@ namespace Movement
         {
             if (agent == null) agent = GetComponent<NavMeshAgent>();
             if (rb == null) rb = GetComponent<Rigidbody>();
+            if (animationController == null) animationController = GetComponent<AIAnimationController>();
         }
 
         private void Awake()
         {
             agent.speed = speed;
-            rb.isKinematic = true; 
+            rb.isKinematic = true;
+            agent.updateRotation = false;
         }
 
         public void BeginManualOverride()
@@ -47,8 +53,11 @@ namespace Movement
 
         public void MovePosition(Vector3 nextPosition)
         {
+            Vector3 targetDirection = (nextPosition - transform.position).normalized;
             if (isOverridden)
             {
+                if (animationController != null)
+                    animationController.PlayRun(targetDirection);
                 rb.MovePosition(nextPosition);
             }
             else
@@ -62,7 +71,6 @@ namespace Movement
             if (isOverridden) return;
 
             float currentDistance = Vector3.Distance(transform.position, targetPosition);
-
             if (currentDistance > range)
             {
                 Vector3 destination = targetPosition;
@@ -75,10 +83,14 @@ namespace Movement
                 }
 
                 agent.SetDestination(destination);
+                Vector3 moveDirection = agent.velocity.sqrMagnitude > 0.01f ? agent.velocity.normalized : transform.forward;
+                if (animationController != null)
+                    animationController.PlayRun(moveDirection,animSpeedModifier);
             }
             else
             {
                 agent.ResetPath();
+                animationController.PauseOnCurrentFrame();
             }
         }
     }
