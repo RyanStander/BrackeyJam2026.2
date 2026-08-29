@@ -1,12 +1,19 @@
 using System.Collections;
 using Combat.Data;
 using Combat.Stats;
+using Events;
 using UnityEngine;
 
 public class PlayerHealth : Health
 {
     [SerializeField] private float iFrameDuration = 1f;
     private bool iFrameActive = false;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        EventManager.currentManager.AddEvent(new SetPlayerHealth(currentHealth, maxHealth));
+    }
 
     public override void TakeDamage(DamageInfo damageInfo)
     {
@@ -15,6 +22,7 @@ public class PlayerHealth : Health
             return;
         }
         base.TakeDamage(damageInfo);
+        EventManager.currentManager.AddEvent(new UpdatePlayerHealth(currentHealth));
     }
 
     public void TriggerIFrames()

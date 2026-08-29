@@ -1,96 +1,128 @@
 using System.Collections;
+using Player;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Config - Movement
 
-    //summary
-    // This script handles the movement of the player character in a 3D plane but with a static camera with the intention of Spine2D spirtes 
-    // It allows the player to move in 8 directions). The player's visual representation rotates to face the direction of movement.
-    // angle is calculated  using the input then rounded to the nearest 45 degrees to ensure the player faces one of the 8 cardinal directions
-    // using rigibody to allow for better movement and collision detection
-
-    [SerializeField] private float moveSpeed = 5f;
+    [Header("Movement")] [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float acceleration = 12f;
-    private Vector3 currentVelocity;
-    [SerializeField] private float lungeCooldown = 1f;
+
+    #endregion
+
+    #region Config - Lunge
+
+    [Header("Lunge")] [SerializeField] private float lungeCooldown = 1f;
     [SerializeField] private float lungeDuration = 0.5f;
     [SerializeField] private float lungeDistance = 5f;
-    [SerializeField] private float lungeSpeed = 10f;
-    
-    private float nextLungeTime;
-    private Transform playerVisual;
-    public Vector3 direction;
-    public Rigidbody playerRB;
-    private Vector2 playerMovementInput;
-    private PlayerHealth playerHealth;
 
-    private void Awake()
+    #endregion
+
+    #region State
+
+    [SerializeField] private Rigidbody playerRb;
+    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private PlayerAnimationController animationController;
+    [SerializeField] private PlayerAttack playerAttack;
+
+    private Vector2 movementInput;
+    private Vector3 currentVelocity;
+    private float nextLungeTime;
+
+    #endregion
+
+    #region Unity Lifecycle
+
+    private void OnValidate()
     {
-        playerRB = GetComponent<Rigidbody>();
-        playerHealth = GetComponent<PlayerHealth>();
+        if (playerRb == null)
+            playerRb = GetComponent<Rigidbody>();
+        if (playerHealth == null)
+            playerHealth = GetComponent<PlayerHealth>();
+        if (animationController == null)
+            animationController = GetComponent<PlayerAnimationController>();
+        if (playerAttack == null)
+            playerAttack = GetComponent<PlayerAttack>();
     }
 
     private void Update()
     {
-        playerMovementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        if (playerMovementInput.sqrMagnitude > 0f)
-        {
-            float angle = Mathf.Atan2(playerMovementInput.x, playerMovementInput.y) * Mathf.Rad2Deg;
-
-            angle = Mathf.Round(angle / 45f) * 45f;
-
-            //transform.rotation = Quaternion.Euler(0f, 0f, -angle);
-            //transform.rotation = Quaternion.Euler(0f, -angle, 0f);
-            transform.rotation = Quaternion.Euler(90f, angle, 0f); //got it so we actually rotate, no more bs direction code outside this, can use trans.forward
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            //moveSpeed *= 2f;
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            //moveSpeed /= 2f;
-        }
-
-        if(Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Lunge();
-        }
-    }
-
-    private void Lunge()
-    {
-        if (Time.time >= nextLungeTime)
-        {
-            nextLungeTime = Time.time + lungeCooldown;
-            StartCoroutine(LungeRoutine());
-        }
-    }
-
-    private IEnumerator LungeRoutine()
-    {
-        playerHealth.TriggerIFrames(lungeDuration); //going off the extended player heahth to handle
-        float duration = lungeDuration;
-        float distance = lungeDistance;
-        Vector3 dir = transform.up;
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            playerRB.MovePosition(playerRB.position + dir * (distance / duration) * Time.deltaTime);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
+        ReadMovementInput();
+        int directionIndex = GetDirectionIndex(movementInput);
+        animationController.UpdateDirection(directionIndex,movementInput.sqrMagnitude);
+        playerAttack.SetAttackDirection(directionIndex,movementInput.sqrMagnitude);
+        HandleLungeInput();
     }
 
     private void FixedUpdate()
     {
-        direction = new Vector3(playerMovementInput.x, 0f, playerMovementInput.y).normalized;
-        Vector3 targetVelocity = direction * moveSpeed;
-        currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-        playerRB.MovePosition(playerRB.position + currentVelocity * Time.fixedDeltaTime);
+        ApplyMovement();
     }
+
+    #endregion
+
+    #region Movement
+
+    private void ReadMovementInput()
+    {
+        movementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+    }
+
+    private void ApplyMovement()
+    {
+        Vector3 moveDirection = new Vector3(movementInput.x, 0f, movementInput.y).normalized;
+        Vector3 targetVelocity = moveDirection * moveSpeed;
+
+        currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+        playerRb.MovePosition(playerRb.position + currentVelocity * Time.fixedDeltaTime);
+    }
+    
+    /// <summary>
+    /// Converts an input vector into one of 8 cardinal direction indices (0-7),
+    /// snapped to the nearest 45-degree increment.
+    /// </summary>
+    private int GetDirectionIndex(Vector2 input)
+    {
+        float angle = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg;
+        float snappedAngle = Mathf.Round(angle / 45f) * 45f;
+        int index = Mathf.RoundToInt(snappedAngle / 45f);
+        return ((index % 8) + 8) % 8;
+    }
+
+    #endregion
+
+    #region Lunge
+
+    private void HandleLungeInput()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            TryLunge();
+    }
+
+    private void TryLunge()
+    {
+        if (Time.time < nextLungeTime) return;
+
+        nextLungeTime = Time.time + lungeCooldown;
+        StartCoroutine(LungeRoutine());
+    }
+
+    private IEnumerator LungeRoutine()
+    {
+        playerHealth.TriggerIFrames(lungeDuration);
+
+        Vector3 lungeDirection = new Vector3(movementInput.x, 0f, movementInput.y).normalized;
+        float speed = lungeDistance / lungeDuration;
+        float elapsed = 0f;
+
+        while (elapsed < lungeDuration)
+        {
+            playerRb.MovePosition(playerRb.position + lungeDirection * speed * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    #endregion
 }

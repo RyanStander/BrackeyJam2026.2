@@ -62,6 +62,8 @@ namespace Combat.Interfaces.Attack_Behaviours
                 aiController = controller;
                 Vector3 nextPosition = controller.transform.position +
                                        targetDirection * (config.ChargeSpeed * Time.deltaTime);
+                
+                controller.Movement.BeginManualOverride();
                 controller.Movement.MovePosition(nextPosition);
                 
                 if (Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance)
@@ -80,7 +82,7 @@ namespace Combat.Interfaces.Attack_Behaviours
 
             foreach (Collider hit in hits)
             {
-                if (hit.gameObject.CompareTag(aiController.TargetTag))
+                if (aiController.IsHostileTo(hit.gameObject))
                 {
                     phase = Phase.Done;
                     aiController.Animator.SetTrigger(end);

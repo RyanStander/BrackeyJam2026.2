@@ -60,6 +60,7 @@ namespace StateMachine
     
                     if (currentAttack.IsFinished(controller))
                     {
+                        controller.Movement.EndManualOverride();
                         state = State.Recovering;
                     }
                     break;
