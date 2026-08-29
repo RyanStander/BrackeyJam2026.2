@@ -14,6 +14,7 @@ namespace Combat.Stats
         public GameObject GameObject => gameObject;
         public event Action OnDeath;
         protected bool isDead = false;
+        public GameObject LastKiller { get; private set; }
 
         protected virtual void Awake()
         {
@@ -22,10 +23,10 @@ namespace Combat.Stats
 
         public virtual void TakeDamage(DamageInfo damageInfo)
         {
-            if(isDead) return;
+            if (isDead) return;
             currentHealth -= damageInfo.Amount;
             if (currentHealth <= 0)
-                Die();
+                Die(damageInfo.Instigator);
         }
         
         public virtual void RestoreHealth(float amount)
@@ -39,10 +40,11 @@ namespace Combat.Stats
         public float MaxHealth => maxHealth;
         public float CurrentHealth => currentHealth;
 
-        public virtual void Die()
+        public virtual void Die(GameObject killer = null)
         {
             if (isDead) return;
             isDead = true;
+            LastKiller = killer;
             OnDeath?.Invoke();
         }
     }

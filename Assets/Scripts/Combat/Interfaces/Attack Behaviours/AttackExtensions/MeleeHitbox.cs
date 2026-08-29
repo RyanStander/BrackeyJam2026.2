@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using Combat.Data;
-using Combat.Interfaces;
 using Combat.Rules;
-using Combat.Stats;
 using UnityEngine;
 
-namespace Player
+namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
 {
     [RequireComponent(typeof(Collider))]
     public class MeleeHitbox : MonoBehaviour
@@ -33,7 +31,7 @@ namespace Player
 
             if (other.TryGetComponent(out IDamageable target))
             {
-                DamageInfo damageInfo = new(damage, Faction.Allies, instigator, DamageMode.Normal);
+                DamageInfo damageInfo = new(damage, Faction.Enemies, instigator, DamageMode.Normal);
                 if (CombatRules.CanDamage(damageInfo, target))
                     target.TakeDamage(damageInfo);
             }

@@ -8,6 +8,7 @@ namespace Combat.Interfaces.Attack_Behaviours
     public class ShootAttack : MonoBehaviour, IAttackBehaviour
     {
         [SerializeField] private ShootAttackConfig config;
+        [SerializeField] private Vector3 offset = new(0, 2, 0);
 
         private enum Phase
         {
@@ -22,7 +23,7 @@ namespace Combat.Interfaces.Attack_Behaviours
         private Vector3 targetDirection;
 
         public bool CanExecute(AIController controller) =>
-            Vector3.Distance(controller.transform.position,
+            controller.Target != null && Vector3.Distance(controller.transform.position,
                 controller.Target.transform.position) <=
             config.AttackDistance;
 
@@ -30,7 +31,7 @@ namespace Combat.Interfaces.Attack_Behaviours
         {
             phase = Phase.Windup;
             timer = 0f;
-            controller.Animator.SetTrigger("Windup");
+            controller.AnimationController.PauseOnCurrentFrame();
         }
 
         public void Execute(AIController controller)
@@ -39,10 +40,18 @@ namespace Combat.Interfaces.Attack_Behaviours
 
             if (phase == Phase.Windup && timer >= config.WindupTime)
             {
+                if (controller.Target == null)
+                {
+                    phase = Phase.Done;
+                    timer = 0f;
+                    controller.AnimationController.PauseOnCurrentFrame();
+                    return;
+                }
+
                 phase = Phase.Shooting;
                 timer = 0f;
-                controller.Animator.SetTrigger("Shoot");
                 targetDirection = (controller.Target.transform.position - controller.transform.position).normalized;
+                controller.AnimationController.PlayShoot(targetDirection);
             }
             else if (phase == Phase.Shooting && timer >= config.ReloadTime)
             {
@@ -50,25 +59,27 @@ namespace Combat.Interfaces.Attack_Behaviours
                 {
                     phase = Phase.Done;
                     timer = 0f;
-                    controller.Animator.SetTrigger("End");
+                    controller.AnimationController.PlayRun(targetDirection);
+                    controller.AnimationController.PauseOnCurrentFrame();
                     return;
                 }
-                
-                GameObject proj = Instantiate(config.ProjectilePrefab, controller.transform.position,
+
+                GameObject proj = Instantiate(config.ProjectilePrefab, controller.transform.position + offset,
                     Quaternion.identity);
-                proj.GetComponent<Projectile>().Launch(controller.Target.transform, config.Damage, controller,
+                proj.GetComponent<Projectile>().Launch(controller.Target, config.Damage, controller,
                     config.ProjectileSpeed, controller.Faction);
                 timer = 0f;
-                
+
                 phase = Phase.Reload;
-                controller.Animator.SetTrigger("Reload");
+                controller.AnimationController.PauseOnCurrentFrame();
             }
             else if (phase == Phase.Reload && timer >= config.ReloadTime)
             {
                 phase = Phase.Done;
                 timer = 0f;
-                
-                controller.Animator.SetTrigger("End");
+
+                controller.AnimationController.PlayRun(targetDirection);
+                controller.AnimationController.PauseOnCurrentFrame();
             }
         }
 

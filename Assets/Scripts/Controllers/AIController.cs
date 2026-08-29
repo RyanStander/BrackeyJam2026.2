@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Combat.Animations;
 using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours;
 using Combat.Stats;
 using Events;
 using Factories;
 using Movement;
+using Spine.Unity;
 using UnityEngine;
+using AnimationState = Spine.AnimationState;
 
 namespace Controllers
 {
-    [RequireComponent(typeof(AiMovement), typeof(Health), typeof(Animator))]
+    [RequireComponent(typeof(AiMovement), typeof(Health))]
     [RequireComponent(typeof(Rigidbody))]
     public class AIController : GenericController
     {
@@ -19,6 +22,7 @@ namespace Controllers
         private Dictionary<IAttackBehaviour, float> cooldownTimers = new();
         public AiMovement Movement;
         public Animator Animator;
+        public AIAnimationController AnimationController;
         public GameObject Target { get; set; }
         private StateMachine.StateMachine stateMachine = new StateMachine.StateMachine();
         private bool exploited;
@@ -38,6 +42,10 @@ namespace Controllers
 
             if (Animator == null)
                 Animator = GetComponent<Animator>();
+            
+            if (AnimationController == null)
+                AnimationController = GetComponent<AIAnimationController>();
+            
         }
 
         protected override void Awake()
@@ -129,6 +137,7 @@ namespace Controllers
         {
             stateMachine.Stun(duration);
             exploited = true;
+            EventManager.currentManager.AddEvent(new EnemyExploited(this));
         }
 
         //for damage bonus on exploited enemies, should only happen once

@@ -31,9 +31,6 @@ namespace Combat.Stats
         #endregion
 
         #region State
-
-        [SerializeField] private float grievance;
-
         private AIController controller;
         private bool hasBetrayed;
         private float proximityTimer;
@@ -41,10 +38,8 @@ namespace Combat.Stats
         #endregion
 
         #region Public Accessors
-
-        public float Grievance => grievance;
         public float BetrayalThreshold => betrayalThreshold;
-        public float NormalizedGrievance => Mathf.Clamp01(grievance / betrayalThreshold);
+        public float NormalizedGrievance => Mathf.Clamp01(GameState.CompanionGrievance / betrayalThreshold);
 
         #endregion
 
@@ -75,18 +70,18 @@ namespace Combat.Stats
         {
             if (hasBetrayed) return;
 
-            float previous = grievance;
-            grievance = Mathf.Max(0f, grievance + amount);
+            float previous = GameState.CompanionGrievance;
+            GameState.CompanionGrievance = Mathf.Max(0f, GameState.CompanionGrievance + amount);
 
-            if (!Mathf.Approximately(previous, grievance))
+            if (!Mathf.Approximately(previous, GameState.CompanionGrievance))
             {
                 SpawnGrievancePopup(amount);
 
                 if (debugLogging)
-                    Debug.Log($"{gameObject.name} grievance: {previous:F2} -> {grievance:F2} (threshold {betrayalThreshold})");
+                    Debug.Log($"{gameObject.name} grievance: {previous:F2} -> {GameState.CompanionGrievance:F2} (threshold {betrayalThreshold})");
             }
 
-            if (grievance >= betrayalThreshold)
+            if (GameState.CompanionGrievance >= betrayalThreshold)
                 Betray();
         }
 
@@ -111,8 +106,7 @@ namespace Combat.Stats
 
         private void HandleEnemyDeath(AIController enemy, bool wasExploited)
         {
-            if (!wasExploited)
-                AddGrievance(GrievanceDataSet.FailedExploitGrievance);
+            AddGrievance(!wasExploited ? GrievanceDataSet.FailedExploitGrievance : GrievanceDataSet.ExploitGrievance);
         }
 
         private void TickProximityGrievance()

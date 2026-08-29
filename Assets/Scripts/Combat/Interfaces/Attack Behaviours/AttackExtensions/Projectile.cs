@@ -7,7 +7,7 @@ namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
 {
     public class Projectile : MonoBehaviour
     {
-        private Transform target;
+        private GameObject target;
         private float damage;
         private AIController instigator;
         [SerializeField] private float speed = 15f;
@@ -18,15 +18,18 @@ namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
         private float lifeTimer;
         private bool launched;
         
-        public void Launch(Transform target, float damage, AIController instigator, float speed, Faction sourceFaction)
+        [SerializeField] private Transform pivotTransform;
+        
+        public void Launch(GameObject targetGameObject, float damage, AIController instigator, float speed, Faction sourceFaction)
         {
-            this.target = target;
+            target = targetGameObject;
             this.damage = damage;
             this.instigator = instigator;
             this.speed = speed;
-            direction = (target.position - transform.position).normalized;
+            direction = (GetAimPoint(target) - transform.position).normalized;
             this.sourceFaction = sourceFaction;
             launched = true;
+            FaceTarget(direction);
         }
 
         void Update()
@@ -58,6 +61,20 @@ namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
 
                 Destroy(gameObject);
             }
+        }
+        
+        private void FaceTarget(Vector3 direction)
+        {
+            float angle = -Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            pivotTransform.localRotation = Quaternion.Euler(0f, 0f, angle);
+        }
+        
+        private Vector3 GetAimPoint(GameObject target)
+        {
+            if (target.TryGetComponent(out Collider col))
+                return col.bounds.center;
+
+            return target.transform.position; // fallback if no collider found
         }
     }
 }

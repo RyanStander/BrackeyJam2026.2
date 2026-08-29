@@ -92,6 +92,7 @@ namespace Arena
             if (WaveQueue.Count == 0)
             {
                 EventManager.currentManager.AddEvent(new WavesCompleted());
+                GameState.CurrentArea++;
                 ResetHelper();
             }
         }
