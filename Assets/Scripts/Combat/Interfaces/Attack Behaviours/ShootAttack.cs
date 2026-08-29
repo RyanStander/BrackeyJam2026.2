@@ -22,7 +22,7 @@ namespace Combat.Interfaces.Attack_Behaviours
         private Vector3 targetDirection;
 
         public bool CanExecute(AIController controller) =>
-            Vector3.Distance(controller.transform.position,
+            controller.Target != null &&Vector3.Distance(controller.transform.position,
                 controller.Target.transform.position) <=
             config.AttackDistance;
 
@@ -30,7 +30,7 @@ namespace Combat.Interfaces.Attack_Behaviours
         {
             phase = Phase.Windup;
             timer = 0f;
-            controller.Animator.SetTrigger("Windup");
+            controller.AnimationController.PauseOnCurrentFrame();
         }
 
         public void Execute(AIController controller)
@@ -43,14 +43,14 @@ namespace Combat.Interfaces.Attack_Behaviours
                 {
                     phase = Phase.Done;
                     timer = 0f;
-                    controller.Animator.SetTrigger("End");
+                    controller.AnimationController.PauseOnCurrentFrame();
                     return;
                 }
                 
                 phase = Phase.Shooting;
                 timer = 0f;
-                controller.Animator.SetTrigger("Shoot");
                 targetDirection = (controller.Target.transform.position - controller.transform.position).normalized;
+                controller.AnimationController.PlayShoot(targetDirection);
             }
             else if (phase == Phase.Shooting && timer >= config.ReloadTime)
             {
@@ -58,7 +58,8 @@ namespace Combat.Interfaces.Attack_Behaviours
                 {
                     phase = Phase.Done;
                     timer = 0f;
-                    controller.Animator.SetTrigger("End");
+                    controller.AnimationController.PlayRun(targetDirection);
+                    controller.AnimationController.PauseOnCurrentFrame();
                     return;
                 }
                 
@@ -69,14 +70,15 @@ namespace Combat.Interfaces.Attack_Behaviours
                 timer = 0f;
                 
                 phase = Phase.Reload;
-                controller.Animator.SetTrigger("Reload");
+                controller.AnimationController.PauseOnCurrentFrame();
             }
             else if (phase == Phase.Reload && timer >= config.ReloadTime)
             {
                 phase = Phase.Done;
                 timer = 0f;
                 
-                controller.Animator.SetTrigger("End");
+                controller.AnimationController.PlayRun(targetDirection);
+                controller.AnimationController.PauseOnCurrentFrame();
             }
         }
 

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1450787878267797986}
   - component: {fileID: 1451028213527460001}
   - component: {fileID: 4800374774807588779}
+  - component: {fileID: 1427933311080449400}
   m_Layer: 9
   m_Name: Charger
   m_TagString: Enemy
@@ -152,6 +153,7 @@ MonoBehaviour:
   rb: {fileID: 1451028213527460001}
   speed: 3
   range: 1
+  animationController: {fileID: 1427933311080449400}
 --- !u!114 &6280376201784702579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +183,7 @@ MonoBehaviour:
   Health: {fileID: 6280376201784702579}
   Movement: {fileID: 39686877881093843}
   Animator: {fileID: 7312738758685966598}
+  AnimationController: {fileID: 1427933311080449400}
   TargetTag: Player
   Faction: 1
 --- !u!54 &1451028213527460001
@@ -232,6 +235,27 @@ NavMeshAgent:
   m_BaseOffset: 1.46
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1427933311080449400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4158104878678058585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1c1fdba30941db9099597aacf83126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7312738758685966598}
+  skeletonAnimation: {fileID: 0}
+  runFrontAnimationName: 
+  runBackAnimationName: 
+  runSideAnimationName: 
+  shootFrontAnimationName: 
+  shootBackAnimationName: 
+  shootSideAnimationName: 
+  diagonalTiltAngle: 18
 --- !u!1 &8045534682549493869
 GameObject:
   m_ObjectHideFlags: 0

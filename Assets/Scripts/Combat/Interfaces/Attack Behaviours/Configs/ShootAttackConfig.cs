@@ -12,5 +12,12 @@ namespace Combat.Interfaces.Attack_Behaviours.Configs
         public float ProjectileSpeed = 1;
         public float ReloadTime = 2;
         public float Cooldown = 5;
+
+        [Header("Spine Animation Names")] public string ShootFrontAnimationName;
+        public string ShootBackAnimationName;
+        public string ShootSideAnimationName;
+        public string RunFrontAnimationName;
+        public string RunBackAnimationName;
+        public string RunSideAnimationName;
     }
 }
