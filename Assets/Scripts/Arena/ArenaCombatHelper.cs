@@ -28,7 +28,7 @@ namespace Arena
         public SpawnPoint[] SpawnPoints { get; private set; }
         private readonly Dictionary<EnemyType, List<SpawnPoint>> SortedSpawns = new();
 
-        [field: SerializeField, Range(0.1f, 2)]
+        [field: SerializeField, Range(0, 2), Tooltip("Interval of 0 is still limited by DeltaTime, only one spawn per tick.")]
         private float SpawnInterval = 0.5f;
         private float SpawnTimer = 0;
 
