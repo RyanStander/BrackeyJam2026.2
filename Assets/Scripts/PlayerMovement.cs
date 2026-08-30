@@ -1,4 +1,5 @@
 using System.Collections;
+using AudioManagement;
 using Combat.Animations;
 using Player;
 using UnityEngine;
@@ -116,6 +117,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 lungeDirection = new Vector3(movementInput.x, 0f, movementInput.y).normalized;
         float speed = lungeDistance / lungeDuration;
         float elapsed = 0f;
+        
+        AudioManager.PlayOneShot(AudioDataHandler.Player.Dodge);
 
         while (elapsed < lungeDuration)
         {

@@ -26,7 +26,7 @@ namespace AudioManagement
         public static class Charger
         {
             public static EventReference Attack => soundLibrary.ChargerSoundLibrary.Attack;
-            public static EventReference Exposed => soundLibrary.ChargerSoundLibrary.Attack;
+            public static EventReference Exposed => soundLibrary.ChargerSoundLibrary.Exposed;
             public static EventReference Walking => soundLibrary.ChargerSoundLibrary.Walking;
         }
     }

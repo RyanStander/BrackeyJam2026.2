@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AudioManagement;
 using Combat.Data;
 using Combat.Rules;
 using UnityEngine;
@@ -33,7 +34,10 @@ namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
             {
                 DamageInfo damageInfo = new(damage, Faction.Enemies, instigator, DamageMode.Normal);
                 if (CombatRules.CanDamage(damageInfo, target))
+                {
                     target.TakeDamage(damageInfo);
+                    AudioManager.PlayOneShot(AudioDataHandler.Player.AttackHit);
+                }
             }
         }
     }

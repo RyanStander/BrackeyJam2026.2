@@ -1,4 +1,5 @@
 using System;
+using AudioManagement;
 using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours.AttackExtensions;
 using Combat.Stats;
@@ -79,6 +80,7 @@ namespace Player
         private void MeleeAttack()
         {
             meleeHitbox.BeginSwing(meleeAttackDamage, gameObject);
+            AudioManager.PlayOneShot(AudioDataHandler.Player.AttackSwing);
             weaponSwingController.PlaySwing(currentDirectionIndex, attackOffset);
             nextAttackTime = Time.time + attackCooldown;
         }
