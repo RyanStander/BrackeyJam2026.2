@@ -1,6 +1,9 @@
-﻿using Spine.Unity;
+﻿using AudioManagement;
+using Spine;
+using Spine.Unity;
 using UnityEngine;
 using AnimationState = Spine.AnimationState;
+using Event = Spine.Event;
 
 namespace Combat.Animations
 {
@@ -43,6 +46,13 @@ namespace Combat.Animations
         private void Awake()
         {
             animationState = skeletonAnimation.AnimationState;
+            animationState.Event += HandleSpineEvent;
+        }
+
+        private void HandleSpineEvent(TrackEntry trackEntry, Event e)
+        {
+            if(e.Data.Name =="Step")
+                AudioManager.PlayOneShot(AudioDataHandler.Player.Running);
         }
 
         #endregion

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1b3b4b945939a54ea0b23d3396115fb, type: 3}
-  m_Name: Enemy1_SkeletonData
+  m_Name: Betty_SkeletonData
   m_EditorClassIdentifier: 
   atlasAssets:
-  - {fileID: 11400000, guid: 28e03384c6430eb43a6baae02d001317, type: 2}
+  - {fileID: 11400000, guid: a2364e7af5e90524d8a27fd145d4c815, type: 2}
   scale: 0.01
-  skeletonJSON: {fileID: 4900000, guid: 68938c9a4dc7a9146be4571c9d8614f6, type: 3}
+  skeletonJSON: {fileID: 4900000, guid: 00f6801908293654f85a64d1100f0284, type: 3}
   isUpgradingBlendModeMaterials: 0
   blendModeMaterials:
     requiresBlendModeMaterials: 0

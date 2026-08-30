@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 437be71f4451fec4088e30c788d6c403, type: 2}
+  - {fileID: 2100000, guid: 7cbf56867da310148a979ff82ab61eb5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e075b9a3e08e2f74fbd651c858ab16ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 20afc34c466d05d4facad85e55fad059, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 710d485398efb7d428aea081b113ffcc, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -362,6 +362,7 @@ MonoBehaviour:
   stunBackAnimationName: Charger_Stunned/Charger_Back_Stunned
   stunSideAnimationName: Charger_Stunned/Charger_Side_Stunned
   diagonalTiltAngle: 18
+  enemyType: 0
 --- !u!1 &8045534682549493869
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,4 +411,5 @@ MonoBehaviour:
   hittableLayerMask:
     serializedVersion: 2
     m_Bits: 896
+  enemyType: 0
   showGizmos: 1

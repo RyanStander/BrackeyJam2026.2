@@ -27,6 +27,7 @@ namespace Combat.Interfaces.Attack_Behaviours
         private float timer;
         private Vector3 startLocation;
         private Vector3 targetDirection;
+        private SoundHandle chargeID;
 
         private enum EnemyType
         {
@@ -46,6 +47,16 @@ namespace Combat.Interfaces.Attack_Behaviours
             phase = Phase.Windup;
             timer = 0f;
             controller.AnimationController.PauseOnCurrentFrame();
+            switch (enemyType)
+            {
+                case EnemyType.Charger:
+                    chargeID = AudioManager.PlayLoop(AudioDataHandler.Charger.Attack);
+                    break;
+                case EnemyType.HandCow:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void Execute(AIController controller)
@@ -54,16 +65,6 @@ namespace Combat.Interfaces.Attack_Behaviours
 
             if (phase == Phase.Windup && timer >= config.WindupTime)
             {
-                switch (enemyType)
-                {
-                    case EnemyType.Charger:
-                        AudioManager.PlayOneShot(AudioDataHandler.Charger.Attack);
-                        break;
-                    case EnemyType.HandCow:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
                 phase = Phase.Charging;
                 timer = 0f;
                 startLocation = controller.transform.position;
@@ -83,7 +84,7 @@ namespace Combat.Interfaces.Attack_Behaviours
                     phase = Phase.Done;
                     controller.AnimationController.PauseOnCurrentFrame();
                 }
-
+                
                 HandleHit(controller);
             }
         }
@@ -110,11 +111,17 @@ namespace Combat.Interfaces.Attack_Behaviours
                     if (hit.gameObject.TryGetComponent(out IDamageable target))
                         if (CombatRules.CanDamage(chargeInfo, target))
                             target.TakeDamage(chargeInfo);
+                    
+                    AudioManager.Stop(chargeID);
                 }
                 else if (!hit.gameObject.CompareTag(aiController.tag))
                 {
                     if (config.StunSelfOnObstacleHit)
                     {
+                        aiController.AnimationController.PlayStun(targetDirection);
+                        aiController.Stun(config.StunDuration);
+                        AudioManager.Stop(chargeID);
+                        
                         switch (enemyType)
                         {
                             case EnemyType.Charger:
@@ -125,9 +132,6 @@ namespace Combat.Interfaces.Attack_Behaviours
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }
-                        
-                        aiController.AnimationController.PlayStun(targetDirection);
-                        aiController.Stun(config.StunDuration);
                     }
 
                     phase = Phase.Done;
