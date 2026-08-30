@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7543789329152649757}
   - component: {fileID: 280864636665996549}
   - component: {fileID: 5570520231030684500}
-  - component: {fileID: 5609868031094362099}
+  - component: {fileID: 8095312527966662423}
   m_Layer: 8
   m_Name: EastWall
   m_TagString: Untagged
@@ -84,8 +84,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5609868031094362099
-MeshCollider:
+--- !u!65 &8095312527966662423
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,10 +102,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Size: {x: 11, y: 2, z: 10}
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &2678249998542863927
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +116,7 @@ GameObject:
   - component: {fileID: 7671508918076958576}
   - component: {fileID: 5517135009867249004}
   - component: {fileID: 2796240516026221089}
-  - component: {fileID: 7133150482154912500}
+  - component: {fileID: 7419124544331792916}
   m_Layer: 8
   m_Name: SouthWall
   m_TagString: Untagged
@@ -191,8 +190,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7133150482154912500
-MeshCollider:
+--- !u!65 &7419124544331792916
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -209,10 +208,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Size: {x: 11, y: 2, z: 10.000002}
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &4645073726496748016
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +222,7 @@ GameObject:
   - component: {fileID: 1196041170060572780}
   - component: {fileID: 206737109275218644}
   - component: {fileID: 7022639184744286715}
-  - component: {fileID: 8759816502983428198}
+  - component: {fileID: 6825118475845971121}
   m_Layer: 8
   m_Name: WestWall
   m_TagString: Untagged
@@ -297,8 +295,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8759816502983428198
-MeshCollider:
+--- !u!65 &6825118475845971121
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -315,10 +313,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Size: {x: 11, y: 2, z: 10}
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &6758107648117085131
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,7 +411,7 @@ GameObject:
   - component: {fileID: 432882085029037993}
   - component: {fileID: 1572357715878263620}
   - component: {fileID: 284804010999162981}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -523,7 +520,7 @@ GameObject:
   - component: {fileID: 9108215307797986178}
   - component: {fileID: 553643562728178894}
   - component: {fileID: 6465846543160533874}
-  - component: {fileID: 1865695648897614216}
+  - component: {fileID: 3143658411992416916}
   m_Layer: 8
   m_Name: NorthWall
   m_TagString: Untagged
@@ -596,8 +593,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1865695648897614216
-MeshCollider:
+--- !u!65 &3143658411992416916
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -614,10 +611,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  serializedVersion: 3
+  m_Size: {x: 11, y: 2, z: 10.000002}
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &7502918727025163287
 GameObject:
   m_ObjectHideFlags: 0

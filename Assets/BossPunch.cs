@@ -16,10 +16,9 @@ namespace Combat.Interfaces.Attack_Behaviours
 
         public bool CanExecute(AIController controller)
         {
-            if (controller.Target == null) return false;
+            if (controller.Target == null || config == null) return false;
             return Vector3.Distance(controller.transform.position, controller.Target.transform.position) <= config.AttackDistance;
         }
-
         public void Telegraph(AIController controller)
         {
             phase = Phase.Punching;

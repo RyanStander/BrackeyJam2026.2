@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{d82dd5df-8803-45aa-9ae0-1589bf716db5}">
+		<property name="assetPath">
+			<value>swatter_attack1L2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.1722448979591837</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c031d806-8018-4c12-9d96-7184ab73c200}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EventFolder" id="{7c9c8468-e691-44f0-8e07-abc25a8d2b83}">
+		<property name="name">
+			<value>Swatter</value>
+		</property>
+		<relationship name="folder">
+			<destination>{6505b0c7-b86e-4eed-bc34-9b2479e4abff}</destination>
+		</relationship>
+	</object>
+</objects>

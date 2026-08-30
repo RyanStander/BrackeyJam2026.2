@@ -1,16 +1,11 @@
 
+using Controllers;
+using UnityEngine;
+
 namespace Events
 {
-    //Event that informs subscribers of a debug log
-    public class SendDebugLog : EventData
-    {
-        public readonly string Debuglog;
-
-        public SendDebugLog(string givenLog) : base(EventType.ReceiveDebug)
-        {
-            Debuglog = givenLog;
-        }
-    }
+    
+    #region Factory
     
     public class CreateEnemy : EventData
     {
@@ -35,15 +30,10 @@ namespace Events
             Position = position;
         }
     }
+    
+    #endregion
 
-    public class ReturnToHub : EventData
-    {
-        public ReturnToHub() : base(EventType.ReturnToHub) { }
-    }
-
-    public class OnEnemyDeath : EventData { 
-        public OnEnemyDeath() : base(EventType.OnEnemyDeath){}
-    }
+    #region Wave System
 
     public class WaveStart : EventData
     {
@@ -67,4 +57,100 @@ namespace Events
     {
         public WavesCompleted() : base(EventType.WavesCompleted) { }
     }
+
+    #endregion
+    
+    public class ReturnToHub : EventData
+    {
+        public ReturnToHub() : base(EventType.ReturnToHub) { }
+    }
+
+    public class OnEnemyDeath : EventData { 
+        public OnEnemyDeath() : base(EventType.OnEnemyDeath){}
+    }
+
+    #region UI Displays
+
+    public class UpdatePlayerScrapCount: EventData
+    {
+        public readonly int CurrentScrap;
+
+        public UpdatePlayerScrapCount(int currentScrap) : base(EventType.UpdatePlayerScrapCount)
+        {
+            CurrentScrap = currentScrap;
+        }
+    }
+    
+    public class UpdatePlayerHealth: EventData
+    {
+        public readonly float CurrentHealth;
+
+        public UpdatePlayerHealth(float currentHealth) : base(EventType.UpdatePlayerHealth)
+        {
+            CurrentHealth = currentHealth;
+        }
+    }
+    
+    public class SetPlayerHealth: EventData
+    {
+        public readonly float CurrentHealth;
+        public readonly float MaxHealth;
+
+        public SetPlayerHealth(float currentHealth, float maxHealth) : base(EventType.SetPlayerHealth)
+        {
+            CurrentHealth = currentHealth;
+            MaxHealth = maxHealth;
+        }
+    }
+
+    #endregion
+
+    #region Inventory
+
+    public class ScrapPickedUp : EventData
+    {
+        public readonly int ScrapCount;
+
+        public ScrapPickedUp(int scrapCount) : base(EventType.ScrapPickedUp)
+        {
+            ScrapCount = scrapCount;
+        }
+    }
+
+    public class ScrapPayout : EventData
+    {
+        public readonly int ScrapCount;
+
+        public ScrapPayout(int scrapCount) : base(EventType.ScrapPayout)
+        {
+            ScrapCount = scrapCount;
+        }
+    }
+
+    #endregion
+    
+    #region Combat
+
+    public class EnemyExploited : EventData
+    {
+        public readonly AIController ExploitedEnemy;
+
+        public EnemyExploited(AIController exploitedEnemy) : base(EventType.EnemyExploited)
+        {
+            ExploitedEnemy = exploitedEnemy;
+        }
+    }
+
+    public class PlayerDied : EventData
+    {
+        public readonly GameObject LastKiller;
+
+        public PlayerDied(GameObject lastKiller) : base(EventType.PlayerDied)
+        {
+            LastKiller = lastKiller;
+        }
+    }
+
+    #endregion
 }
+

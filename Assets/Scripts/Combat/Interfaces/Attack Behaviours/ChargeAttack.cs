@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using AudioManagement;
 using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours.Configs;
 using Combat.Rules;
@@ -14,7 +15,6 @@ namespace Combat.Interfaces.Attack_Behaviours
     {
         [SerializeField] private ChargeAttackConfig config;
         [SerializeField] private LayerMask hittableLayerMask;
-        private AIController aiController;
 
         private enum Phase
         {
@@ -27,11 +27,15 @@ namespace Combat.Interfaces.Attack_Behaviours
         private float timer;
         private Vector3 startLocation;
         private Vector3 targetDirection;
+        private SoundHandle chargeID;
 
-        private static readonly int windup = Animator.StringToHash("Windup");
-        private static readonly int charge = Animator.StringToHash("Charge");
-        private static readonly int end = Animator.StringToHash("End");
-        private static readonly int stunned = Animator.StringToHash("Stunned");
+        private enum EnemyType
+        {
+            Charger,
+            HandCow
+        }
+
+        [SerializeField] private EnemyType enemyType;
 
         public bool CanExecute(AIController controller) =>
             Vector3.Distance(controller.transform.position,
@@ -42,7 +46,17 @@ namespace Combat.Interfaces.Attack_Behaviours
         {
             phase = Phase.Windup;
             timer = 0f;
-            controller.Animator.SetTrigger(windup);
+            controller.AnimationController.PauseOnCurrentFrame();
+            switch (enemyType)
+            {
+                case EnemyType.Charger:
+                    chargeID = AudioManager.PlayLoop(AudioDataHandler.Charger.Attack);
+                    break;
+                case EnemyType.HandCow:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void Execute(AIController controller)
@@ -53,37 +67,39 @@ namespace Combat.Interfaces.Attack_Behaviours
             {
                 phase = Phase.Charging;
                 timer = 0f;
-                controller.Animator.SetTrigger(charge);
                 startLocation = controller.transform.position;
                 targetDirection = (controller.Target.transform.position - startLocation).normalized;
+                controller.AnimationController.PlayRun(targetDirection);
             }
             else if (phase == Phase.Charging)
             {
-                aiController = controller;
                 Vector3 nextPosition = controller.transform.position +
                                        targetDirection * (config.ChargeSpeed * Time.deltaTime);
+
+                controller.Movement.BeginManualOverride();
                 controller.Movement.MovePosition(nextPosition);
-                
+
                 if (Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance)
                 {
                     phase = Phase.Done;
-                    controller.Animator.SetTrigger(end);
+                    controller.AnimationController.PauseOnCurrentFrame();
                 }
                 
-                HandleHit();
+                HandleHit(controller);
             }
         }
 
-        private void HandleHit()
+        private void HandleHit(AIController aiController)
         {
-            Collider[] hits = Physics.OverlapSphere(aiController.transform.position, config.AttackSphereRadius, hittableLayerMask);
+            Collider[] hits = Physics.OverlapSphere(aiController.transform.position, config.AttackSphereRadius,
+                hittableLayerMask);
 
             foreach (Collider hit in hits)
             {
-                if (hit.gameObject.CompareTag(aiController.TargetTag))
+                if (aiController.IsHostileTo(hit.gameObject))
                 {
                     phase = Phase.Done;
-                    aiController.Animator.SetTrigger(end);
+                    aiController.AnimationController.PauseOnCurrentFrame();
 
                     DamageInfo chargeInfo = new(
                         amount: config.Damage,
@@ -95,21 +111,35 @@ namespace Combat.Interfaces.Attack_Behaviours
                     if (hit.gameObject.TryGetComponent(out IDamageable target))
                         if (CombatRules.CanDamage(chargeInfo, target))
                             target.TakeDamage(chargeInfo);
+                    
+                    AudioManager.Stop(chargeID);
                 }
                 else if (!hit.gameObject.CompareTag(aiController.tag))
                 {
                     if (config.StunSelfOnObstacleHit)
                     {
-                        aiController.Animator.SetTrigger(stunned);
+                        aiController.AnimationController.PlayStun(targetDirection);
                         aiController.Stun(config.StunDuration);
+                        AudioManager.Stop(chargeID);
+                        
+                        switch (enemyType)
+                        {
+                            case EnemyType.Charger:
+                                AudioManager.PlayOneShot(AudioDataHandler.Charger.Exposed);
+                                break;
+                            case EnemyType.HandCow:
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
                     }
 
                     phase = Phase.Done;
                 }
             }
         }
-        
-        #if UNITY_EDITOR
+
+#if UNITY_EDITOR
         [SerializeField] private bool showGizmos = true;
         private void OnDrawGizmosSelected()
         {
@@ -118,7 +148,7 @@ namespace Combat.Interfaces.Attack_Behaviours
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, config.AttackSphereRadius);
         }
-        #endif
+#endif
 
         public bool IsFinished(AIController controller) => phase == Phase.Done;
 

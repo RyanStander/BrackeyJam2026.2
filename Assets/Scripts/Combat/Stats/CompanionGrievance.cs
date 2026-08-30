@@ -1,31 +1,49 @@
-﻿using System;
-using Controllers;
+﻿using Controllers;
+using UI;
 using UnityEngine;
 
 namespace Combat.Stats
 {
     public class CompanionGrievance : MonoBehaviour
     {
+        #region Config
+
         public GrievanceDataSet GrievanceDataSet;
 
-        [SerializeField] private float grievance;
         [SerializeField] private float betrayalThreshold = 100f;
 
-        [Header("Proximity Rule")] [SerializeField]
-        private float proximityRadius = 5f;
-
+        [Header("Proximity Rule")]
+        [SerializeField] private float proximityRadius = 5f;
+        [SerializeField] private float proximityTickInterval = 0.5f;
+        [SerializeField] private float proximityGrievancePerTick = 1f;
         [SerializeField] private LayerMask enemyLayerMask;
 
-        [Header("Debug")] [SerializeField] private bool debugLogging = true;
+        [Header("Popup")]
+        [SerializeField] private GameObject floatingTextPrefab;
+        [SerializeField] private Vector3 popupOffset = new Vector3(0, 2f, 0);
+        [SerializeField] private float popupSpawnRadius = 1f;
+
+        [Header("Debug")]
+        [SerializeField] private bool debugLogging = true;
         [SerializeField] private KeyCode debugAddKey = KeyCode.G;
         [SerializeField] private float debugAddAmount = 10f;
 
+        #endregion
+
+        #region State
         private AIController controller;
         private bool hasBetrayed;
+        private float proximityTimer;
 
-        public float Grievance => grievance;
+        #endregion
+
+        #region Public Accessors
         public float BetrayalThreshold => betrayalThreshold;
-        public float NormalizedGrievance => Mathf.Clamp01(grievance / betrayalThreshold);
+        public float NormalizedGrievance => Mathf.Clamp01(GameState.CompanionGrievance / betrayalThreshold);
+
+        #endregion
+
+        #region Unity Lifecycle
 
         private void Awake()
         {
@@ -35,50 +53,73 @@ namespace Combat.Stats
         private void OnEnable() => AIController.OnEnemyDeath += HandleEnemyDeath;
         private void OnDisable() => AIController.OnEnemyDeath -= HandleEnemyDeath;
 
-        private void HandleEnemyDeath(AIController enemy, bool wasExploited)
+        private void Update()
         {
-            if (!wasExploited)
-                AddGrievance(GrievanceDataSet.FailedExploitGrievance);
+            HandleDebugInput();
+
+            if (hasBetrayed) return;
+
+            TickProximityGrievance();
         }
+
+        #endregion
+
+        #region Grievance Core
 
         public void AddGrievance(float amount)
         {
             if (hasBetrayed) return;
 
-            float previous = grievance;
-            grievance = Mathf.Max(0f, grievance + amount);
+            float previous = GameState.CompanionGrievance;
+            GameState.CompanionGrievance = Mathf.Max(0f, GameState.CompanionGrievance + amount);
 
-            if (debugLogging && !Mathf.Approximately(previous, grievance))
-                Debug.Log(
-                    $"{gameObject.name} grievance: {previous:F1} -> {grievance:F1} (threshold {betrayalThreshold})");
+            if (!Mathf.Approximately(previous, GameState.CompanionGrievance))
+            {
+                SpawnGrievancePopup(amount);
 
-            if (grievance >= betrayalThreshold)
+                if (debugLogging)
+                    Debug.Log($"{gameObject.name} grievance: {previous:F2} -> {GameState.CompanionGrievance:F2} (threshold {betrayalThreshold})");
+            }
+
+            if (GameState.CompanionGrievance >= betrayalThreshold)
                 Betray();
+        }
+
+        public void GiveLoot(int scrapValue)
+        {
+            AddGrievance(-scrapValue);
         }
 
         private void Betray()
         {
             hasBetrayed = true;
+
             if (debugLogging)
                 Debug.Log($"{gameObject.name} has crossed the betrayal threshold!");
 
             controller.TriggerBetrayal(AIController.BetrayalType.Hostile);
         }
 
-        private void Update()
+        #endregion
+
+        #region Triggers
+
+        private void HandleEnemyDeath(AIController enemy, bool wasExploited)
         {
-            if (debugLogging && Input.GetKeyDown(debugAddKey))
-            {
-                AddGrievance(debugAddAmount);
-            }
-
-            if (hasBetrayed) return;
-
-            bool enemyNearby = CheckForNearbyEnemy();
-            if (enemyNearby)
-                AddGrievance(GrievanceDataSet.ProximityGrievance * Time.deltaTime);
+            AddGrievance(!wasExploited ? GrievanceDataSet.FailedExploitGrievance : GrievanceDataSet.ExploitGrievance);
         }
-        
+
+        private void TickProximityGrievance()
+        {
+            proximityTimer += Time.deltaTime;
+            if (proximityTimer < proximityTickInterval) return;
+
+            proximityTimer = 0f;
+
+            if (CheckForNearbyEnemy())
+                AddGrievance(proximityGrievancePerTick);
+        }
+
         private bool CheckForNearbyEnemy()
         {
             Collider[] nearby = Physics.OverlapSphere(transform.position, proximityRadius, enemyLayerMask);
@@ -89,7 +130,36 @@ namespace Combat.Stats
             }
             return false;
         }
-        
+
+        #endregion
+
+        #region Feedback
+
+        private void SpawnGrievancePopup(float amount)
+        {
+            if (floatingTextPrefab == null) return;
+
+            Vector3 position = transform.position + popupOffset + Random.insideUnitSphere * popupSpawnRadius;
+
+            GameObject popup = Instantiate(floatingTextPrefab, position, Quaternion.identity);
+            string text = amount > 0 ? $"+{amount:F2}" : $"{amount:F2}";
+            Color color = amount > 0 ? Color.red : Color.green; // grievance UP = bad = red, DOWN = good = green
+
+            popup.GetComponent<FloatingText>().Setup(text, color);
+        }
+
+        #endregion
+
+        #region Debug
+
+        private void HandleDebugInput()
+        {
+            if (debugLogging && Input.GetKeyDown(debugAddKey))
+                AddGrievance(debugAddAmount);
+        }
+
+        #endregion
+
         #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
@@ -97,10 +167,5 @@ namespace Combat.Stats
             Gizmos.DrawWireSphere(transform.position, proximityRadius);
         }
         #endif
-
-        public void GiveLoot(int scrapValue)
-        {
-            AddGrievance(-scrapValue);
-        }
     }
 }

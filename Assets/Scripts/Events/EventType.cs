@@ -7,8 +7,6 @@ namespace Events
 
         ExecuteCombatRoom, // Archived
 
-        ReceiveDebug,
-
         #region Arena
         ReturnToHub,
 
@@ -26,6 +24,23 @@ namespace Events
         CreateEnemy,
         OnEnemyDeath,
         CreatePickup,
+
+        #endregion
+
+        #region Inventory
+
+        UpdatePlayerScrapCount,
+        UpdatePlayerHealth,
+        ScrapPickedUp,
+        ScrapPayout,
+        SetPlayerHealth,
+
+        #endregion
+
+        #region CombatEvents
+
+        EnemyExploited,
+        PlayerDied,
 
         #endregion
     }

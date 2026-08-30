@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38b80504fc714fa7913e010c3bdf33d5, type: 3}
+  m_Name: PlayerSoundLibrary
+  m_EditorClassIdentifier: 
+  AttackHit:
+    Guid:
+      Data1: 1215648640
+      Data2: 1338922166
+      Data3: 614908288
+      Data4: -1749105852
+    Path: event:/Sfx/Player/Attacks/AttackHit
+  AttackSwing:
+    Guid:
+      Data1: -15298790
+      Data2: 1210332465
+      Data3: 264039826
+      Data4: 707304242
+    Path: event:/Sfx/Player/Attacks/AttackSwing
+  Dodge:
+    Guid:
+      Data1: -132972968
+      Data2: 1119802132
+      Data3: 1815261576
+      Data4: 1643868047
+    Path: event:/Sfx/Player/Movement/Dodge
+  Running:
+    Guid:
+      Data1: -1964482116
+      Data2: 1305773728
+      Data3: -472533078
+      Data4: 950551658
+    Path: event:/Sfx/Player/Movement/Running
+  Walking:
+    Guid:
+      Data1: 509128993
+      Data2: 1153642048
+      Data3: -2112386138
+      Data4: 2120120092
+    Path: event:/Sfx/Player/Movement/Walking

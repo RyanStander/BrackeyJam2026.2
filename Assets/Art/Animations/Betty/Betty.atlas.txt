@@ -1,0 +1,123 @@
+Betty.png
+size:2016,733
+filter:Linear,Linear
+pma:true
+FX_Breath
+bounds:1566,14,186,167
+rotate:90
+Layer 11
+bounds:1146,2,181,72
+offsets:4,3,196,82
+rotate:90
+Layer 4 Copy 10
+bounds:334,164,84,179
+Layer 4 Copy 11
+bounds:2,163,568,330
+rotate:90
+Layer 4 Copy 12
+bounds:1349,467,135,264
+offsets:1,0,136,264
+Layer 4 Copy 13
+bounds:1220,13,84,170
+Layer 4 Copy 14
+bounds:1735,41,97,168
+Layer 4 Copy 15
+bounds:1306,4,113,187
+Layer 4 Copy 2
+bounds:1834,254,75,164
+offsets:0,1,75,165
+rotate:90
+Layer 4 Copy 3
+bounds:1928,185,81,67
+Layer 4 Copy 4
+bounds:1673,476,255,199
+rotate:90
+Layer 4 Copy 5
+bounds:1763,331,53,102
+rotate:90
+Layer 4 Copy 6
+bounds:1367,202,207,263
+Layer 4 Copy 7
+bounds:420,167,176,268
+rotate:90
+Layer 4 Copy 8
+bounds:2,3,158,177
+rotate:90
+Layer 4 Copy 9
+bounds:690,173,140,187
+Layer 6 Copy
+bounds:1874,641,138,90
+offsets:231,4,378,175
+Layer 6 Copy 2
+bounds:1834,78,89,90
+offsets:10,11,107,112
+rotate:90
+Layer 7
+bounds:1303,456,44,275
+Layer 9 Copy
+bounds:822,399,263,332
+Layer 9 Copy 10
+bounds:832,181,216,259
+rotate:90
+Layer 9 Copy 11
+bounds:1280,193,85,236
+Layer 9 Copy 12
+bounds:604,362,107,369
+Layer 9 Copy 13
+bounds:334,345,133,386
+Layer 9 Copy 14
+bounds:1187,185,91,244
+offsets:1,0,92,244
+Layer 9 Copy 15
+bounds:469,345,133,386
+Layer 9 Copy 16
+bounds:1093,185,92,244
+Layer 9 Copy 17
+bounds:405,2,160,259
+rotate:90
+Layer 9 Copy 18
+bounds:713,362,107,369
+Layer 9 Copy 19
+bounds:1486,472,259,185
+rotate:90
+Layer 9 Copy 2
+bounds:1576,211,259,185
+rotate:90
+Layer 9 Copy 3
+bounds:1763,212,40,51
+offsets:1,0,41,51
+rotate:90
+Layer 9 Copy 4
+bounds:1926,92,43,88
+offsets:0,0,43,89
+rotate:90
+Layer 9 Copy 5
+bounds:1763,386,102,88
+offsets:0,0,103,88
+Layer 9 Copy 6
+bounds:1867,358,95,124
+rotate:90
+Layer 9 Copy 7
+bounds:666,4,161,277
+rotate:90
+Layer 9 Copy 8
+bounds:1874,455,125,184
+Layer 9 Copy 9
+bounds:1421,3,143,197
+offsets:6,0,149,197
+hand1
+bounds:1087,431,214,300
+hand2
+bounds:181,13,148,222
+rotate:90
+hand3
+bounds:945,6,173,199
+rotate:90
+hand4
+bounds:1834,169,92,83
+hand5
+bounds:1763,280,53,49
+offsets:1,0,55,49
+hand6
+bounds:1928,137,46,46
+offsets:0,1,46,47
