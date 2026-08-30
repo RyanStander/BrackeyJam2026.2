@@ -25,7 +25,7 @@ namespace UI
             if (!eventData.IsEventOfType(out UpdatePlayerScrapCount updateScrapCount))
                 return;
             
-            scrapCountText.text = "Scrap: " + updateScrapCount.CurrentScrap;
+            scrapCountText.text = "Current Scrap: " + updateScrapCount.CurrentScrap;
         }
     }
 }
