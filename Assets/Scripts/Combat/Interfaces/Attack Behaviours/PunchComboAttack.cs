@@ -1,4 +1,5 @@
-﻿using Combat.Data;
+﻿using AudioManagement;
+using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours.Configs;
 using Combat.Rules;
 using Combat.Stats;
@@ -25,6 +26,7 @@ namespace Combat.Interfaces.Attack_Behaviours
             phase = Phase.Windup;
             timer = 0f;
             controller.AnimationController.PlayFlyPunch(DirectionToTarget(controller));
+            AudioManager.PlayOneShot(AudioDataHandler.Boss.FlightPunchCombo);
         }
 
         public void Execute(AIController controller)

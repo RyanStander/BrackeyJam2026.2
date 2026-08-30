@@ -1,4 +1,5 @@
-﻿using Combat.Boss;
+﻿using AudioManagement;
+using Combat.Boss;
 using Combat.Data;
 using Combat.Interfaces;
 using Combat.Interfaces.Attack_Behaviours.Configs;
@@ -36,6 +37,7 @@ namespace Combat.Interfaces.Attack_Behaviours
 
             controller.Movement.BeginManualOverride();
             controller.AnimationController.PlaySlam(direction);
+            AudioManager.PlayOneShot(AudioDataHandler.Boss.Slam);
             telegraph.ShowCircle(slamOrigin, config.SlamRadius, config.WindupTime);
         }
 

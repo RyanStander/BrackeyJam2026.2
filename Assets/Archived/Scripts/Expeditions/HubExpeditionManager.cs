@@ -1,3 +1,5 @@
+using AudioManagement;
+using AudioManagement.SoundLibraries;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -56,5 +58,7 @@ public class HubExpeditionManager : MonoBehaviour
     {
         if (!activeRegion) return;
         UpdateRegionDisplay();
+        
+        AudioManager.PlayMusic(AudioDataHandler.Music.HUB);
     }
 }

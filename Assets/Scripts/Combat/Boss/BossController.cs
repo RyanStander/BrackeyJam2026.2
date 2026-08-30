@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AudioManagement;
 using Combat.Interfaces.Attack_Behaviours;
 using Controllers;
 using UnityEngine;
@@ -75,6 +76,7 @@ namespace Combat.Boss
             AnimationController.SetFlyingLocomotion(true);
             transitionFX?.PlayTransition();
             StartCoroutine(TransitionRoutine());
+            AudioManager.PlayOneShot(AudioDataHandler.Boss.BossFlight);
         }
 
         private IEnumerator TransitionRoutine()

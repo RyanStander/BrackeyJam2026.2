@@ -55,6 +55,12 @@ namespace AudioManagement
             Instance.PlayMusicInstance(music);
         }
 
+        public static void SetMusicParameterByName(string param, float value)
+        {
+            if(Instance==null)return;
+            Instance._currentMusic.setParameterByName(param,value);
+        }
+
         /// <summary>
         /// Stops the currently playing music. If fadeOut is true, the music will fade out instead of stopping immediately.
         /// </summary>

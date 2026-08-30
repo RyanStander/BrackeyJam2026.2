@@ -6,6 +6,14 @@ namespace AudioManagement
     {
         private static SoundLibrary soundLibrary => AudioManager.SoundLibrary;
 
+        public static class Music
+        {
+            public static EventReference HUB => soundLibrary.MusicSoundLibrary.HUB;
+            public static EventReference BabyLevel => soundLibrary.MusicSoundLibrary.BabyLevel;
+            public static EventReference NormalLevel => soundLibrary.MusicSoundLibrary.NormalLevel;
+            public static EventReference BossLevel => soundLibrary.MusicSoundLibrary.BossLevel;
+        }
+        
         public static class Player
         {
             public static EventReference AttackHit => soundLibrary.PlayerSoundLibrary.AttackHit;
@@ -21,6 +29,22 @@ namespace AudioManagement
             public static EventReference Reload => soundLibrary.GunslingerSoundLibrary.Reload;
             public static EventReference SpecialShot => soundLibrary.GunslingerSoundLibrary.SpecialShot;
             public static EventReference Walking => soundLibrary.GunslingerSoundLibrary.Walking;
+        }
+
+        public static class Boss
+        {
+            public static EventReference BossFlight => soundLibrary.BossSoundLibrary.BossFlight;
+            public static EventReference ChargeFlight => soundLibrary.BossSoundLibrary.ChargeFlight;
+            public static EventReference FlightPunchCombo => soundLibrary.BossSoundLibrary.FlightPunchCombo;
+            public static EventReference Punch => soundLibrary.BossSoundLibrary.Punch;
+            public static EventReference Slam => soundLibrary.BossSoundLibrary.Slam;
+        }
+        
+        public static class Swatter
+        {
+            public static EventReference Attack => soundLibrary.SwatterSoundLibrary.Attack;
+            public static EventReference TakeDamage => soundLibrary.SwatterSoundLibrary.TakeDamage;
+            public static EventReference Walking => soundLibrary.SwatterSoundLibrary.Walking;
         }
 
         public static class Charger

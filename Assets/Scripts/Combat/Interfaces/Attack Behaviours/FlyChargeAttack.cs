@@ -1,4 +1,5 @@
-﻿using Combat.Boss;
+﻿using AudioManagement;
+using Combat.Boss;
 using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours.Configs;
 using Combat.Rules;
@@ -25,6 +26,7 @@ namespace Combat.Interfaces.Attack_Behaviours
         private Vector3 chargeDirection;
         private Vector3 startLocation;
         private bool hasHit;
+        private SoundHandle chargeID;
 
         public bool CanExecute(AIController controller)
         {
@@ -63,11 +65,15 @@ namespace Combat.Interfaces.Attack_Behaviours
             {
                 Vector3 next = controller.transform.position + chargeDirection * (config.ChargeSpeed * Time.deltaTime);
                 controller.Movement.MovePosition(next);
+                chargeID = AudioManager.PlayLoop(AudioDataHandler.Boss.ChargeFlight);
 
                 HandleChargeHit(controller);
 
                 if (Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance)
+                {
                     phase = Phase.Done;
+                    AudioManager.Stop(chargeID);
+                }
             }
         }
 
@@ -87,6 +93,7 @@ namespace Combat.Interfaces.Attack_Behaviours
                 if (!controller.IsHostileTo(hit.gameObject)) continue;
 
                 hasHit = true;
+                AudioManager.Stop(chargeID);
 
                 DamageInfo info = new(config.Damage, controller.Faction, controller.gameObject, DamageMode.Normal);
                 if (hit.gameObject.TryGetComponent(out IDamageable target) && CombatRules.CanDamage(info, target))

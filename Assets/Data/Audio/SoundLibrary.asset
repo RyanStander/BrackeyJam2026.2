@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e891e39c81149bca6af16d2384033b3, type: 3}
   m_Name: SoundLibrary
   m_EditorClassIdentifier: 
+  MusicSoundLibrary: {fileID: 11400000, guid: f320424d23360f24b875112f4997a2f6, type: 2}
   PlayerSoundLibrary: {fileID: 11400000, guid: 5484a60b3c0204840b9220050eda0eb1, type: 2}
   GunslingerSoundLibrary: {fileID: 11400000, guid: 3491616bb0f0dc546bb6684a58c501c4, type: 2}
   ChargerSoundLibrary: {fileID: 11400000, guid: 0c05dc7591c298246be88f280df3490f, type: 2}
