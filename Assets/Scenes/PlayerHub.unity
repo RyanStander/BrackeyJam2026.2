@@ -9437,8 +9437,6 @@ MonoBehaviour:
   - {fileID: 477912606}
   - {fileID: 1811880532}
   - {fileID: 361929682}
-  region: {fileID: 0}
-  destination: {fileID: 0}
   stickyNote: {fileID: 868422111}
 --- !u!224 &2051724441 stripped
 RectTransform:
@@ -9850,7 +9848,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1499523808}
+      - m_Target: {fileID: 1152374322}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
