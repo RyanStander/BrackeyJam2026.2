@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine;
@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour
     private static string savedStoryJson = null;
     private static string savedPendingLine = null;
     private static bool resumePending = false;
+    private static bool hasInitializedGameState = false;
 
     private static void ResetStaticStateOnLaunch()
     {
@@ -51,8 +52,9 @@ public class DialogueManager : MonoBehaviour
         {
             ResumeAfterMatch();
         }
-        else
+        else if (!hasInitializedGameState)
         {
+            hasInitializedGameState = true;
             GameState.ResetForNewGame();
         }
     }
@@ -135,7 +137,7 @@ public class DialogueManager : MonoBehaviour
             {
                 GameState.EndingId = endingTag.Substring("ending:".Length);
                 GameState.EndingLine = line;
-                UnityEngine.SceneManagement.SceneManager.LoadScene("EndingScreen");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("EndingScene", UnityEngine.SceneManagement.LoadSceneMode.Single);
                 return;
             }
 
@@ -229,6 +231,7 @@ public class DialogueManager : MonoBehaviour
         {
             DisplayLine(savedPendingLine);
             savedPendingLine = null;
+
         }
         else
         {
@@ -246,6 +249,7 @@ public class DialogueManager : MonoBehaviour
 
     public void ResetGame()
     {
+        hasInitializedGameState = true;
         GameState.ResetForNewGame();
         ResetStaticStateOnLaunch();
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);

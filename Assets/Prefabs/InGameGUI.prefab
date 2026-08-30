@@ -3832,7 +3832,6 @@ GameObject:
   m_Component:
   - component: {fileID: 62147268763927716}
   - component: {fileID: 830758583533761282}
-  - component: {fileID: 6902969847431979961}
   - component: {fileID: 236768942068983185}
   m_Layer: 5
   m_Name: PlayerDeathScreen
@@ -3869,27 +3868,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6357017515908401122}
   m_CullTransparentMesh: 1
---- !u!114 &6902969847431979961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6357017515908401122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe697167bf0424fa4f1991bbeb20ad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cheerDuration: 2
-  overviewScreenUI: {fileID: 1159781275789132029}
-  scrapPayout: {fileID: 634797266127937075}
-  scrapFound: {fileID: 3286302711157397087}
-  itemList: {fileID: 4302021168899101352}
-  killCount: {fileID: 5826876936968211244}
-  exploitCount: {fileID: 4019728538077922863}
-  companionOpinion: {fileID: 677369808302957050}
-  statTracker: {fileID: 6320746101463502804}
 --- !u!114 &236768942068983185
 MonoBehaviour:
   m_ObjectHideFlags: 0
