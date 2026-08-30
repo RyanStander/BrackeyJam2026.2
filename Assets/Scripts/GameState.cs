@@ -12,6 +12,8 @@ public static class GameState
     public static int DamageRank;
     public static int SwingSpeedRank;
     public static int MoveSpeedRank;
+    public static string EndingId;
+    public static string EndingLine;
 
     public static void ResetForNewGame()
     {
@@ -22,5 +24,7 @@ public static class GameState
         DamageRank = 0;
         SwingSpeedRank = 0;
         MoveSpeedRank = 0;
+        EndingId = "";
+        EndingLine = "";
     }
 }
