@@ -95,9 +95,6 @@
 		<property name="playCount">
 			<value>1</value>
 		</property>
-		<property name="playlistMode">
-			<value>1</value>
-		</property>
 		<relationship name="sounds">
 			<destination>{45636ff7-a0e4-4828-a79f-8e10b45488c5}</destination>
 			<destination>{6d661cd0-ad84-41c6-abf1-19da392109f9}</destination>

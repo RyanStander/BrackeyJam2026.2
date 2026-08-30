@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ability: 0
   Icon: {fileID: 0}
-  CostPerRank: 010000000300000005000000
+  CostPerRank: 0a0000001e00000032000000
   BonusPerRank:
   - 2
   - 4

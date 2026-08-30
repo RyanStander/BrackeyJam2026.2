@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88521530f0b64b89b25aa9dfa78e347d, type: 3}
+  m_Name: MusicSoundLibrary
+  m_EditorClassIdentifier: 
+  HUB:
+    Guid:
+      Data1: 293937338
+      Data2: 1124283516
+      Data3: 423755662
+      Data4: -1773686491
+    Path: event:/Music/HUB
+  BabyLevel:
+    Guid:
+      Data1: 1311098548
+      Data2: 1127872406
+      Data3: -1825869635
+      Data4: -969236293
+    Path: event:/Music/BabyLevel
+  NormalLevel:
+    Guid:
+      Data1: 1014040919
+      Data2: 1096616862
+      Data3: 268101033
+      Data4: 1028001935
+    Path: event:/Music/NormalLevels
+  BossLevel:
+    Guid:
+      Data1: -566822148
+      Data2: 1231819148
+      Data3: 713592492
+      Data4: 2001566887
+    Path: event:/Music/BossLevel
