@@ -48,6 +48,7 @@ namespace StateMachine
                     {
                         currentAttack = attackCandidate;
                         currentAttack.Telegraph(controller);
+                        controller.Movement.MovementTick(controller.transform.position);
                         state = State.Attacking;
                     }
                     break;
@@ -60,6 +61,7 @@ namespace StateMachine
     
                     if (currentAttack.IsFinished(controller))
                     {
+                        controller.Movement.EndManualOverride();
                         state = State.Recovering;
                     }
                     break;
@@ -71,7 +73,6 @@ namespace StateMachine
                     if (stunTimer <= 0)
                     {
                         state = State.Chase;
-                        controller.Animator.SetTrigger("End");
                     }
                     break;
                 default:

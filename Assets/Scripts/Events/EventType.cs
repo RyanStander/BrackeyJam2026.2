@@ -3,11 +3,21 @@ namespace Events
     //Defines the different event types to be used in event data in enumeration form
     public enum EventType
     {
-        CommandRoomChange,
-        CommandAreaExit,
-        ExecuteCombatRoom,
+        CommandRoomChange, // Archived
 
-        ReceiveDebug,
+        ExecuteCombatRoom, // Archived
+
+        #region Arena
+        ReturnToHub,
+
+        #region Waves
+        WaveStart,
+        WaveEnd,
+        BossStart,
+        BossEnd,
+        WavesCompleted,
+        #endregion
+        #endregion
 
         #region Factories
 
@@ -17,5 +27,21 @@ namespace Events
 
         #endregion
 
+        #region Inventory
+
+        UpdatePlayerScrapCount,
+        UpdatePlayerHealth,
+        ScrapPickedUp,
+        ScrapPayout,
+        SetPlayerHealth,
+
+        #endregion
+
+        #region CombatEvents
+
+        EnemyExploited,
+        PlayerDied,
+
+        #endregion
     }
 }

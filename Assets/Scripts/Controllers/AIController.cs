@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Combat.Animations;
 using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours;
 using Combat.Stats;
 using Events;
 using Factories;
 using Movement;
+using Spine.Unity;
 using UnityEngine;
+using AnimationState = Spine.AnimationState;
 
 namespace Controllers
 {
-    [RequireComponent(typeof(AiMovement), typeof(Health), typeof(Animator))]
+    [RequireComponent(typeof(AiMovement), typeof(Health))]
     [RequireComponent(typeof(Rigidbody))]
     public class AIController : GenericController
     {
@@ -19,13 +22,14 @@ namespace Controllers
         private Dictionary<IAttackBehaviour, float> cooldownTimers = new();
         public AiMovement Movement;
         public Animator Animator;
+        public AIAnimationController AnimationController;
         public GameObject Target { get; set; }
         private StateMachine.StateMachine stateMachine = new StateMachine.StateMachine();
         private bool exploited;
         public bool WasExploited { get; private set; }
         public string TargetTag = "Player";
         public Faction Faction = Faction.Enemies;
-        
+
         public static event Action<AIController, bool> OnEnemyDeath;
         public bool IsEnemyFaction => TargetTag == "Player";
 
@@ -38,6 +42,10 @@ namespace Controllers
 
             if (Animator == null)
                 Animator = GetComponent<Animator>();
+            
+            if (AnimationController == null)
+                AnimationController = GetComponent<AIAnimationController>();
+            
         }
 
         protected override void Awake()
@@ -118,7 +126,7 @@ namespace Controllers
             EventManager.currentManager.AddEvent(new CreatePickup(PickupType.Scrap, transform.position));
             Destroy(gameObject);
         }
-        
+
         private void HandleOwnDeath()
         {
             if (IsEnemyFaction)
@@ -129,6 +137,7 @@ namespace Controllers
         {
             stateMachine.Stun(duration);
             exploited = true;
+            EventManager.currentManager.AddEvent(new EnemyExploited(this));
         }
 
         //for damage bonus on exploited enemies, should only happen once
@@ -141,8 +150,12 @@ namespace Controllers
             WasExploited = true;
             return true;
         }
-        
-        public enum BetrayalType { Hostile, StealLoot }
+
+        public enum BetrayalType
+        {
+            Hostile,
+            StealLoot
+        }
 
         public void TriggerBetrayal(BetrayalType type)
         {
@@ -155,9 +168,19 @@ namespace Controllers
                     break;
 
                 case BetrayalType.StealLoot:
-                    Debug.LogWarning($"{gameObject.name}: StealLoot betrayal not yet implemented, falling back to Hostile.");
+                    Debug.LogWarning(
+                        $"{gameObject.name}: StealLoot betrayal not yet implemented, falling back to Hostile.");
                     goto case BetrayalType.Hostile;
             }
         }
+
+        public bool IsHostileTo(GameObject obj)
+        {
+            if (TargetTag == "Player")
+                return obj.CompareTag("Player") || obj.CompareTag("Companion");
+
+            return obj.CompareTag("Enemy");
+        }
+        protected void RefreshAttacks() => attacks = GetComponentsInChildren<IAttackBehaviour>();
     }
 }

@@ -146,7 +146,7 @@ namespace Controllers
             Animator.SetTrigger("Grab");
             yield return new WaitForSeconds(0.3f);
             if (HitTarget(grabDamage, 2f))
-                Health.CurrentHealth = Mathf.Min(Health.CurrentHealth + grabHeal, Health.MaxHealth);
+                Health.RestoreHealth(Mathf.Min(Health.CurrentHealth + grabHeal, Health.MaxHealth));
             attackTimer = attackCooldown;
             isBusy = false;
         }

@@ -1,0 +1,58 @@
+swatter.png
+size:1421,199
+filter:Linear,Linear
+pma:true
+Layer 10
+bounds:2,20,177,272
+rotate:90
+Layer 11
+bounds:939,6,94,300
+offsets:0,0,95,301
+rotate:90
+Layer 11 Copy
+bounds:848,102,95,300
+offsets:0,0,95,301
+rotate:90
+Layer 3 Copy 2
+bounds:728,25,52,209
+offsets:5,0,57,358
+rotate:90
+Layer 3 Copy 3
+bounds:276,2,51,236
+rotate:90
+Layer 3 Copy 4
+bounds:1150,103,94,110
+rotate:90
+Layer 3 Copy 5
+bounds:537,79,118,309
+rotate:90
+Layer 3 Copy 6
+bounds:276,55,142,259
+rotate:90
+Layer 3 Copy 9
+bounds:276,55,142,259
+rotate:90
+Layer 3 Copy 7
+bounds:1241,50,51,178
+rotate:90
+Layer 3 Copy 8
+bounds:1262,116,33,138
+offsets:0,0,33,139
+rotate:90
+Layer 4
+bounds:1262,151,46,131
+rotate:90
+Layer 5 Copy
+bounds:1241,5,43,149
+offsets:0,1,43,150
+rotate:90
+Layer 5
+bounds:1241,5,43,149
+offsets:0,1,43,150
+rotate:90
+Layer 9 Copy
+bounds:514,3,50,212
+rotate:90
+Layer 9
+bounds:514,3,50,212
+rotate:90

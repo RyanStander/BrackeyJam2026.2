@@ -1,18 +1,11 @@
-using Expeditions.Room;
+
+using Controllers;
 using UnityEngine;
 
 namespace Events
 {
-    //Event that informs subscribers of a debug log
-    public class SendDebugLog : EventData
-    {
-        public readonly string Debuglog;
-
-        public SendDebugLog(string givenLog) : base(EventType.ReceiveDebug)
-        {
-            Debuglog = givenLog;
-        }
-    }
+    
+    #region Factory
     
     public class CreateEnemy : EventData
     {
@@ -37,41 +30,127 @@ namespace Events
             Position = position;
         }
     }
+    
+    #endregion
+
+    #region Wave System
+
+    public class WaveStart : EventData
+    {
+        public WaveStart() : base(EventType.WaveStart) { }
+    }
+    public class WaveEnd : EventData
+    {
+        public WaveEnd() : base(EventType.WaveEnd) { }
+    }
+
+    public class BossStart : EventData
+    {
+        public BossStart() : base(EventType.BossStart) { }
+    }
+    public class BossEnd : EventData
+    {
+        public BossEnd() : base(EventType.BossEnd) { }
+    }
+
+    public class WavesCompleted : EventData
+    {
+        public WavesCompleted() : base(EventType.WavesCompleted) { }
+    }
+
+    #endregion
+    
+    public class ReturnToHub : EventData
+    {
+        public ReturnToHub() : base(EventType.ReturnToHub) { }
+    }
 
     public class OnEnemyDeath : EventData { 
         public OnEnemyDeath() : base(EventType.OnEnemyDeath){}
     }
+
+    #region UI Displays
+
+    public class UpdatePlayerScrapCount: EventData
+    {
+        public readonly int CurrentScrap;
+
+        public UpdatePlayerScrapCount(int currentScrap) : base(EventType.UpdatePlayerScrapCount)
+        {
+            CurrentScrap = currentScrap;
+        }
+    }
     
-    public class CommandAreaExit : EventData
+    public class UpdatePlayerHealth: EventData
     {
-        public CommandAreaExit() : base(EventType.CommandAreaExit){}
-    }
+        public readonly float CurrentHealth;
 
-    public class ExecuteCombatRoom : EventData
-    {
-        public readonly RoomManager SourceRoom;
-        public readonly CombatRoomData RoomData;
-        public readonly Bounds RoomBounds;
-
-        public ExecuteCombatRoom(RoomManager sourceRoom, RoomData roomData, Bounds roomBounds) : base(EventType.ExecuteCombatRoom)
+        public UpdatePlayerHealth(float currentHealth) : base(EventType.UpdatePlayerHealth)
         {
-            SourceRoom = sourceRoom;
-            RoomData = (CombatRoomData) roomData;
-            RoomBounds = roomBounds;
+            CurrentHealth = currentHealth;
+        }
+    }
+    
+    public class SetPlayerHealth: EventData
+    {
+        public readonly float CurrentHealth;
+        public readonly float MaxHealth;
+
+        public SetPlayerHealth(float currentHealth, float maxHealth) : base(EventType.SetPlayerHealth)
+        {
+            CurrentHealth = currentHealth;
+            MaxHealth = maxHealth;
         }
     }
 
-    public class CommandRoomChange : EventData
-    {
-        public readonly RoomManager SourceRoom;
-        public readonly RoomManager TargetRoom;
-        public readonly Vector3 TargetPosition;
+    #endregion
 
-        public CommandRoomChange(RoomManager sourceRoom, RoomManager targetRoom, Vector3 targetPosition) : base(EventType.CommandRoomChange)
+    #region Inventory
+
+    public class ScrapPickedUp : EventData
+    {
+        public readonly int ScrapCount;
+
+        public ScrapPickedUp(int scrapCount) : base(EventType.ScrapPickedUp)
         {
-            SourceRoom = sourceRoom;
-            TargetRoom = targetRoom;
-            TargetPosition = targetPosition;
+            ScrapCount = scrapCount;
         }
     }
+
+    public class ScrapPayout : EventData
+    {
+        public readonly int ScrapCount;
+
+        public ScrapPayout(int scrapCount) : base(EventType.ScrapPayout)
+        {
+            ScrapCount = scrapCount;
+        }
+    }
+
+    #endregion
+    
+    #region Combat
+
+    public class EnemyExploited : EventData
+    {
+        public readonly AIController ExploitedEnemy;
+
+        public EnemyExploited(AIController exploitedEnemy) : base(EventType.EnemyExploited)
+        {
+            ExploitedEnemy = exploitedEnemy;
+        }
+    }
+
+    public class PlayerDied : EventData
+    {
+        public readonly GameObject LastKiller;
+
+        public PlayerDied(GameObject lastKiller) : base(EventType.PlayerDied)
+        {
+            LastKiller = lastKiller;
+        }
+    }
+
+    #endregion
 }
+
