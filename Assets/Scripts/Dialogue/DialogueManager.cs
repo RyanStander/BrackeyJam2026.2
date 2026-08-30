@@ -225,4 +225,11 @@ public class DialogueManager : MonoBehaviour
         story.RemoveVariableObserver(OnTrustChanged, "greivance");
         //panelDialogue.SetActive(false);
     }
+
+    public void ResetGame()
+    {
+        GameState.ResetForNewGame();
+        ResetStaticStateOnLaunch();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
 }
