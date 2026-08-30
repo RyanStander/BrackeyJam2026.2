@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerAnimationController animationController;
     [SerializeField] private PlayerAttack playerAttack;
 
+    [Header("Upgrades")]
+    [SerializeField] private UpgradeTrack moveSpeedTrack;
+    [SerializeField] private UpgradeTrack dashTrack;
+
     private Vector2 movementInput;
     private Vector3 currentVelocity;
     private float nextLungeTime;
@@ -35,6 +39,23 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Unity Lifecycle
+
+    private void Awake()
+    {
+        if (moveSpeedTrack != null && GameState.MoveSpeedRank > 0)
+        {
+            int index = Mathf.Min(GameState.MoveSpeedRank, moveSpeedTrack.BonusPerRank.Length) - 1;
+            if (index >= 0)
+                moveSpeed += moveSpeedTrack.BonusPerRank[index];
+        }
+
+        if (dashTrack != null && GameState.DashRank > 0)
+        {
+            int index = Mathf.Min(GameState.DashRank, dashTrack.BonusPerRank.Length) - 1;
+            if (index >= 0)
+                lungeDistance += dashTrack.BonusPerRank[index];
+        }
+    }
 
     private void OnValidate()
     {

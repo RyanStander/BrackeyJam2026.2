@@ -16,7 +16,7 @@ public static class GameState
     public static void ResetForNewGame()
     {
         CompanionGrievance = 0f;
-        ScrapTotal = 4;
+        ScrapTotal = 1;
         CurrentArea = 0;
         DashRank = 0;
         DamageRank = 0;

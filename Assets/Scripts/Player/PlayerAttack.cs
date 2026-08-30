@@ -32,6 +32,27 @@ namespace Player
         [SerializeField] private MeleeHitbox meleeHitbox;
         private int currentDirectionIndex;
 
+        [Header("Upgrades")]
+        [SerializeField] private UpgradeTrack damageTrack;
+        [SerializeField] private UpgradeTrack swingSpeedTrack;
+
+        private void Awake()
+        {
+            if (damageTrack != null && GameState.DamageRank > 0)
+            {
+                int index = Mathf.Min(GameState.DamageRank, damageTrack.BonusPerRank.Length) - 1;
+                if (index >= 0)
+                    meleeAttackDamage += (int)damageTrack.BonusPerRank[index];
+            }
+
+            if (swingSpeedTrack != null && GameState.SwingSpeedRank > 0)
+            {
+                int index = Mathf.Min(GameState.SwingSpeedRank, swingSpeedTrack.BonusPerRank.Length) - 1;
+                if (index >= 0)
+                    attackCooldown = Mathf.Max(0.1f, attackCooldown - swingSpeedTrack.BonusPerRank[index]);
+            }
+        }
+
         private void OnValidate()
         {
             if (playerMovement == null)

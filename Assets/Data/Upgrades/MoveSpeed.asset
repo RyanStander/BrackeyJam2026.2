@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcc0bb2d5c188fb4e8300491eef77f79, type: 3}
-  m_Name: DashDistance
+  m_Name: MoveSpeed
   m_EditorClassIdentifier: 
-  Ability: 0
+  Ability: 3
   Icon: {fileID: 0}
   CostPerRank: 010000000300000005000000
-  BonusPerRank: []
+  BonusPerRank:
+  - 1
+  - 2
+  - 4
