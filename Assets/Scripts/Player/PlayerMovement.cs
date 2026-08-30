@@ -29,57 +29,53 @@ namespace Player
         [SerializeField] private PlayerAnimationController animationController;
         [SerializeField] private PlayerAttack playerAttack;
 
+        private float knockbackTimer;
+        [Header("Upgrades")] [SerializeField] private UpgradeTrack moveSpeedTrack;
+        [SerializeField] private UpgradeTrack dashTrack;
+
         private Vector2 movementInput;
         private Vector3 currentVelocity;
         private float nextLungeTime;
-        private float knockbackTimer;
-    [Header("Upgrades")]
-    [SerializeField] private UpgradeTrack moveSpeedTrack;
-    [SerializeField] private UpgradeTrack dashTrack;
-
-    private Vector2 movementInput;
-    private Vector3 currentVelocity;
-    private float nextLungeTime;
 
         #endregion
 
         #region Unity Lifecycle
 
-    private void Awake()
-    {
-        if (moveSpeedTrack != null && GameState.MoveSpeedRank > 0)
+        private void Awake()
         {
-            int index = Mathf.Min(GameState.MoveSpeedRank, moveSpeedTrack.BonusPerRank.Length) - 1;
-            if (index >= 0)
-                moveSpeed += moveSpeedTrack.BonusPerRank[index];
+            if (moveSpeedTrack != null && GameState.MoveSpeedRank > 0)
+            {
+                int index = Mathf.Min(GameState.MoveSpeedRank, moveSpeedTrack.BonusPerRank.Length) - 1;
+                if (index >= 0)
+                    moveSpeed += moveSpeedTrack.BonusPerRank[index];
+            }
+
+            if (dashTrack != null && GameState.DashRank > 0)
+            {
+                int index = Mathf.Min(GameState.DashRank, dashTrack.BonusPerRank.Length) - 1;
+                if (index >= 0)
+                    lungeDistance += dashTrack.BonusPerRank[index];
+            }
         }
 
-        if (dashTrack != null && GameState.DashRank > 0)
+        private void OnValidate()
         {
-            int index = Mathf.Min(GameState.DashRank, dashTrack.BonusPerRank.Length) - 1;
-            if (index >= 0)
-                lungeDistance += dashTrack.BonusPerRank[index];
+            if (playerRb == null)
+                playerRb = GetComponent<Rigidbody>();
+            if (playerHealth == null)
+                playerHealth = GetComponent<PlayerHealth>();
+            if (animationController == null)
+                animationController = GetComponent<PlayerAnimationController>();
+            if (playerAttack == null)
+                playerAttack = GetComponent<PlayerAttack>();
         }
-    }
-
-    private void OnValidate()
-    {
-        if (playerRb == null)
-            playerRb = GetComponent<Rigidbody>();
-        if (playerHealth == null)
-            playerHealth = GetComponent<PlayerHealth>();
-        if (animationController == null)
-            animationController = GetComponent<PlayerAnimationController>();
-        if (playerAttack == null)
-            playerAttack = GetComponent<PlayerAttack>();
-    }
 
         private void Update()
         {
             ReadMovementInput();
             int directionIndex = GetDirectionIndex(movementInput);
-            animationController.UpdateDirection(directionIndex,movementInput.sqrMagnitude);
-            playerAttack.SetAttackDirection(directionIndex,movementInput.sqrMagnitude);
+            animationController.UpdateDirection(directionIndex, movementInput.sqrMagnitude);
+            playerAttack.SetAttackDirection(directionIndex, movementInput.sqrMagnitude);
             HandleLungeInput();
         }
 
@@ -97,7 +93,7 @@ namespace Player
         #endregion
 
         #region Movement
-        
+
         public void ApplyKnockback(float duration) => knockbackTimer = duration;
 
         private void ReadMovementInput()
@@ -113,7 +109,7 @@ namespace Player
             currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
             playerRb.MovePosition(playerRb.position + currentVelocity * Time.fixedDeltaTime);
         }
-    
+
         /// <summary>
         /// Converts an input vector into one of 8 cardinal direction indices (0-7),
         /// snapped to the nearest 45-degree increment.
@@ -151,7 +147,7 @@ namespace Player
             Vector3 lungeDirection = new Vector3(movementInput.x, 0f, movementInput.y).normalized;
             float speed = lungeDistance / lungeDuration;
             float elapsed = 0f;
-        
+
             AudioManager.PlayOneShot(AudioDataHandler.Player.Dodge);
 
             while (elapsed < lungeDuration)
