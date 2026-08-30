@@ -85,7 +85,7 @@ namespace Combat.Interfaces.Attack_Behaviours
                         AudioManager.PlayOneShot(AudioDataHandler.Gunslinger.BasicShot);
                         break;
                     case ShooterType.Swatter:
-                        //not implemented
+                        AudioManager.PlayOneShot(AudioDataHandler.Swatter.Attack);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -107,7 +107,6 @@ namespace Combat.Interfaces.Attack_Behaviours
                         AudioManager.PlayOneShot(AudioDataHandler.Gunslinger.Reload);
                         break;
                     case ShooterType.Swatter:
-                        //not implemented
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
