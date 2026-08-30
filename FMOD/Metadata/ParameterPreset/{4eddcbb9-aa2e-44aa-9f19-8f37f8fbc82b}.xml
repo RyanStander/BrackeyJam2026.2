@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{4eddcbb9-aa2e-44aa-9f19-8f37f8fbc82b}">
+		<property name="name">
+			<value>BossSpawn</value>
+		</property>
+		<relationship name="folder">
+			<destination>{5363883f-e21b-44c1-a97f-8e6db2407ae6}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{82e2f712-3923-4733-a3fd-6812626785cb}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{82e2f712-3923-4733-a3fd-6812626785cb}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

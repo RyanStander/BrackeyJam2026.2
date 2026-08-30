@@ -35,20 +35,19 @@ namespace StateMachine
                     
                     break;
                 case State.Chase:
-                    if (controller.Target==null || !controller.Target.activeInHierarchy)
+                    if (controller.Target == null || !controller.Target.activeInHierarchy)
                     {
                         controller.ReacquireTarget();
                         if (controller.Target == null)
                             break;
                     }
-                    
+
                     controller.Movement.MovementTick(controller.Target.transform.position);
                     IAttackBehaviour attackCandidate = controller.PickAvailableAttack();
                     if (attackCandidate != null)
                     {
                         currentAttack = attackCandidate;
                         currentAttack.Telegraph(controller);
-                        controller.Movement.MovementTick(controller.transform.position);
                         state = State.Attacking;
                     }
                     break;

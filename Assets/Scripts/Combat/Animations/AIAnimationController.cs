@@ -26,6 +26,29 @@ namespace Combat.Animations
         [SerializeField] private string stunBackAnimationName;
         [SerializeField] private string stunSideAnimationName;
 
+        [Header("Boss - Phase 1 Grounded")] [SerializeField]
+        private string slamFrontName;
+
+        [SerializeField] private string slamBackName;
+        [SerializeField] private string slamSideName;
+
+        [SerializeField] private string punchFrontName, punchBackName, punchSideName;
+        [SerializeField] private string walkFrontName, walkBackName, walkSideName;
+
+        [Header("Boss - Phase 2 Flying")] [SerializeField]
+        private string flyFrontName;
+
+        [SerializeField] private string flyBackName;
+        [SerializeField] private string flySideName;
+
+        [SerializeField] private string flyPunchFrontName;
+        [SerializeField] private string flyPunchBackName;
+        [SerializeField] private string flyPunchSideName;
+        [SerializeField] private string flyChargeSideName; // Front is broken - side only
+
+        [Header("Boss - Transition")] [SerializeField]
+        private string growWingsName;
+
         [Header("Diagonal Fake")]
         [Tooltip(
             "Rotation (degrees) applied on top of the nearest front/back/side animation to fake a diagonal facing.")]
@@ -38,14 +61,14 @@ namespace Combat.Animations
             Back,
             Side
         }
-        
+
         private enum EnemyType
         {
             Charger,
             Gunslinger
         }
 
-        [SerializeField]private EnemyType enemyType;
+        [SerializeField] private EnemyType enemyType;
 
         private AnimationState spineState;
         private string currentSpineAnimation = "";
@@ -67,7 +90,7 @@ namespace Combat.Animations
                 spineState.Event += HandleSpineEvent;
             }
         }
-        
+
         private void HandleSpineEvent(TrackEntry trackEntry, Spine.Event e)
         {
             if (e.Data.Name == "Step")
@@ -88,6 +111,10 @@ namespace Combat.Animations
 
         #region Public API
 
+        private bool useFlyingLocomotion;
+
+        public void SetFlyingLocomotion(bool flying) => useFlyingLocomotion = flying;
+
         public void PlayRun(Vector3 direction, float speed = 1f)
         {
             int index = GetDirectionIndex(direction);
@@ -96,19 +123,28 @@ namespace Combat.Animations
             if (animator != null)
             {
                 animator.speed = speed;
-                animator.SetTrigger("Run"); // adjust name to match your Animator setup
+                animator.SetTrigger("Run");
             }
 
             if (spineState != null)
             {
-                string clip = category switch
-                {
-                    FacingCategory.Front => runFrontAnimationName,
-                    FacingCategory.Back => runBackAnimationName,
-                    FacingCategory.Side => runSideAnimationName,
-                    _ => ""
-                };
-                PlaySpine(clip, true, faceLeft, index,speed);
+                string clip = useFlyingLocomotion
+                    ? category switch
+                    {
+                        FacingCategory.Front => flyFrontName,
+                        FacingCategory.Back => flyBackName,
+                        FacingCategory.Side => flySideName,
+                        _ => ""
+                    }
+                    : category switch
+                    {
+                        FacingCategory.Front => runFrontAnimationName,
+                        FacingCategory.Back => runBackAnimationName,
+                        FacingCategory.Side => runSideAnimationName,
+                        _ => ""
+                    };
+
+                PlaySpine(clip, true, faceLeft, index, speed);
             }
         }
 
@@ -135,7 +171,7 @@ namespace Combat.Animations
                 PlaySpine(clip, false, faceLeft, index);
             }
         }
-        
+
         public void PlayStun(Vector3 direction)
         {
             int index = GetDirectionIndex(direction);
@@ -158,6 +194,68 @@ namespace Combat.Animations
                 };
                 PlaySpine(clip, true, faceLeft, index);
             }
+        }
+
+        public void PlaySlam(Vector3 direction)
+        {
+            int index = GetDirectionIndex(direction);
+            var (category, faceLeft) = GetFacing(index);
+            string clip = category switch
+            {
+                FacingCategory.Front => slamFrontName,
+                FacingCategory.Back => slamBackName,
+                FacingCategory.Side => slamSideName,
+                _ => ""
+            };
+            PlaySpine(clip, false, faceLeft, index);
+        }
+
+        public void PlayPunch(Vector3 direction)
+        {
+            int index = GetDirectionIndex(direction);
+            var (category, faceLeft) = GetFacing(index);
+            string clip = category switch
+            {
+                FacingCategory.Front => punchFrontName,
+                FacingCategory.Back => punchBackName,
+                FacingCategory.Side => punchSideName,
+                _ => ""
+            };
+            PlaySpine(clip, false, faceLeft, index);
+        }
+
+        public void PlayFlyPunch(Vector3 direction)
+        {
+            int index = GetDirectionIndex(direction);
+            var (category, faceLeft) = GetFacing(index);
+            string clip = category switch
+            {
+                FacingCategory.Front => flyPunchFrontName,
+                FacingCategory.Back => flyPunchBackName,
+                FacingCategory.Side => flyPunchSideName,
+                _ => ""
+            };
+            PlaySpine(clip, false, faceLeft, index);
+        }
+
+        public void PlayFlyCharge(Vector3 direction)
+        {
+            int index = GetDirectionIndex(direction);
+            var (_, faceLeft) = GetFacing(index);
+            PlaySpine(flyChargeSideName, true, faceLeft, index); // side-only clip
+        }
+
+        public void PlayGrowWings()
+        {
+            if (spineState == null) return;
+
+            // Transition is authored front-facing only - snap orientation so it reads correctly.
+            skeletonAnimation.skeleton.ScaleX = 1f;
+            skeletonAnimation.transform.localRotation = Quaternion.identity;
+
+            spineState.SetAnimation(0, growWingsName, false);
+            currentSpineAnimation = growWingsName;
+            spineState.TimeScale = 1f;
         }
 
         /// <summary>
@@ -186,20 +284,30 @@ namespace Combat.Animations
 
         #region Internal
 
-        private void PlaySpine(string clipName, bool loop, bool faceLeft, int directionIndex, float speed=1f)
+        public event System.Action<int> OnDirectionChanged;
+
+        private int lastDirectionIndex = -1;
+
+        private void PlaySpine(string clipName, bool loop, bool faceLeft, int directionIndex, float speed = 1f)
         {
             if (string.IsNullOrEmpty(clipName)) return;
 
             skeletonAnimation.skeleton.ScaleX = faceLeft ? 1f : -1f;
             ApplyDiagonalTilt(directionIndex);
 
-            if (clipName != currentSpineAnimation)
+            if (directionIndex != lastDirectionIndex)
+            {
+                lastDirectionIndex = directionIndex;
+                OnDirectionChanged?.Invoke(directionIndex);
+            }
+
+            if (!loop || clipName != currentSpineAnimation)
             {
                 spineState.SetAnimation(0, clipName, loop);
                 currentSpineAnimation = clipName;
             }
 
-            spineState.TimeScale = speed; // in case a previous phase paused it
+            spineState.TimeScale = speed;
         }
 
         /// <summary>

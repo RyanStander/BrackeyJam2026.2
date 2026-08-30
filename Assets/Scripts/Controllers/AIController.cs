@@ -29,6 +29,7 @@ namespace Controllers
         public bool WasExploited { get; private set; }
         public string TargetTag = "Player";
         public Faction Faction = Faction.Enemies;
+        public bool IsKnockbackImmune;
 
         public static event Action<AIController, bool> OnEnemyDeath;
         public bool IsEnemyFaction => TargetTag == "Player";
@@ -42,10 +43,9 @@ namespace Controllers
 
             if (Animator == null)
                 Animator = GetComponent<Animator>();
-            
+
             if (AnimationController == null)
                 AnimationController = GetComponent<AIAnimationController>();
-            
         }
 
         protected override void Awake()
@@ -108,7 +108,10 @@ namespace Controllers
         public IAttackBehaviour PickAvailableAttack()
         {
             List<IAttackBehaviour> candidates = attacks
-                .Where(attack => attack.CanExecute(this) && !cooldownTimers.ContainsKey(attack)).ToList();
+                .Where(attack => attack.CanExecute(this)
+                                 && !cooldownTimers.ContainsKey(attack)
+                                 && IsAttackUsableThisPhase(attack))
+                .ToList();
 
             if (candidates.Count == 0)
                 return null;
@@ -117,6 +120,8 @@ namespace Controllers
             cooldownTimers[chosenAttack] = chosenAttack.Cooldown;
             return chosenAttack;
         }
+
+        protected virtual bool IsAttackUsableThisPhase(IAttackBehaviour attack) => true;
 
         private void OnDeath()
         {
@@ -181,6 +186,7 @@ namespace Controllers
 
             return obj.CompareTag("Enemy");
         }
+
         protected void RefreshAttacks() => attacks = GetComponentsInChildren<IAttackBehaviour>();
     }
 }

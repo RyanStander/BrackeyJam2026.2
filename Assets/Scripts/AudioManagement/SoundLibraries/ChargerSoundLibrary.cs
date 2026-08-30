@@ -11,3 +11,4 @@ namespace AudioManagement.SoundLibraries
         public EventReference Walking;
     }
 }
+

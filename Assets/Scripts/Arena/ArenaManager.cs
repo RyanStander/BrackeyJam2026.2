@@ -1,3 +1,4 @@
+using AudioManagement;
 using Combat.Stats;
 using Events;
 using UnityEngine;
@@ -24,12 +25,14 @@ namespace Arena
         {
             EventManager.currentManager.Subscribe(EventType.WavesCompleted, OnWavesCompleted);
             EventManager.currentManager.Subscribe(EventType.ReturnToHub, OnReturnToHub);
+            EventManager.currentManager.Subscribe(EventType.BossStart,OnBossStart);
         }
 
         private void OnDisable()
         {
             EventManager.currentManager.Unsubscribe(EventType.WavesCompleted, OnWavesCompleted);
             EventManager.currentManager.Unsubscribe(EventType.ReturnToHub, OnReturnToHub);
+            EventManager.currentManager.Subscribe(EventType.BossStart,OnBossStart);
         }
 
         private void OnRunWaves()
@@ -40,6 +43,7 @@ namespace Arena
         private void Start()
         {
             Invoke(nameof(OnRunWaves), data.WaveDelay != 0 ? 0 : arenaStartDelay);
+            data.PlaySong();
         }
 
         private void OnWavesCompleted(EventData eventData)
@@ -59,6 +63,12 @@ namespace Arena
             // TODO: Create scene manager to handle transitions
             Debug.Log("OnReturnToHub Requested (Loading Scene 'PlayerHub')...");
             SceneManager.LoadScene("PlayerHub", LoadSceneMode.Single);
+        }
+
+        private void OnBossStart(EventData eventData)
+        {
+            if(!eventData.IsEventOfType(out BossStart _))
+                AudioManager.SetMusicParameterByName("BossSpawned",1);
         }
 
         private void Update()
