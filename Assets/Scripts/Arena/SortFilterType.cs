@@ -1,6 +1,6 @@
 namespace Arena
 {
-    public enum SpawnPointType
+    public enum SortFilterType
     {
         Undefined, // No filter behavior
         Whitelist, // Allow only those listed
