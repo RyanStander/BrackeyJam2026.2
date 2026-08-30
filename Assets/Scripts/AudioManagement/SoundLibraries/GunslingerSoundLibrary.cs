@@ -1,7 +1,7 @@
 ﻿using FMODUnity;
 using UnityEngine;
 
-namespace AudioManagement
+namespace AudioManagement.SoundLibraries
 {
     [CreateAssetMenu(fileName = "GunslingerSoundLibrary", menuName = "Audio/Gunslinger Sounds")]
     public class GunslingerSoundLibrary : ScriptableObject

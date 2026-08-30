@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e891e39c81149bca6af16d2384033b3, type: 3}
+  m_Name: SoundLibrary
+  m_EditorClassIdentifier: 
+  PlayerSoundLibrary: {fileID: 11400000, guid: 5484a60b3c0204840b9220050eda0eb1, type: 2}
+  GunslingerSoundLibrary: {fileID: 11400000, guid: 3491616bb0f0dc546bb6684a58c501c4, type: 2}
+  ChargerSoundLibrary: {fileID: 11400000, guid: 0c05dc7591c298246be88f280df3490f, type: 2}

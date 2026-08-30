@@ -1,7 +1,7 @@
 ﻿using FMODUnity;
 using UnityEngine;
 
-namespace AudioManagement
+namespace AudioManagement.SoundLibraries
 {
     [CreateAssetMenu(fileName = "PlayerSoundLibrary", menuName = "Audio/Player Sounds")]
     public class PlayerSoundLibrary : ScriptableObject

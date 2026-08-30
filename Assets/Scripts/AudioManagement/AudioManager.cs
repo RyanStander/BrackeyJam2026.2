@@ -9,7 +9,8 @@ namespace AudioManagement
     public class AudioManager : MonoBehaviour
     {
         public static AudioManager Instance;
-
+        public static SoundLibrary SoundLibrary;
+        
         private EventInstance _currentMusic;
         private EventInstance _currentAmbience;
         private EventReference _currentMusicReference;

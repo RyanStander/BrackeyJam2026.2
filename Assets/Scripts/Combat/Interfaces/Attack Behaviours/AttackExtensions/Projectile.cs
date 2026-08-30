@@ -48,7 +48,7 @@ namespace Combat.Interfaces.Attack_Behaviours.AttackExtensions
 
         void OnTriggerEnter(Collider other)
         {
-            if (!launched) return;
+            if (!launched || other==null) return;
             
             if (other.gameObject.CompareTag(instigator.TargetTag))
             {
