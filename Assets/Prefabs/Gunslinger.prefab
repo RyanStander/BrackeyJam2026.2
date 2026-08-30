@@ -224,6 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 80e6142d8b71a474c9881214cc2a640c, type: 2}
   offset: {x: 0, y: 2, z: 0}
+  shooterType: 0
 --- !u!114 &8283212758537668381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +423,6 @@ MonoBehaviour:
   debugLogging: 0
   debugAddKey: 103
   debugAddAmount: 10
-  grievance: 0
 --- !u!195 &3485412562973247361
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -469,3 +469,4 @@ MonoBehaviour:
   stunBackAnimationName: 
   stunSideAnimationName: 
   diagonalTiltAngle: 18
+  enemyType: 1

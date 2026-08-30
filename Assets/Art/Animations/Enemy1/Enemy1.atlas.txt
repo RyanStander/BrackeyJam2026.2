@@ -1,73 +1,91 @@
 Enemy1.png
-size:1449,799
+size:1135,138
 filter:Linear,Linear
 pma:true
-image
-bounds:2,10,1162,787
-montser_Einzelteile_richtig
-bounds:1166,149,61,75
-offsets:1374,705,1435,780
-rotate:90
 montser_Einzelteile_richtig Copy
-bounds:1300,287,129,106
+bounds:241,7,129,106
+rotate:90
 montser_Einzelteile_richtig Copy 10
-bounds:1309,651,128,146
+bounds:349,8,128,146
+rotate:90
 montser_Einzelteile_richtig Copy 11
-bounds:1166,282,105,100
-montser_Einzelteile_richtig Copy 12
-bounds:1273,185,105,100
+bounds:645,31,105,100
+rotate:90
 montser_Einzelteile_richtig Copy 13
-bounds:1330,107,76,47
+bounds:886,60,76,47
 offsets:5,0,84,47
 rotate:90
 montser_Einzelteile_richtig Copy 14
-bounds:1373,16,34,67
-rotate:90
+bounds:998,69,34,67
+montser_Einzelteile_richtig Copy 28
+bounds:998,69,34,67
 montser_Einzelteile_richtig Copy 15
-bounds:1321,48,41,57
+bounds:1084,79,41,57
+montser_Einzelteile_richtig Copy 30
+bounds:1084,79,41,57
 montser_Einzelteile_richtig Copy 16
-bounds:1259,29,41,57
-rotate:90
-montser_Einzelteile_richtig Copy 17
-bounds:1380,180,105,67
-rotate:90
+bounds:1092,20,41,57
+montser_Einzelteile_richtig Copy 31
+bounds:1092,20,41,57
 montser_Einzelteile_richtig Copy 18
-bounds:1166,30,40,60
-montser_Einzelteile_richtig Copy 19
-bounds:1279,72,40,60
+bounds:1050,13,40,60
+montser_Einzelteile_richtig Copy 36
+bounds:1050,13,40,60
 montser_Einzelteile_richtig Copy 2
-bounds:1300,395,129,106
-montser_Einzelteile_richtig Copy 20
-bounds:1166,515,140,140
-montser_Einzelteile_richtig Copy 21
-bounds:1166,384,129,132
+bounds:133,7,129,106
 rotate:90
-montser_Einzelteile_richtig Copy 22
-bounds:1243,134,85,49
 montser_Einzelteile_richtig Copy 23
-bounds:1318,2,53,44
-montser_Einzelteile_richtig Copy 24
-bounds:1166,657,140,141
-rotate:90
-montser_Einzelteile_richtig Copy 25
-bounds:1166,212,68,78
+bounds:816,3,53,44
 rotate:90
 montser_Einzelteile_richtig Copy 3
-bounds:1166,92,55,57
+bounds:913,3,55,57
 rotate:90
+montser_Einzelteile_richtig Copy 33
+bounds:747,31,105,67
+rotate:90
+montser_Einzelteile_richtig Copy 35
+bounds:747,31,105,67
+rotate:90
+montser_Einzelteile_richtig Copy 37
+bounds:2,4,129,132
 montser_Einzelteile_richtig Copy 4
-bounds:1225,83,49,52
-rotate:90
+bounds:862,4,49,52
+montser_Einzelteile_richtig Copy 46
+bounds:862,4,49,52
+montser_Einzelteile_richtig Copy 49
+bounds:862,4,49,52
+montser_Einzelteile_richtig Copy 41
+bounds:816,58,68,78
+montser_Einzelteile_richtig Copy 42
+bounds:816,58,68,78
+montser_Einzelteile_richtig Copy 45
+bounds:935,61,61,75
+offsets:1374,705,1435,780
+montser_Einzelteile_richtig
+bounds:935,61,61,75
+offsets:1374,705,1435,780
 montser_Einzelteile_richtig Copy 5
-bounds:1364,52,65,29
+bounds:1019,2,65,29
+rotate:90
+montser_Einzelteile_richtig Copy 53
+bounds:1019,2,65,29
+rotate:90
+montser_Einzelteile_richtig Copy 54
+bounds:1019,2,65,29
+rotate:90
+montser_Einzelteile_richtig Copy 55
+bounds:1019,2,65,29
+rotate:90
+montser_Einzelteile_richtig Copy 56
+bounds:1034,75,48,61
+montser_Einzelteile_richtig Copy 58
+bounds:1034,75,48,61
 montser_Einzelteile_richtig Copy 6
-bounds:1379,130,48,61
-rotate:90
+bounds:1034,75,48,61
+montser_Einzelteile_richtig Copy 60
+bounds:1034,75,48,61
 montser_Einzelteile_richtig Copy 7
-bounds:1308,503,128,146
+bounds:497,8,128,146
+rotate:90
 montser_Einzelteile_richtig Copy 8
-bounds:1379,83,45,57
-rotate:90
-montser_Einzelteile_richtig Copy 9
-bounds:1208,33,48,49
-rotate:90
+bounds:972,2,45,57

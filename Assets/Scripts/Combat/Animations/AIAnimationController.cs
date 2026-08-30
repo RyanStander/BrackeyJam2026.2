@@ -1,4 +1,6 @@
 ﻿using System;
+using AudioManagement;
+using Spine;
 using Spine.Unity;
 using UnityEngine;
 using AnimationState = Spine.AnimationState;
@@ -36,6 +38,14 @@ namespace Combat.Animations
             Back,
             Side
         }
+        
+        private enum EnemyType
+        {
+            Charger,
+            Gunslinger
+        }
+
+        [SerializeField]private EnemyType enemyType;
 
         private AnimationState spineState;
         private string currentSpineAnimation = "";
@@ -52,7 +62,28 @@ namespace Combat.Animations
         private void Awake()
         {
             if (skeletonAnimation != null)
+            {
                 spineState = skeletonAnimation.AnimationState;
+                spineState.Event += HandleSpineEvent;
+            }
+        }
+        
+        private void HandleSpineEvent(TrackEntry trackEntry, Spine.Event e)
+        {
+            if (e.Data.Name == "Step")
+            {
+                switch (enemyType)
+                {
+                    case EnemyType.Charger:
+                        AudioManager.PlayOneShot(AudioDataHandler.Charger.Walking);
+                        break;
+                    case EnemyType.Gunslinger:
+                        AudioManager.PlayOneShot(AudioDataHandler.Gunslinger.Walking);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
         }
 
         #region Public API
