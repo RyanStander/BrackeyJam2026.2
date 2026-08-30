@@ -54,7 +54,7 @@ namespace UI
 
         private void PlayDeathBeat()
         {
-            // SFX/VFX, screen fade, whatever fits
+            
         }
 
         private void ShowDeathScreen(GameObject killer)
@@ -81,6 +81,8 @@ namespace UI
 
         public void ConfirmReturnToHub()
         {
+            GameState.ResetForNewGame();
+            DialogueManager.ClearRunState();
             SceneManager.LoadScene("PlayerHub", LoadSceneMode.Single);
         }
     }
