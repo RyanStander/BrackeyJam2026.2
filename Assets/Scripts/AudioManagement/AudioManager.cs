@@ -9,13 +9,14 @@ namespace AudioManagement
     public class AudioManager : MonoBehaviour
     {
         public static AudioManager Instance;
-        public static SoundLibrary SoundLibrary;
-        
+        public static SoundLibrary SoundLibrary { private set; get; }
+
         private EventInstance _currentMusic;
         private EventInstance _currentAmbience;
         private EventReference _currentMusicReference;
         private EventReference _currentAmbienceReference;
-        
+        [SerializeField] private SoundLibrary soundLibrary;
+
         private Dictionary<int, EventInstance> _activeSounds = new();
         private int _nextId = 0;
 
@@ -29,8 +30,10 @@ namespace AudioManagement
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            SoundLibrary = soundLibrary;
         }
-        
+
         #region Static Wrappers
 
         /// <summary>
@@ -61,7 +64,7 @@ namespace AudioManagement
             if (Instance == null) return;
             Instance.StopMusicInstance(fadeOut);
         }
-        
+
         /// <summary>
         ///  Plays ambience. If the same ambience is already playing, it won't restart. If different ambience is playing, it will stop the current ambience and start the new one.
         /// </summary>
@@ -71,7 +74,7 @@ namespace AudioManagement
             if (Instance == null) return;
             Instance.PlayAmbienceInstance(ambience);
         }
-        
+
         /// <summary>
         ///  Stops the currently playing ambience. If fadeOut is true, the ambience will fade out instead of stopping immediately.
         /// </summary>
@@ -81,7 +84,7 @@ namespace AudioManagement
             if (Instance == null) return;
             Instance.StopAmbienceInstance(fadeOut);
         }
-        
+
         /// <summary>
         /// Plays a sound effect with optional parameters. Use this for sounds that need to have parameters set or changed after being played. Parameters should be passed as tuples of (parameterName, parameterValue).
         /// You can view parameters by opening FMOD top left where the File button is in unity editor->event browser->events and then you can navigate through there, if you click on sounds, some may have params at the bottom, you can change it to preview the effect.
@@ -91,10 +94,10 @@ namespace AudioManagement
         public static void Play(EventReference sound, params (string name, float value)[] parameters)
         {
             if (Instance == null) return;
-         
+
             Instance.PlayInstance(sound, parameters);
         }
-        
+
         /// <summary>
         ///  Plays a looping sound effect and returns a handle to it.
         /// Use this for sounds that need to be stopped or have parameters changed after being played.
@@ -107,7 +110,7 @@ namespace AudioManagement
             if (Instance == null) return default;
             return Instance.PlayLoopInstance(sound);
         }
-        
+
         /// <summary>
         ///  Sets a parameter on a currently playing sound instance identified by the handle.
         /// This is used for sounds played with PlayLoop that need to have their parameters changed after being played.
@@ -120,7 +123,7 @@ namespace AudioManagement
             if (Instance == null) return;
             Instance.SetParameterInstance(handle, param, value);
         }
-        
+
         /// <summary>
         ///  Stops a currently playing sound instance identified by the handle.
         /// If fadeOut is true, the sound will fade out instead of stopping immediately.
@@ -136,7 +139,7 @@ namespace AudioManagement
         #endregion
 
         #region Instance Methods
-        
+
         private void PlayMusicInstance(EventReference music)
         {
             if (_currentMusicReference.Equals(music))
@@ -163,7 +166,7 @@ namespace AudioManagement
 
             _currentMusic.release();
         }
-        
+
         private void PlayAmbienceInstance(EventReference ambience)
         {
             if (_currentAmbienceReference.Equals(ambience))
@@ -203,7 +206,7 @@ namespace AudioManagement
             instance.start();
             instance.release();
         }
-        
+
         private SoundHandle PlayLoopInstance(EventReference sound)
         {
             EventInstance instance = RuntimeManager.CreateInstance(sound);
@@ -214,7 +217,7 @@ namespace AudioManagement
 
             return new SoundHandle { Id = id };
         }
-        
+
         private void SetParameterInstance(SoundHandle handle, string param, float value)
         {
             if (_activeSounds.TryGetValue(handle.Id, out var instance))
@@ -222,7 +225,7 @@ namespace AudioManagement
                 instance.setParameterByName(param, value);
             }
         }
-        
+
         private void StopInstance(SoundHandle handle, bool fadeOut)
         {
             if (_activeSounds.TryGetValue(handle.Id, out var instance))
@@ -234,7 +237,5 @@ namespace AudioManagement
         }
 
         #endregion
-
-        
     }
 }

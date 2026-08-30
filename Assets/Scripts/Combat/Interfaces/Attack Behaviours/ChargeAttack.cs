@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using AudioManagement;
 using Combat.Data;
 using Combat.Interfaces.Attack_Behaviours.Configs;
 using Combat.Rules;
@@ -27,6 +28,14 @@ namespace Combat.Interfaces.Attack_Behaviours
         private Vector3 startLocation;
         private Vector3 targetDirection;
 
+        private enum EnemyType
+        {
+            Charger,
+            HandCow
+        }
+
+        [SerializeField] private EnemyType enemyType;
+
         public bool CanExecute(AIController controller) =>
             Vector3.Distance(controller.transform.position,
                 controller.Target.transform.position) <=
@@ -45,6 +54,16 @@ namespace Combat.Interfaces.Attack_Behaviours
 
             if (phase == Phase.Windup && timer >= config.WindupTime)
             {
+                switch (enemyType)
+                {
+                    case EnemyType.Charger:
+                        AudioManager.PlayOneShot(AudioDataHandler.Charger.Attack);
+                        break;
+                    case EnemyType.HandCow:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 phase = Phase.Charging;
                 timer = 0f;
                 startLocation = controller.transform.position;
@@ -55,23 +74,24 @@ namespace Combat.Interfaces.Attack_Behaviours
             {
                 Vector3 nextPosition = controller.transform.position +
                                        targetDirection * (config.ChargeSpeed * Time.deltaTime);
-                
+
                 controller.Movement.BeginManualOverride();
                 controller.Movement.MovePosition(nextPosition);
-                
+
                 if (Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance)
                 {
                     phase = Phase.Done;
                     controller.AnimationController.PauseOnCurrentFrame();
                 }
-                
+
                 HandleHit(controller);
             }
         }
 
         private void HandleHit(AIController aiController)
         {
-            Collider[] hits = Physics.OverlapSphere(aiController.transform.position, config.AttackSphereRadius, hittableLayerMask);
+            Collider[] hits = Physics.OverlapSphere(aiController.transform.position, config.AttackSphereRadius,
+                hittableLayerMask);
 
             foreach (Collider hit in hits)
             {
@@ -95,6 +115,17 @@ namespace Combat.Interfaces.Attack_Behaviours
                 {
                     if (config.StunSelfOnObstacleHit)
                     {
+                        switch (enemyType)
+                        {
+                            case EnemyType.Charger:
+                                AudioManager.PlayOneShot(AudioDataHandler.Charger.Exposed);
+                                break;
+                            case EnemyType.HandCow:
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                        
                         aiController.AnimationController.PlayStun(targetDirection);
                         aiController.Stun(config.StunDuration);
                     }
@@ -103,8 +134,8 @@ namespace Combat.Interfaces.Attack_Behaviours
                 }
             }
         }
-        
-        #if UNITY_EDITOR
+
+#if UNITY_EDITOR
         [SerializeField] private bool showGizmos = true;
         private void OnDrawGizmosSelected()
         {
@@ -113,7 +144,7 @@ namespace Combat.Interfaces.Attack_Behaviours
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, config.AttackSphereRadius);
         }
-        #endif
+#endif
 
         public bool IsFinished(AIController controller) => phase == Phase.Done;
 
