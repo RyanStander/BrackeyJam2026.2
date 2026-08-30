@@ -15,6 +15,9 @@ namespace Movement
         [SerializeField] private float animSpeedModifier = 1f;
         [SerializeField] private AIAnimationController animationController;
 
+        private Vector3 smoothedMoveDirection = Vector3.forward;
+        [SerializeField] private float directionSmoothing = 8f;
+        
         private bool isOverridden;
         private bool attackControlsMovement;
 
@@ -77,17 +80,28 @@ namespace Movement
                 Vector3 offsetDirection = (transform.position - targetPosition).normalized;
                 agent.SetDestination(targetPosition + offsetDirection * range);
 
-                Vector3 moveDirection = agent.velocity.sqrMagnitude > 0.01f
+                Vector3 rawDirection = agent.velocity.sqrMagnitude > 0.01f
                     ? agent.velocity.normalized
-                    : transform.forward;
+                    : smoothedMoveDirection;
+
+                smoothedMoveDirection = Vector3.Slerp(smoothedMoveDirection, rawDirection, directionSmoothing * Time.deltaTime);
 
                 if (animationController != null)
-                    animationController.PlayRun(moveDirection, animSpeedModifier);
+                    animationController.PlayRun(smoothedMoveDirection, animSpeedModifier);
             }
             else
             {
                 agent.ResetPath();
-                animationController.PauseOnCurrentFrame();
+
+                if (animationController != null)
+                {
+                    Vector3 facingDirection = targetPosition - transform.position;
+                    if (facingDirection.sqrMagnitude > 0.001f)
+                    {
+                        smoothedMoveDirection = Vector3.Slerp(smoothedMoveDirection, facingDirection.normalized, directionSmoothing * Time.deltaTime);
+                    }
+                    animationController.PlayRun(smoothedMoveDirection, animSpeedModifier);
+                }
             }
         }
         
