@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Arenas/ArenaFightA.unity
     guid: 3ddc8764c2379a74e9fe61e6c0fb1f7c
+  - enabled: 1
+    path: Assets/Scenes/Arenas/ArenaFightB.unity
+    guid: 2d8475c2a6b7f474f9f6bee65f17adfe
+  - enabled: 1
+    path: Assets/Scenes/Arenas/ArenaFightC.unity
+    guid: fdc5812014611664992791c3049fbdd2
+  - enabled: 1
+    path: Assets/Scenes/Arenas/ArenaFightD.unity
+    guid: 8b5e4b88775605e43a5f00f5e86af000
   m_configObjects: {}
