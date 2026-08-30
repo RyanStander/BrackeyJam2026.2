@@ -7,6 +7,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using EventType = Events.EventType;
+using Random = UnityEngine.Random;
 
 namespace Arena
 {
@@ -55,13 +56,13 @@ namespace Arena
                     bool contains = point.EnemyTypes.Contains(type);
                     switch (point.Type)
                     {
-                        case SpawnPointType.Undefined:
+                        case SortFilterType.Undefined:
                             SortedSpawns[type].Add(point);
                             break;
-                        case SpawnPointType.Whitelist:
+                        case SortFilterType.Whitelist:
                             if (contains) SortedSpawns[type].Add(point);
                             break;
-                        case SpawnPointType.Blacklist:
+                        case SortFilterType.Blacklist:
                             if (!contains) SortedSpawns[type].Add(point);
                             break;
                         default:
@@ -152,18 +153,32 @@ namespace Arena
 
         private Vector3 GetSpawnPointFiltered(EnemyType type)
         {
-            GameObject point;
+            SpawnPoint point;
             if (SortedSpawns[type].Count > 0)
             {
-                point = SortedSpawns[type][UnityEngine.Random.Range(0, SortedSpawns[type].Count)].gameObject;
+                point = SortedSpawns[type][Random.Range(0, SortedSpawns[type].Count)];
             }
-            else
+            else // Should probably add an extra failcase for no spawnpoints in scene
             {
-                point = gameObject;
-                Debug.LogError("Failed to find spawn point with sufficient, defaulting to this manager.");
+                point = SpawnPoints[Random.Range(0, SpawnPoints.Length)];
+                Debug.LogError("Failed to find spawn point of type " + type + ", defaulting to random spawner.");
             }
 
             Vector3 pos = point.transform.position;
+            Bounds bounds;
+            float random_x;
+            float random_z;
+            // Tired brain, use just the same methodology for now.
+            switch (point.Shape)
+            {
+                default:
+                    bounds = point.BoxCollider.bounds;
+                    random_x = Random.Range(-bounds.extents.x / 2f, bounds.extents.x / 2f);
+                    random_z = Random.Range(-bounds.extents.z / 2f, bounds.extents.z / 2f);
+                    pos = bounds.center + new Vector3(random_x, bounds.center.y, random_z);
+                    break;
+            }
+
             switch (type)
             {
                 case EnemyType.MooBoss:
