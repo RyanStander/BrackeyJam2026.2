@@ -168,9 +168,16 @@ namespace Arena
             Bounds bounds;
             float random_x;
             float random_z;
-            // Tired brain, use just the same methodology for now.
+
             switch (point.Shape)
             {
+                case SpawnPointShape.Circle:
+                    float radius = point.CapsuleCollider.radius;
+                    Vector2 randomCircle = Random.insideUnitCircle * radius;
+                    pos = point.CapsuleCollider.bounds.center + new Vector3(randomCircle.x, 0f, randomCircle.y);
+                    break;
+
+                case SpawnPointShape.Rectangle:
                 default:
                     bounds = point.BoxCollider.bounds;
                     random_x = Random.Range(-bounds.extents.x / 2f, bounds.extents.x / 2f);

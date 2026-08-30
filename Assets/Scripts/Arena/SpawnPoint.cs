@@ -35,6 +35,13 @@ namespace Arena
             }
         }
 
+        private void Awake()
+        {
+            if (CapsuleCollider == null) CapsuleCollider = GetComponentInChildren<CapsuleCollider>(true);
+            if (BoxCollider == null) BoxCollider = GetComponentInChildren<BoxCollider>(true);
+            HandleShape();
+        }
+
         private void OnValidate()
         {
             if (CapsuleCollider == null) CapsuleCollider = GetComponentInChildren<CapsuleCollider>(true);
