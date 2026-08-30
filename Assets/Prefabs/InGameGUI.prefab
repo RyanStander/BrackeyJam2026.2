@@ -2441,8 +2441,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6902969847431979961}
-        m_TargetAssemblyTypeName: Arena.ArenaCompletion, Assembly-CSharp
+      - m_Target: {fileID: 236768942068983185}
+        m_TargetAssemblyTypeName: UI.PlayerDeathScreen, Assembly-CSharp
         m_MethodName: ConfirmReturnToHub
         m_Mode: 1
         m_Arguments:
