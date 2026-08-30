@@ -15,7 +15,7 @@ public class HubExpeditionManager : MonoBehaviour
     private Button[] prototypeAreaButtons;
 
     [SerializeField]
-    private TMP_Text region, destination, stickyNote;
+    private TMP_Text stickyNote;
 
     // Make asynch with fade to black, loading symbol and then completion
     private void OnAreaSelected(AreaData area)
@@ -27,8 +27,6 @@ public class HubExpeditionManager : MonoBehaviour
     // Currently only changes data display
     private void UpdateRegionDisplay()
     {
-        region.text = "Region: " + activeRegion.RegionName;
-        destination.text = "Destination: " + activeRegion.RegionDestination;
         stickyNote.text = activeRegion.StickyNoteText;
 
         if (GameState.CurrentArea >= activeRegion.AreasLinear.Length)
