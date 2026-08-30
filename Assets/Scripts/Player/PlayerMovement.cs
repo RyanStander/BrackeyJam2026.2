@@ -33,22 +33,46 @@ namespace Player
         private Vector3 currentVelocity;
         private float nextLungeTime;
         private float knockbackTimer;
+    [Header("Upgrades")]
+    [SerializeField] private UpgradeTrack moveSpeedTrack;
+    [SerializeField] private UpgradeTrack dashTrack;
+
+    private Vector2 movementInput;
+    private Vector3 currentVelocity;
+    private float nextLungeTime;
 
         #endregion
 
         #region Unity Lifecycle
 
-        private void OnValidate()
+    private void Awake()
+    {
+        if (moveSpeedTrack != null && GameState.MoveSpeedRank > 0)
         {
-            if (playerRb == null)
-                playerRb = GetComponent<Rigidbody>();
-            if (playerHealth == null)
-                playerHealth = GetComponent<PlayerHealth>();
-            if (animationController == null)
-                animationController = GetComponent<PlayerAnimationController>();
-            if (playerAttack == null)
-                playerAttack = GetComponent<PlayerAttack>();
+            int index = Mathf.Min(GameState.MoveSpeedRank, moveSpeedTrack.BonusPerRank.Length) - 1;
+            if (index >= 0)
+                moveSpeed += moveSpeedTrack.BonusPerRank[index];
         }
+
+        if (dashTrack != null && GameState.DashRank > 0)
+        {
+            int index = Mathf.Min(GameState.DashRank, dashTrack.BonusPerRank.Length) - 1;
+            if (index >= 0)
+                lungeDistance += dashTrack.BonusPerRank[index];
+        }
+    }
+
+    private void OnValidate()
+    {
+        if (playerRb == null)
+            playerRb = GetComponent<Rigidbody>();
+        if (playerHealth == null)
+            playerHealth = GetComponent<PlayerHealth>();
+        if (animationController == null)
+            animationController = GetComponent<PlayerAnimationController>();
+        if (playerAttack == null)
+            playerAttack = GetComponent<PlayerAttack>();
+    }
 
         private void Update()
         {

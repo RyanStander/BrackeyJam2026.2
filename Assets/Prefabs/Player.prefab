@@ -89,6 +89,8 @@ MonoBehaviour:
   playerHealth: {fileID: 2117350917193679964}
   animationController: {fileID: 291283113348353092}
   playerAttack: {fileID: 167881784292649713}
+  moveSpeedTrack: {fileID: 11400000, guid: 874e6f0d2d7c5fa449e05f9f5cb5254e, type: 2}
+  dashTrack: {fileID: 11400000, guid: 15740d6ea5ae74a4ba3b8eb92eae517f, type: 2}
 --- !u!114 &167881784292649713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +116,8 @@ MonoBehaviour:
   attackDownLeftOffset: {x: 0, y: 1, z: 0}
   weaponSwingController: {fileID: 1931447963733541077}
   meleeHitbox: {fileID: 6574912683954253822}
+  damageTrack: {fileID: 11400000, guid: 4d69a63db1a6db747b8ddf7b29a945b9, type: 2}
+  swingSpeedTrack: {fileID: 11400000, guid: bda1a375c77f34046bd6ed68789bc01e, type: 2}
 --- !u!114 &2117350917193679964
 MonoBehaviour:
   m_ObjectHideFlags: 0
