@@ -59,8 +59,11 @@ namespace Combat.Interfaces.Attack_Behaviours
                 case Phase.Throw:
                 {
                     throwable.Throw(targetLocation, config.ThrowSpeed);
-                    
-                    if(throwable.HitSomething())
+                    timer += Time.deltaTime; // if not already tracked for this phase
+
+                    bool reachedTarget = Vector3.Distance(throwable.transform.position, targetLocation) < 0.3f;
+
+                    if (throwable.HitSomething() || reachedTarget)
                     {
                         if (config.ReturnWeapon)
                             phase = Phase.Return;
@@ -70,7 +73,6 @@ namespace Combat.Interfaces.Attack_Behaviours
                             phase = Phase.Done;
                         }
                     }
-
                     break;
                 }
                 case Phase.Return:

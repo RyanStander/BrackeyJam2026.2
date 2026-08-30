@@ -15,6 +15,7 @@ namespace Combat.Interfaces.Attack_Behaviours
         private bool hitSomething = false;
         private bool returned = false;
         private Vector3 originalLocalPosition;
+        [SerializeField] LayerMask collisionMask;
 
         private void OnValidate()
         {
@@ -38,13 +39,7 @@ namespace Combat.Interfaces.Attack_Behaviours
         public void Throw(Vector3 position, float speed)
         {
             Vector3 direction = (position - transform.position).normalized;
-            throwableRigidbody.velocity = direction.normalized * speed;
-            
-            if (Vector3.Distance(transform.position, position) < 0.05f)
-            {
-                throwableRigidbody.velocity = Vector3.zero;
-                hitSomething = true;
-            }
+            throwableRigidbody.velocity = direction * speed;
         }
 
         public void Reset()
@@ -88,7 +83,8 @@ namespace Combat.Interfaces.Attack_Behaviours
                     if (CombatRules.CanDamage(damageInfo, target))
                         target.TakeDamage(damageInfo);
             }
-            else if (!other.gameObject.CompareTag(gameObject.transform.root.tag) && other.gameObject.layer != LayerMask.NameToLayer("Floor"))
+            //collision mask
+            else if (!other.gameObject.CompareTag(gameObject.transform.root.tag) && (collisionMask.value & (1 << other.gameObject.layer)) > 0)
             {
                 hitSomething = true;
             }

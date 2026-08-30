@@ -1,4 +1,5 @@
 using AYellowpaper.SerializedCollections;
+using Events;
 using Expeditions.Room.Doorway;
 using System;
 using System.Collections.Generic;
@@ -51,8 +52,8 @@ namespace Expeditions.Room
         {
             // TODO: Replace this setup with messaging to the helper managers instead, this is just for prototyping/testing.
             CombatRoomHandler CombatHandler = FindObjectOfType<CombatRoomHandler>();
-            MeshCollider GroundMesh = GetComponent<MeshCollider>();
-            CombatHandler.SpawnEnemiesTest((CombatRoomData) data, GroundMesh.bounds);
+            BoxCollider GroundMesh = GetComponent<BoxCollider>();
+            EventManager.currentManager.AddEvent(new ExecuteCombatRoom(this, data, GroundMesh.bounds));
         }
 
         public void OnRoomEnter()
