@@ -254,7 +254,7 @@ GUNSLINGER: Saving my own skin. I'm not sharing a payout with someone who's goin
 === Ending1_WinningButAtWhatCost ===
 // the crowd roars
 John Apocalypse: Did it really have to end like this?
-John Apocalypse: (The Wardens toss a fresh contract before the blood's even dry. Another season. Another partner. Another cage.)
+(The Wardens toss a fresh contract across the ring before the blood's even dry. Another season. Another partner. Another cage. The crowd's already chanting a new name.) # ending:betrayal
 -> END
 
 === Ending2_Freedom ===
@@ -262,7 +262,7 @@ John Apocalypse: (The final bell rings and the gates - actually - open.)
 GUNSLINGER: We did it. Both of us. Out.
 John Apocalypse: (For the first time since I walked into the Pit, the word "freedom" doesn't feel like a lie the Wardens sell to keep people fighting.)
 John Apocalypse: What now?
-GUNSLINGER: Now? Now we figure out how to be people again.
+(The gates stay open. For the first time since the Pit swallowed us both, tomorrow isn't something the Wardens get to sell back to us. Whatever's next, we walk into it together.) # ending:freedom
 -> END
 
 === Ending3_YourBetrayal ===
@@ -271,9 +271,9 @@ John Apocalypse: (I did it. The blade went in exactly where the Broker said it w
 John Apocalypse: (So why is nobody pulling the monsters back? Why is the gate still open?)
 BROKER: Oh - did you actually think we needed him gone to keep the show interesting? You just gave us a better one.
 John Apocalypse: (No. No, no -)
-John Apocalypse: (Everything he offered was a lie, and I bought it anyway. I'm going to die down here as a snitch, and nobody will even remember my name.)
+(Everything the Broker offered was a lie, and I bought it anyway. I'll die down here as a snitch, and nobody will even remember my name. The gate never needed me dead - just useful.) # ending:snitch
 -> END
 
 === Ending4_Death ===
-John Apocalypse: Maybe... in another life, I get to be free.
+(Maybe in another life, I get to be free. Not this one. The Pit doesn't lose fighters - it just stops calling their names.) # ending:death
 -> END

@@ -34,6 +34,11 @@ public class DialogueManager : MonoBehaviour
         resumePending = false;
     }
 
+    public static void ClearRunState()
+    {
+        ResetStaticStateOnLaunch();
+    }
+
     private void Awake()
     {
         //panelDialogue.SetActive(false);
@@ -54,6 +59,9 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
+        if (dialogueActive) return;
+        if (hubMainMenu != null && !hubMainMenu.activeInHierarchy) return;
+
         if (resumePending)
         {
             ResumeAfterMatch();
@@ -119,6 +127,15 @@ public class DialogueManager : MonoBehaviour
             if (story.currentTags.Contains("gate:fight"))
             {
                 TriggerMatch(line);
+                return;
+            }
+
+            string endingTag = story.currentTags.Find(t => t.StartsWith("ending:"));
+            if (endingTag != null)
+            {
+                GameState.EndingId = endingTag.Substring("ending:".Length);
+                GameState.EndingLine = line;
+                UnityEngine.SceneManagement.SceneManager.LoadScene("EndingScreen");
                 return;
             }
 
@@ -223,6 +240,14 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueActive = false;
         story.RemoveVariableObserver(OnTrustChanged, "greivance");
-        //panelDialogue.SetActive(false);
+        panelDialogue.SetActive(false);
+        hubMainMenu.SetActive(true);
+    }
+
+    public void ResetGame()
+    {
+        GameState.ResetForNewGame();
+        ResetStaticStateOnLaunch();
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }
