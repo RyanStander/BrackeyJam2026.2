@@ -60,6 +60,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue()
     {
         if (dialogueActive) return;
+        if (hubMainMenu != null && !hubMainMenu.activeInHierarchy) return;
 
         if (resumePending)
         {
