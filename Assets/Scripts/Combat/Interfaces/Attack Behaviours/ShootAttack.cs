@@ -1,6 +1,9 @@
-﻿using Combat.Interfaces.Attack_Behaviours.AttackExtensions;
+﻿using System;
+using AudioManagement;
+using Combat.Interfaces.Attack_Behaviours.AttackExtensions;
 using Combat.Interfaces.Attack_Behaviours.Configs;
 using Controllers;
+using FMODUnity;
 using UnityEngine;
 
 namespace Combat.Interfaces.Attack_Behaviours
@@ -17,6 +20,14 @@ namespace Combat.Interfaces.Attack_Behaviours
             Reload,
             Done,
         }
+
+        private enum ShooterType
+        {
+            Gunslinger,
+            Swatter
+        }
+
+        [SerializeField] private ShooterType shooterType;
 
         private Phase phase;
         private float timer;
@@ -68,6 +79,18 @@ namespace Combat.Interfaces.Attack_Behaviours
                     Quaternion.identity);
                 proj.GetComponent<Projectile>().Launch(controller.Target, config.Damage, controller,
                     config.ProjectileSpeed, controller.Faction);
+                switch (shooterType)
+                {
+                    case ShooterType.Gunslinger:
+                        AudioManager.PlayOneShot(AudioDataHandler.Gunslinger.BasicShot);
+                        break;
+                    case ShooterType.Swatter:
+                        //not implemented
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
                 timer = 0f;
 
                 phase = Phase.Reload;
@@ -77,6 +100,18 @@ namespace Combat.Interfaces.Attack_Behaviours
             {
                 phase = Phase.Done;
                 timer = 0f;
+
+                switch (shooterType)
+                {
+                    case ShooterType.Gunslinger:
+                        AudioManager.PlayOneShot(AudioDataHandler.Gunslinger.Reload);
+                        break;
+                    case ShooterType.Swatter:
+                        //not implemented
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
 
                 controller.AnimationController.PlayRun(targetDirection);
                 controller.AnimationController.PauseOnCurrentFrame();
