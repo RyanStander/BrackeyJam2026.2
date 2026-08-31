@@ -14,22 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Attack:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 576374706
+      Data2: 1205120537
+      Data3: 687853229
+      Data4: 865927884
+    Path: event:/Sfx/Enemies/Swatter/Attack
   TakeDamage:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1873938760
+      Data2: 1104695323
+      Data3: 1896466836
+      Data4: -1293895431
+    Path: event:/Sfx/Enemies/Swatter/TakeDamage
   Walking:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -1651058874
+      Data2: 1145615064
+      Data3: -301693044
+      Data4: -1846491693
+    Path: event:/Sfx/Enemies/Swatter/Walking

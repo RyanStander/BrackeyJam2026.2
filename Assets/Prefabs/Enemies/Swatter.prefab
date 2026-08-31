@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   config: {fileID: 11400000, guid: 10dcddaee1ef8434bbd5a8c572aa0f4b, type: 2}
   offset: {x: 0, y: 4, z: 0}
+  shooterType: 1
 --- !u!1 &7405055396904231436
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +128,7 @@ MonoBehaviour:
   range: 5
   animSpeedModifier: 1
   animationController: {fileID: 3477561777999155193}
+  directionSmoothing: 8
 --- !u!114 &8928248326231010176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +161,7 @@ MonoBehaviour:
   AnimationController: {fileID: 3477561777999155193}
   TargetTag: Player
   Faction: 1
+  IsKnockbackImmune: 0
 --- !u!54 &7814889618119299862
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -231,7 +234,25 @@ MonoBehaviour:
   stunFrontAnimationName: 
   stunBackAnimationName: 
   stunSideAnimationName: 
+  slamFrontName: 
+  slamBackName: 
+  slamSideName: 
+  punchFrontName: 
+  punchBackName: 
+  punchSideName: 
+  walkFrontName: 
+  walkBackName: 
+  walkSideName: 
+  flyFrontName: 
+  flyBackName: 
+  flySideName: 
+  flyPunchFrontName: 
+  flyPunchBackName: 
+  flyPunchSideName: 
+  flyChargeSideName: 
+  growWingsName: 
   diagonalTiltAngle: 18
+  enemyType: 2
 --- !u!1 &7630621051214116755
 GameObject:
   m_ObjectHideFlags: 0
