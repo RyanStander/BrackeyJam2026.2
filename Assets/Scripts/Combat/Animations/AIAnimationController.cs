@@ -65,7 +65,9 @@ namespace Combat.Animations
         private enum EnemyType
         {
             Charger,
-            Gunslinger
+            Gunslinger,
+            Swatter,
+            Boss
         }
 
         [SerializeField] private EnemyType enemyType;
@@ -103,8 +105,9 @@ namespace Combat.Animations
                     case EnemyType.Gunslinger:
                         AudioManager.PlayOneShot(AudioDataHandler.Gunslinger.Walking);
                         break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                    case EnemyType.Swatter:
+                        AudioManager.PlayOneShot(AudioDataHandler.Swatter.Walking);
+                        break;
                 }
             }
         }

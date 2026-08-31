@@ -27,6 +27,7 @@ namespace Combat.Interfaces.Attack_Behaviours
         private Vector3 startLocation;
         private bool hasHit;
         private SoundHandle chargeID;
+        private float chargeTimer;
 
         public bool CanExecute(AIController controller)
         {
@@ -48,6 +49,7 @@ namespace Combat.Interfaces.Attack_Behaviours
             controller.AnimationController.PlayFlyCharge(chargeDirection);
             telegraph.ShowLine(controller.transform.position, chargeDirection, config.ChargeDistance,
                 config.TelegraphWidth, config.WindupTime);
+            chargeID = AudioManager.PlayLoop(AudioDataHandler.Boss.ChargeFlight);
         }
 
         public void Execute(AIController controller)
@@ -59,33 +61,43 @@ namespace Combat.Interfaces.Attack_Behaviours
                 phase = Phase.Charging;
                 timer = 0f;
                 startLocation = controller.transform.position;
+                chargeTimer = 0f;
                 controller.Movement.BeginManualOverride();
             }
             else if (phase == Phase.Charging)
             {
+                chargeTimer += Time.deltaTime;
+
                 Vector3 next = controller.transform.position + chargeDirection * (config.ChargeSpeed * Time.deltaTime);
                 controller.Movement.MovePosition(next);
-                chargeID = AudioManager.PlayLoop(AudioDataHandler.Boss.ChargeFlight);
 
                 HandleChargeHit(controller);
 
-                if (Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance)
-                {
+                bool reachedDistance = Vector3.Distance(startLocation, controller.transform.position) >= config.ChargeDistance;
+                bool timedOut = chargeTimer >= config.MaxChargeDuration;
+
+                if (reachedDistance || timedOut)
                     phase = Phase.Done;
-                    AudioManager.Stop(chargeID);
-                }
             }
         }
 
         private void HandleChargeHit(AIController controller)
         {
-            Collider[] hits = Physics.OverlapSphere(controller.transform.position, config.HitRadius, hittableLayerMask);
+            Vector3 checkOrigin = controller.transform.position + chargeDirection * config.HitForwardOffset;
+            Collider[] hits = Physics.OverlapSphere(checkOrigin, config.HitRadius, hittableLayerMask);
 
             foreach (Collider hit in hits)
             {
                 if (LayerMask.LayerToName(hit.gameObject.layer) == "Obstacles")
                 {
                     Destroy(hit.gameObject);
+                    continue;
+                }
+
+                if (LayerMask.LayerToName(hit.gameObject.layer) == "Walls")
+                {
+                    hasHit = true;
+                    AudioManager.Stop(chargeID);
                     continue;
                 }
 

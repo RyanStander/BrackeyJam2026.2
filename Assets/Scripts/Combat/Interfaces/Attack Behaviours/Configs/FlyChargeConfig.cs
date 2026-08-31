@@ -9,6 +9,8 @@ namespace Combat.Interfaces.Attack_Behaviours.Configs
         public float WindupTime = 0.7f;
         public float ChargeSpeed = 14f;
         public float ChargeDistance = 12f;
+        public float MaxChargeDuration = 3f;
+        public float HitForwardOffset = 3f;
         public float HitRadius = 2.5f;
         public float Damage = 25f;
         public float KnockbackForce = 12f;

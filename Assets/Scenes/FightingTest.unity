@@ -1668,6 +1668,14 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4160947944923460165, guid: 91eb6ff2823b77b48910445c2d065041, type: 3}
+      propertyPath: maxHealth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813319582405666419, guid: 91eb6ff2823b77b48910445c2d065041, type: 3}
+      propertyPath: m_Size.x
+      value: 6.94
+      objectReference: {fileID: 0}
     - target: {fileID: 7623490422205156880, guid: 91eb6ff2823b77b48910445c2d065041, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.19
