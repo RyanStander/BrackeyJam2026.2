@@ -17,5 +17,5 @@ MonoBehaviour:
   CostPerRank: 0a0000001e00000032000000
   BonusPerRank:
   - 2
+  - 3
   - 4
-  - 6

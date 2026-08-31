@@ -16,6 +16,6 @@ MonoBehaviour:
   Icon: {fileID: 0}
   CostPerRank: 0a0000001e00000032000000
   BonusPerRank:
-  - 2
-  - 4
-  - 6
+  - 5
+  - 10
+  - 25

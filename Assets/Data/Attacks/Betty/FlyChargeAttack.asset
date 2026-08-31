@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: FlyChargeAttack
   m_EditorClassIdentifier: 
   AttackDistance: 10
-  WindupTime: 0.7
-  ChargeSpeed: 20
+  WindupTime: 1
+  ChargeSpeed: 25
   ChargeDistance: 25
-  HitRadius: 2.5
+  MaxChargeDuration: 3
+  HitForwardOffset: 3
+  HitRadius: 4
   Damage: 25
   KnockbackForce: 12
   TelegraphWidth: 2.5

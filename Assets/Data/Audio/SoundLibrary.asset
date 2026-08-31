@@ -15,4 +15,6 @@ MonoBehaviour:
   MusicSoundLibrary: {fileID: 11400000, guid: f320424d23360f24b875112f4997a2f6, type: 2}
   PlayerSoundLibrary: {fileID: 11400000, guid: 5484a60b3c0204840b9220050eda0eb1, type: 2}
   GunslingerSoundLibrary: {fileID: 11400000, guid: 3491616bb0f0dc546bb6684a58c501c4, type: 2}
+  BossSoundLibrary: {fileID: 11400000, guid: 2da40ae3021e1c44d9929f3b0cb4a38a, type: 2}
   ChargerSoundLibrary: {fileID: 11400000, guid: 0c05dc7591c298246be88f280df3490f, type: 2}
+  SwatterSoundLibrary: {fileID: 11400000, guid: 4b3a3e47f6a8a9e44b687b8e9704d0b1, type: 2}
